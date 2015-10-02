@@ -1,0 +1,63 @@
+---
+# File: role/firefox/tasks/main.yml
+# Part:firefox
+#
+# Description: install firefox and default add-ons
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+- name: Install firefox package
+  sudo: yes
+  tags: firefox
+  apt: pkg={{ item }} state=present
+  with_items:
+     - firefox
+
+- name: firefox | download add-ons
+  sudo: yes
+  tags: firefox
+  get_url: url={{ item }} dest=/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384} mode=0755
+  register: ext
+  with_items:
+     - https://addons.mozilla.org/firefox/downloads/latest/9609/addon-9609-latest.xpi
+
+# target name : firefox@ghostery.com.xpi
+
+
+#- name: firefox | debug
+#  tags: firefox
+#  debug: var=ext
+
+#- name: firefox | debug
+#  tags: firefox
+#  debug: var="{{ ext.results[0].dest }}"
+
+- name: firefox | create tmp dir
+  tags: firefox
+  file: path=/tmp/ext state=directory mode=0700
+
+- name: firefox | unzip add-ons
+  tags: firefox
+  unarchive: src={{ item }} dest=/tmp/ext copy=no
+  with_items:
+     - "{{ ext.results[0].dest }}"
+
+#grep -A 1 -E 'install-manifest' install.rdf | grep -e '<em:id>.*</em:id>' |cut -d\> -f2|cut -d\< -f1
+- name: firefox | search the plugin name
+  tags: firefox
+  shell: grep -A 1 -E 'install-manifest' /tmp/ext/install.rdf | grep -e '<em:id>.*</em:id>' |cut -d\> -f2|cut -d\< -f1
+  register: re
+  
+- name: firefox | debug
+  tags: firefox
+  debug: var=re
+
+- name: firefox | rename the file
+  tags: firefox
+  command: mv /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{{ ext.results[0].dest }} /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{{ re.stdout }}
+
