@@ -1,0 +1,1 @@
+9 */1 * * * www-data if [ $( /sbin/runlevel|awk '{print $2}' ) -gt 2 ]; then /usr/bin/php5 /usr/share/glpi/front/cron.php; fi

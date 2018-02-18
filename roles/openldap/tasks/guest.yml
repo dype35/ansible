@@ -1,0 +1,12 @@
+---
+# file: roles/common/tasks/guest.yml
+    
+# Desactivate guest login
+  - name: Desactivate guest login
+    tags: guest
+    lineinfile: dest=/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
+                state=present
+                line="allow-guest=false"
+#    notify:
+#    - lightdm-restart
+

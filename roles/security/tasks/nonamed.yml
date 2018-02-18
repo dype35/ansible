@@ -1,0 +1,9 @@
+---
+# file: roles/security/tasks/nonamed.yml
+    
+# Desactivate named from runlevel
+  - name: Do not start named from default runlevel
+    tags: named
+#    command: rm -f /etc/rc3.d/S20bind9
+    service: name=named enabled=no
+

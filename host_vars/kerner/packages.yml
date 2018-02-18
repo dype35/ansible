@@ -1,0 +1,22 @@
+---
+# packages on kerbel
+packages: 
+  git: git
+  conky: conky-all
+  musescore: musescore
+  terminator: terminator
+  language-pack-fr: language-pack-fr
+  language-pack-gnome-fr: language-pack-gnome-fr
+  python-pycurl: python-pycurl
+  libpam-cracklib: libpam-cracklib
+  clamav: clamav
+  audacity: audacity
+  mercurial: mercurial
+  gimp: gimp
+  lftp: lftp
+  dropbox: dropbox
+  gedit-plugins: gedit-plugins
+  
+#  pcbureau: [ conky terminator language-pack-fr language-pack-gnome-fr musescore]
+
+

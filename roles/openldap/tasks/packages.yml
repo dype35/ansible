@@ -1,0 +1,45 @@
+---
+# file: roles/common/tasks/packages.yml
+
+
+
+# Install default packages
+  - name: Install default packages
+    tags: packages
+    apt: pkg={{ item }} state=present
+    with_items:
+     - keepassx
+     - openssh-server
+     - openssh-client
+     - conky
+     - boinc-manager
+     - flashplugin-installer
+     - lm-sensors
+     - hddtemp
+     - vim-gnome
+     - gimp
+
+# Remove unused packages
+  - name: Remove unused packages
+    tags: packages
+    apt: name={{ item }} state=absent
+    with_items:
+     - bluez-alsa
+     - bluez-cups
+     - modemmanager
+     - ppp
+     - speech-dispatcher
+
+# Autoclean
+#  - name: Autoclean packages
+#    tags: packages
+#    command: apt-get autoclean 
+
+
+# Install default packages
+#  - name: Install default pacakages
+#    tags: packages
+#    apt: pkg={{ item }} state=present
+#    with_items:
+#     - "{{ packages }}"
+

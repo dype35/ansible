@@ -1,0 +1,45 @@
+---
+# file: roles/syslog-ng/tasks/main.yml
+    
+# copy iptables conf file
+  - name: Copy iptables conf file
+    become: yes
+    tags: syslog-ng
+    template: src=iptables.conf.j2 dest=/etc/syslog-ng/conf.d/iptables.conf
+
+
+  - name: update kern log
+    become: yes
+    tags: syslog-ng
+    lineinfile: dest=/etc/syslog-ng/syslog-ng.conf
+                regexp='^log \{ source\(s_src\)\; filter\(f_kern\)\;' 
+                line='log { source(s_src); filter(f_kern);filter(f_not_iptables); destination(d_kern); };'
+    notify:
+    - syslog-ng-restart
+
+  - name: update messages log
+    become: yes
+    tags: syslog-ng
+    lineinfile: dest=/etc/syslog-ng/syslog-ng.conf
+                regexp='^log \{ source\(s_src\)\; filter\(f_messages\)\;' 
+                line='log { source(s_src); filter(f_messages);filter(f_not_iptables); destination(d_messages); };'
+    notify:
+    - syslog-ng-restart
+
+  - name: update syslog log
+    become: yes
+    tags: syslog-ng
+    lineinfile: dest=/etc/syslog-ng/syslog-ng.conf
+                regexp='^log \{ source\(s_src\)\; filter\(f_syslog3\)\;' 
+                line='log { source(s_src); filter(f_syslog3);filter(f_not_iptables); destination(d_syslog); };'
+    notify:
+    - syslog-ng-restart
+
+
+
+
+
+
+
+
+#- lineinfile: dest=/opt/jboss-as/bin/standalone.conf regexp='^(.*)Xms(\d+)m(.*)$' line='\1Xms${xms}m\3' backrefs=yes

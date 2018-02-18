@@ -1,0 +1,4 @@
+---
+# packages on kerbel
+packages: 
+  mercurial: mercurial

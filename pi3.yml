@@ -1,0 +1,15 @@
+---
+# file: pi3.yml
+
+
+- hosts: pi3
+#  user: osmc
+  become: yes
+  vars:
+    ssh_port: 22
+
+  roles:
+#    - vncserver
+   - hosts
+   - ansible-ohmyzsh
+   - nfs    

@@ -1,0 +1,25 @@
+---
+# file: roles/dbserver/tasks/main.yml
+
+
+
+
+# Install dbserver packages
+  - name: Install dbserver packages
+#    when: groups['dbservers']
+    tags: mysql
+    become: yes
+    apt: pkg={{ item }} state=present
+    with_items:
+     - mysql-server
+     - phpmyadmin
+     - python-mysqldb
+
+# Start on runlevel 3,4,5
+#  - name: do not start mysql on default runlevel 2
+#    when: groups['dbservers']
+#    tags: mysql
+#    become: yes
+#    lineinfile: dest=/etc/init/mysql.conf
+#                regexp="^start on runlevel"
+#                line="start on runlevel [345]"

@@ -1,0 +1,8 @@
+---
+# file: desktop.yml
+#- name: Top level playbook
+
+- include: kerbel.yml
+- include: armen.yml
+- include: kerzo.yml
+- include: locmalo.yml

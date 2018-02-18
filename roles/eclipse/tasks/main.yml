@@ -1,0 +1,34 @@
+---
+
+  - name: eclipse | Check eclipse installed
+    stat: path={{eclipse_dir}}/eclipse
+    register: eclipse_present
+    tags: eclipse
+
+  - name: eclipse | Download eclipse on 'master' if we don't have it
+    become: False
+    tags: eclipse
+    get_url: url={{eclipse_url}}  dest=/tmp/{{eclipse_archive}} force=no
+    when: eclipse_present.stat.isdir is not defined
+
+  - name: eclipse | Create base directory
+    file:
+      dest={{eclipse_dir}}
+      state=directory
+      owner="{{eclipse_owner}}"
+      group="{{eclipse_group}}"
+    become : yes
+    tags: eclipse
+
+  - name: eclipse | Extract archive eclipse
+    become: true
+    tags: eclipse
+    unarchive: src=/tmp/{{eclipse_archive}} dest={{eclipse_dir}} owner="{{eclipse_owner}}" group="{{eclipse_group}}"
+    when: eclipse_present.stat.isdir is not defined
+
+  - name: eclipse | Set owner
+    become: true
+    tags: eclipse
+    file: path={{eclipse_dir}}/eclipse owner="{{eclipse_owner}}" group="{{eclipse_group}}" recurse=yes
+
+

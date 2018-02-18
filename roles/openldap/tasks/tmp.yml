@@ -1,0 +1,14 @@
+---
+# file: roles/common/tasks/tmp.yml
+    
+# Move /tmp to RAM
+
+  - name: Move /tmp to RAM
+    tags: tmp
+    lineinfile: dest=/etc/fstab
+                state=present
+                line="{{ item }}"
+    with_items:
+      - '# Move /tmp to RAM'
+      - 'tmpfs /tmp tmpfs defaults,noexec,nosuid 0 0'
+

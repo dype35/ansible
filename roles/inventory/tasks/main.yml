@@ -1,0 +1,5 @@
+---
+# file: roles/inventory/tasks/main.yml
+
+  - import_tasks: fusion.yml
+#  - import_tasks: ocs.yml

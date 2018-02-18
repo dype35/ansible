@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+
+LoadPlugin network
+
+<Plugin network>
+      Server "{{ influxdb_server_addr }}" "{{ influxdb_server_port }}"
+</Plugin>

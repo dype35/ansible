@@ -1,0 +1,4 @@
+---
+
+    - name: fusion-start
+      command: /usr/bin/fusioninventory-agent

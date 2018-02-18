@@ -1,0 +1,25 @@
+---
+# file: roles/compiz/tasks/main.yml
+
+# OpenGL user : Sync to VBlank : false (improve Xorg)
+  - name: OpenGL user | Sync to VBlank | false (improve Xorg)
+    dconf: user=franck
+         key=/org/compiz/profiles/unity/plugins/opengl/sync-to-vblank
+         value=false
+    tags:
+      - compiz
+
+# OpenGL sys : Sync to VBlank : false (improve Xorg)
+#         dest=/etc/dconf/db/gdm.d/00-upstream-settings
+  - name: OpenGL sys | Sync to VBlank | false (improve Xorg)
+    lineinfile:
+         dest=/etc/dconf/db/gdm.d/00-compiz-settings-byansible
+         create=yes
+         insertafter="{{ item.after }}"
+         regexp="{{ item.regexp }}"
+         line="{{ item.line }}"
+    with_items:
+      - { regexp: '^\[/org/compiz/profiles/unity/plugins/opengl]', line: "[/org/compiz/profiles/unity/plugins/opengl]", after: "EOF" }
+      - { regexp: "^sync-to-vblank", line: "sync-to-vblank=false", after: "[/org/compiz/profiles/unity/plugins/opengl]" }
+    tags:
+      - compiz

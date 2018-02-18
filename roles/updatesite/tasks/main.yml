@@ -1,0 +1,36 @@
+---
+# File: tasks/main.yml
+# Part: updatesite
+#
+# Description: Update site (database), populate the database with the last backup file
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+#  copy: src=`ls -t ~/Documents/site/www.mysynapse.fr/_backup.base/*| head -1`
+
+  - name: Get last database file
+    local_action: command ls -t {{ dbdir }}
+    register: lastfile
+    tags: updatesite
+
+#  - debug: msg={{ lastfile.stdout_lines[0] }}
+#    tags: updatesite
+
+  - name: Copy last database file
+    copy: src={{ dbdir }}/{{ lastfile.stdout_lines[0] }} dest=/home/franck/base.sql.bz2
+    tags: updatesite
+
+  - name: unzip database file
+    command: bzip2 -df /home/franck/base.sql.bz2
+    tags: updatesite
+
+  - name: import database file
+    mysql_db: name=pronostics state=import target=/home/franck/base.sql
+    tags: [updatesite,importdb]
+
+

@@ -1,0 +1,26 @@
+---
+# file: roles/wordpress/tasks/main.yml
+    
+
+  - name: check
+    debug: var={{ wpdir }}
+
+  - name: create work dir
+    file: path={{ workdir }} state=directory mode=0700
+
+  - name: copy check script on remote host
+    copy: src=wpgetwpversion.php dest={{ workdir }}/. mode=0644
+
+  - name: exec the check script
+    command: php {{ workdir }}/wpgetwpversion.php {{ wpdir }}
+    register: wpcheck
+
+#  - name: check result
+#    debug: var=wpcheck
+
+  - name: send an email when upgrade needed 
+    local_action: mail
+        to="Franck <franck@localhost>"
+        subject='WP {{ ansible_hostname }} need upgrade'
+        body="Wordpress {{ ansible_hostname }} need upgrade. Version {{ wpdir }}. {{ wpcheck.stdout }}"
+    when:  wpcheck.stderr == "upgrade"

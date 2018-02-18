@@ -1,0 +1,7 @@
+---
+# file: roles/common/tasks/sethosts.yml
+    
+# Update /etc/hosts file
+  - name: Setup | /etc/hosts
+    copy: src=hosts dest=/etc/hosts owner=root group=root mode=644
+

@@ -1,0 +1,6 @@
+---
+# fusioninventory specific configuration
+# host : default
+# send taks result
+fusioninventory-server:  true
+fusioninventory-local: false

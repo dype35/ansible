@@ -1,0 +1,15 @@
+---
+# file: roles/security/tasks/main.yml
+
+# Desactivate ipv6
+  - import_tasks: noipv6.yml
+
+# harden network
+  - import_tasks: network.yml
+
+# no named
+#  - include: nonamed.yml
+
+# umask
+#  - include: umask.yml
+

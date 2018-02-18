@@ -1,0 +1,12 @@
+---
+# file: test.yml
+
+- hosts: kerbel
+  user: franck
+#  become: yes
+  vars:
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - mysqlbck

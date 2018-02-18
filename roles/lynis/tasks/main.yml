@@ -1,0 +1,18 @@
+---
+# file: roles/lynis/tasks/main.yml
+
+# Install package
+- name: Install lynis package
+  tags: lynis
+  become: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+    - lynis
+  notify:
+    - launch lynis
+
+# Install package
+- name: launch lynis
+  tags: lynis
+  become: yes
+  command: lynis -c --cronjob

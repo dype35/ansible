@@ -1,0 +1,5 @@
+---
+# Defines variables for Ubuntu
+
+phpredispkg: 'php-redis'
+

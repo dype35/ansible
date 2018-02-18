@@ -1,0 +1,20 @@
+---
+# 
+# Install bootstrap
+
+- name: Copy bootstrap font files
+  tags: bootstrap
+  copy: src=/home/franck/public_html/bootstrap/dist/fonts dest=/home/franck/public_html/pronostics6/webroot owner=franck group=franck
+
+- name: Copy bootstrap css files
+  tags: bootstrap
+  copy: src=/home/franck/public_html/bootstrap/dist/css/ dest=/home/franck/public_html/pronostics6/webroot/css owner=franck group=franck
+
+- name: Copy bootstrap js files
+  tags: bootstrap
+  copy: src=/home/franck/public_html/bootstrap/dist/js/ dest=/home/franck/public_html/pronostics6/webroot/js owner=franck group=franck
+
+- name: Copy bootstrap js files
+  tags: bootstrap
+  copy: src=/home/franck/public_html/bootstrap/js/ dest=/home/franck/public_html/pronostics6/webroot/js owner=franck group=franck
+

@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+Alias /{{ item.key }} {{ item.value.DocumentRoot }}
+
+<Directory {{ item.value.DocumentRoot }}>
+    Options FollowSymLinks
+    DirectoryIndex index.php
+</Directory>

@@ -1,0 +1,9 @@
+---
+
+  # collectd status
+  collectd_server: false
+  collectd_plugins: [
+    interface.conf,
+    df.conf,
+    hddtemp.conf,
+  ]

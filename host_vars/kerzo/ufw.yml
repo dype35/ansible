@@ -1,0 +1,16 @@
+---
+# ufw specifics rules for kerzo
+
+ufw:
+  # Allow web
+  - {rule: allow, 
+     port: 80, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+  # Allow influxdb
+  - {rule: allow, 
+     port: 8086, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }

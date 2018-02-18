@@ -1,0 +1,8 @@
+---
+# Users on pcbureau
+users:
+  - {login: franck,
+     comment: Franck,
+     uid: 1001,
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtT0qsmJgVfXG7l6j0j7lXehQwb0EMqgPkeLqFzJXfrjupcxxXVESa3tzR1JT7XCx3PDqiF+qICtP2JR5zEsFCMVuFf4RJLyEEdJqqJ6oxmDaC6ftR+MfXnXLCy/6rrH9N28ks7gscHovB2FdbC5nXMRp4asD8tsOcqQjT+ivZZsl1N46l+Zo6/rRmamNY/as0v25uXmdYSrPH+NNlQ9o1CG/IMlF/3fzcj5xu7SRGS/jLEaEbYpEggAl10TxRRsKCFJRPm0chyNLPsmMCxbDk1AOINhVh8CLMf8thIiCBEsg2M0ilCIL5jjD0WMbk18oGNPezSXoyzVL+ta6TeMl6w== franck@riantec
+     }

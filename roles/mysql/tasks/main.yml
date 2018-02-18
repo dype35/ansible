@@ -1,0 +1,46 @@
+---
+# File: main.yml
+# Part: mysql
+#
+# Description: Enable a mysql server
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- block:
+
+  - name: Install mysql packages
+    apt: pkg={{ item }} state=present
+    with_items:
+      - mysql-server
+      - phpmyadmin
+      - python-mysqldb
+
+  - name: set mysql_mode
+    template: src=sql_mode.cnf.j2 dest=//etc/mysql/mysql.conf.d/sql_mode.cnf owner=root mode=0644
+    notify: mysql-restart
+
+  - name: Create phpmyadmin apache conf
+    file: src=/etc/phpmyadmin/apache.conf dest=/etc/apache2/conf-enabled/phpmyadmin.conf state=link
+
+  - name: should provide .my.cnf file
+    template: src=my.cnf.j2 dest=/root/.my.cnf owner=root mode=0600
+
+  - name: start mysqld service
+    service: name=mysql state=started enabled={{ mysql_enable }}
+
+  - name: Create mysql user
+    mysql_user: name=franck password=jarvis56 priv=*.*:ALL state=present
+
+  - name: remove .my.cnf file
+    file: path=/root/.my.cnf state=absent
+
+
+  tags: mysql
+  become: yes
+

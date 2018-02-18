@@ -1,0 +1,13 @@
+[Unit]
+Description = Start tt-rss update daemon
+After = network.target
+[Service]
+User=franck
+ExecStart=/usr/bin/php /var/www/html/tt-rss/update.php --daemon
+Restart=always
+RestartSec=60
+CPUAccounting=true
+CPUQuota=10%
+[Install]
+WantedBy = multi-user.target
+

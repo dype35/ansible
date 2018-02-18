@@ -1,0 +1,38 @@
+---
+# File: role/wifi/main.yml
+# Part:wifi
+#
+# Description: configure wifi
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+- name: Configure WirelessEnabled
+  become: true
+  tags: wifi
+  lineinfile: dest=/var/lib/NetworkManager/NetworkManager.state
+                state=present
+                regexp="^WirelessEnabled="
+                line="WirelessEnabled={{WirelessEnabled}}"
+
+- name: Configure WWANEnabled
+  become: true
+  tags: wifi
+  lineinfile: dest=/var/lib/NetworkManager/NetworkManager.state
+                state=present
+                regexp="^WWANEnabled="
+                line="WWANEnabled={{WWANEnabled}}"
+
+- name: Configure WimaxEnabled
+  become: true
+  tags: wifi
+  lineinfile: dest=/var/lib/NetworkManager/NetworkManager.state
+                state=present
+                regexp="^WimaxEnabled="
+                line="WimaxEnabled={{WimaxEnabled}}"
+
+

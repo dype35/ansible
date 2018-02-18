@@ -1,0 +1,21 @@
+---
+# file: clicandrun.yml
+
+- hosts: clicandrun
+  connection: local
+  vars:
+    bck_site: http://sql.free.fr/
+    bck_site_dir: .
+    bck_script: backup.php
+    bck_login: clicandrun
+    bck_db: clicandrun
+    bck_mysql_host: localhost
+    bck_ftp_site: ftpperso.free.fr
+    bck_ftp_login: clicandrun
+    bck_target_dir: /home/franck/Documents/site/clicandrun
+    install_backup_script: no
+    free: True
+
+  roles:
+    - mysqlbck
+    - ftpbackup

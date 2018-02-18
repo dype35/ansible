@@ -1,0 +1,15 @@
+{{ ansible_managed | comment }}
+
+LoadPlugin tail
+
+<Plugin "tail">
+  <File "/var/log/auth.log">
+    Instance "auth"
+    <Match>
+      Regex "\\<sshd[^:]*: invalid user [^ ]+ from\\>"
+      DSType "CounterInc"
+      Type "counter"
+      Instance "sshd-invalid_user"
+    </Match>
+  </File>
+</Plugin>

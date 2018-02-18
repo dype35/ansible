@@ -1,0 +1,11 @@
+---
+# packages on vb-kerbel-ubuntu1504
+packages: 
+  conky: conky-all
+  terminator: terminator
+  language-pack-fr: language-pack-fr
+  language-pack-gnome-fr: language-pack-gnome-fr
+  python-pycurl: python-pycurl
+  libpam-cracklib: libpam-cracklib
+
+

@@ -1,0 +1,15 @@
+---
+# packages on pcbureau
+packages: 
+  conky: conky-all
+  musescore: musescore
+  terminator: terminator
+  language-pack-fr: language-pack-fr
+  language-pack-gnome-fr: language-pack-gnome-fr
+  python-pycurl: python-pycurl
+  libpam-cracklib: libpam-cracklib
+  indicator-cpufreq: indicator-cpufreq
+  
+#  pcbureau: [ conky terminator language-pack-fr language-pack-gnome-fr musescore]
+
+

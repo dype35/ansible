@@ -1,0 +1,16 @@
+---
+
+- name: install cron-apt
+  apt: pkg=cron-apt state=present force=yes
+  become: yes
+  tags: cron-apt
+
+- name: copy config file
+  become: yes
+  copy: src=config dest=/etc/cron-apt/config owner=root group=root mode=0644 backup=yes
+  tags: cron-apt
+
+- name: auto install file
+  become: yes
+  copy: src=5-install dest=/etc/cron-apt/action.d owner=root group=root mode=0644 backup=yes
+  tags: cron-apt

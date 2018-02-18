@@ -1,0 +1,46 @@
+---
+# file: vps-ovh-as.yml
+
+
+- hosts: vps-ovh-as
+  remote_user: franck
+  become: yes
+  vars:
+    default_runlevel: 3
+    ansible_ssh_port: 2222
+    postfix_domain: dev.as-orange-cesson.fr
+    mysql_database: courses
+    mysql_backup_dir: backup/_backup.base
+    bck_target_dir: /home/franck/Documents/site/asendurance    
+    bck_source_dir: backup/
+
+  roles:
+    - noipv6
+    - influxdb
+    - aliases
+    - php-fpm
+    - redis
+    - shm
+#    - archive
+    - mysqldump
+    - mysql
+    - cron-apt
+    - checkrestart
+    - apache2
+    - motd
+    - dbserver
+    - security
+    - sshd
+    - postfix
+    - fail2ban
+    - logwatch
+    - fstrim
+    - collectd
+    - cgp
+    - bashrc
+#    - lynis
+    - syslog-ng
+    - sshbackup
+    - apache-sites
+    - inventory
+    - firewall

@@ -1,0 +1,5 @@
+# file: tls/defaults/main.yml
+
+tls_dir: "/etc/apache2/tls"
+tls_file: "prono.kerbel"
+tls_subj: "/C=FR/ST=/L=/O=/CN=*.kerbel" 

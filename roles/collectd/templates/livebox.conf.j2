@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+LoadPlugin exec
+
+<Plugin exec>
+  Interval 900
+  Exec "franck" "/home/franck/bin/lbdslstatus.sh"
+</Plugin>

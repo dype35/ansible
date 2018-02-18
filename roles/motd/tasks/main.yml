@@ -1,0 +1,13 @@
+---
+# file: roles/common/tasks/motd.yml
+    
+# Update /etc/motd file
+  - name: Setup | /etc/motd /etc/issue /etc/issue.net
+    become: yes
+    copy: src=motd.j2 dest={{ item }} owner=root group=root mode=644
+    with_items:
+    - /etc/motd
+    - /etc/issue
+    - /etc/issue.net
+    tags: motd
+

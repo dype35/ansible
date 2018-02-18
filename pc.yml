@@ -1,0 +1,27 @@
+---
+# file: pc.yml
+
+
+- hosts: pc
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - common
+    - motd
+    - sensors
+    - sshd
+    - security
+    - compiz
+    - inventory
+    - users
+    - nfs
+    - usersettings
+    - firewall
+    - logwatch
+    - collectd
+

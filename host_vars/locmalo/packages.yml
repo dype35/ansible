@@ -1,0 +1,12 @@
+---
+# packages on locmalo
+packages:
+  cron-apt: cron-apt
+  audacity: audacity
+  at: at
+  b43-fwcutter: b43-fwcutter
+  firmware-b43-installer: firmware-b43-installer
+#  conky: conky-all
+#  git: git
+#  python-setuptools: python-setuptools
+#  libpam-cracklib: libpam-cracklib

@@ -1,0 +1,144 @@
+---
+asites:
+
+  pronostics.eu:
+    ServerName:		www.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/html/pronostics5
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/www.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/www.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/www.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/prono.conf
+#    SetHttpConf:	false		# set a http virtualhost conf 
+    ForceHttps:		true
+    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   3     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 5   # Si non defini ici, utilisation de valeur par defaut du template
+    log:		/var/www/html/pronostics5/tmp/logs
+
+  p35.pronostics.eu:
+    ServerName:		p35.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/html/p35
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/p35.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/p35.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/p35.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/cakephp.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+    log:		/var/www/html/p35/logs
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1  # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+  redmine:
+    ServerName:		redmine.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/usr/share/redmine/public
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/redmine.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/redmine.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/redmine.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/redmine.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
+  phpmyadmin:
+    ServerName:		mysql.pronostics.eu
+    ServerIp:		_default_journalctl -xe
+    DocumentRoot:	/usr/share/phpmyadmin
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/mysql.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/mysql.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/mysql.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/phpmyadmin.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
+  piwik:
+    ServerName:		piwik.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/html/piwik
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/piwik.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/piwik.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/piwik.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/piwik.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   4     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 4   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 6   # Si non defini ici, utilisation de valeur par defaut du template
+
+  cgp:
+    ServerName:		cgp.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/cgp
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/cgp.pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/cgp.pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/cgp.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/cgp.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
+#  prono:
+#    ServerName:		www.pronofoot35.info
+#    ServerIp:		_default_
+#    DocumentRoot:	/var/www/html/pronostics5
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/letsencrypt/live/www.pronofoot35.info/fullchain.pem
+#    SSLCertificateKeyFile: /etc/letsencrypt/live/www.pronofoot35.info/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/www.pronofoot35.info/chain.pem
+#    SpecificConf:       SpecificConf/prono.conf
+#    SetHttpConf:	false		# set a http virtualhost conf 
+#    ForceHttps:		true
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+#    log:		/var/www/html/pronostics5/tmp/logs
+
+#  prono5:
+#    ServerName:		p5.pronofoot35.info
+#    ServerIp:		_default_
+#    DocumentRoot:	/var/www/html/pronostics5
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/letsencrypt/live/p5.pronofoot35.info/fullchain.pem
+#    SSLCertificateKeyFile: /etc/letsencrypt/live/p5.pronofoot35.info/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/p5.pronofoot35.info/chain.pem
+#    SpecificConf:       SpecificConf/cakephp.conf
+#    SetHttpConf:	false
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
+#  prono6:
+#    ServerName:		p6.pronofoot35.info
+#    ServerIp:		_default_
+#    DocumentRoot:	/var/www/html/pronostics5
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/letsencrypt/live/p6.pronofoot35.info/fullchain.pem
+#    SSLCertificateKeyFile: /etc/letsencrypt/live/p6.pronofoot35.info/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/p6.pronofoot35.info/chain.pem
+#    SpecificConf:       SpecificConf/cakephp.conf
+#    SetHttpConf:	false
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
+
+
+
+#  awstats:
+#    ServerName:		stats.pronofoot35.info
+#    ServerIp:		_default_
+#    DocumentRoot:	/usr/lib/cgi-bin/
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/letsencrypt/live/pronofoot35.info/fullchain.pem
+#    SSLCertificateKeyFile: /etc/letsencrypt/live/pronofoot35.info/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/pronofoot35.info/chain.pem
+#    SpecificConf:       SpecificConf/awstats.conf
+#    SetHttpConf:	false
+#    ForceHttps:		true

@@ -1,0 +1,18 @@
+---
+# file: roles/grafana/tasks/main.yml
+
+- block:
+  - name: Import grafana GPG signing key
+    apt_key: url=https://packagecloud.io/gpg.key state=present
+
+  - name: Add grafana repository
+    apt_repository: repo='deb https://packagecloud.io/grafana/stable/debian/ jessie main' state=present
+  
+  - name: Install grafana packages
+    apt: 
+      name: grafana 
+      update_cache: yes
+      state: present
+
+  tags:
+      - grafana

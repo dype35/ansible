@@ -1,0 +1,8 @@
+---
+
+allow_duplicates: no
+
+dependencies:
+  - { role: apache2, tags: cgp }
+  - { role: git, tags: cgp }
+

@@ -1,0 +1,10 @@
+digraph armen {
+  pcbureau -> armen;
+  all -> pcbureau;
+  pc -> armen;
+  all -> pc;
+  pcbureau [shape=record label=<<font face="Times New Roman, Bold" point-size="16">pcbureau</font>>]
+  all [shape=record label=<<font face="Times New Roman, Bold" point-size="16">all</font>>]
+  armen [label="armen"]
+  pc [shape=record label=<<font face="Times New Roman, Bold" point-size="16">pc</font>>]
+}

@@ -1,0 +1,13 @@
+---
+# Set crontab
+
+# Backup web servers
+  - cron: name="Backup web servers" hour=19 minute=21 job="/bin/sh /home/franck/bin/backup-websites.sh"
+          user="franck"
+    tags:
+      - cron
+
+  - cron: name="Back In Time system entry, this will be edited by the gui:" minute="*/15" job="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 /usr/bin/backintime backup-job >/dev/null 2>&1"
+          user="franck"
+    tags:
+      - cron

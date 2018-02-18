@@ -1,0 +1,15 @@
+---
+# file: roles/common/tasks/noipv6.yml
+    
+# Desactivate ipv6
+  - name: Desactivate ipv6
+    tags: ipv6
+    lineinfile: dest=/etc/sysctl.conf
+                state=present
+                line="{{ item }}"
+    with_items:
+      - '#disable ipv6'
+      - 'net.ipv6.conf.all.disable_ipv6 = 1'
+      - 'net.ipv6.conf.default.disable_ipv6 = 1'
+      - 'net.ipv6.conf.lo.disable_ipv6 = 1'
+

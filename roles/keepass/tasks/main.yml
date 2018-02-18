@@ -1,0 +1,12 @@
+---
+# file: roles/keepass/tasks/main.yml
+    
+# sync /home/franck/Documents/Gestion/keys/home.kdb file
+  - name: sync | create keys directory
+    file: path=/home/franck/DocumentsLoc/Gestion/keys state=directory recurse=yes owner=franck mode=0700
+    tags: keepass
+
+  - name: sync | keepass file
+    copy: src={{ src }} dest={{ dst }} owner=franck  mode=400
+    tags: keepass
+

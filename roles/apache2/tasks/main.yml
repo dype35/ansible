@@ -1,0 +1,217 @@
+---
+# File: apache.yml
+# Part: Apache
+#
+# Description: Enable an Apache server
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+
+- block:
+
+  - name: Install webserver packages
+    apt: pkg={{ item }} state=present
+    with_items:
+       - php
+       - libapache2-mod-php
+       - php-mbstring
+       - php-gettext
+       - apache2
+       - apache2-utils
+       - php-mcrypt
+       - php-intl
+       #- awstats
+
+  - name: Set default listen port
+    lineinfile: dest=/etc/apache2/ports.conf
+      state=present
+      regexp="^Listen"
+      line="Listen {{ apache_listen_port }}"
+
+  tags: apache
+  become: yes
+
+
+- name : desactivate SSLv3
+  tags: apache
+  become: yes
+  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
+    state=present
+    regexp="SSLProtocol"
+    line="        SSLProtocol all -SSLv3"
+
+
+- name : desactivate unsecure cipher
+  tags: apache
+  become: yes
+  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
+    state=present
+    regexp="SSLCipherSuite"
+    line="        SSLCipherSuite HIGH:!aNULL:!MD5:!3DES:!CAMELLIA:!AES128"
+
+- name : SSL server cipher order preference
+  tags: apache
+  become: yes
+  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
+    state=present
+    regexp="SSLHonorCipherOrder"
+    line="        SSLHonorCipherOrder on"
+
+
+- block:
+  # Do not start in the default runlevel 2
+  - name : Do not start apache in the default runlevel 2
+    tags: apache
+    become: yes
+    shell: update-rc.d apache2 disable 2
+
+  # Start in the runlevel 3
+  - name : Start apache in the runlevel 3
+    tags: apache
+    become: yes
+    shell: update-rc.d apache2 enable 3
+
+  # Set default runlevel
+  - name : Set default runlevel
+    tags: apache
+    become: yes
+    lineinfile: dest=/etc/init/rc-sysinit.conf
+      state=present
+      regexp="^env DEFAULT_RUNLEVEL="
+      line="env DEFAULT_RUNLEVEL={{ default_runlevel}}"
+
+  when: false
+
+
+
+- name: Apache | Mask version
+  become: yes
+  replace: dest=/etc/apache2/conf-available/security.conf
+                regexp='^ServerTokens (.*)'
+                replace='ServerTokens ProductOnly'
+  tags: apache
+
+- name: Apache | Mask version
+  become: yes
+  replace: dest=/etc/apache2/conf-available/security.conf
+                regexp='^ServerSignature (.*)'
+                replace='ServerSignature Off'
+  tags: apache
+
+- name: Apache | anti-clickjacking X-Frame-Options header
+  become: yes
+  replace: dest=/etc/apache2/conf-available/security.conf
+                regexp='(^|^#)Header set X-Frame-Options(.*)'
+                replace='Header always append X-Frame-Options SAMEORIGIN'
+  tags: apache
+
+- name: Apache | 
+  become: yes
+  lineinfile: dest=/etc/apache2/conf-available/security.conf
+              state=present
+              line='FileETag None'
+  tags: apache
+  
+- name: Apache | 
+  become: yes
+  lineinfile: dest=/etc/apache2/conf-available/security.conf
+              state=present
+              line='Header unset ETag'
+  tags: apache
+
+
+# php configuration
+- block:
+  - name: Apache | do not expose php
+    replace: dest=/etc/php5/apache2/php.ini
+                regexp='(^|^#)expose_php =(.*)'
+                replace='expose_php = off'
+
+  - name: Apache | secure cookies
+    replace: dest=/etc/php5/apache2/php.ini
+                regexp='(^|^;)session.cookie_httponly(.*)'
+                replace='session.cookie_httponly = True'
+
+  # Set default timezone for php
+  - name : Set default timezone for php
+    lineinfile: dest={{ item }}
+      state=present
+      regexp="date.timezone"
+      line="date.timezone = "Europe/Paris""
+    with_items:
+       - /etc/php5/apache2/php.ini
+       - /etc/php5/cli/php.ini
+
+  - name: Apache | Enable htaccess in user dirs
+    lineinfile: dest=/etc/apache2/mods-available/php5.conf
+                state=present
+                regexp="^#? *php_admin_flag"
+                line="#        php_admin_flag engine Off"
+
+  tags: apache
+  become: yes
+  when: ansible_distribution == 'Ubuntu' and ansible_lsb.major_release < 16
+
+# Attention GLPI, PIWIK, Joomla ne fonctionnent plus avec True ...
+#- name: Apache | secure cookies
+#  become: yes
+#  replace: dest=/etc/php5/apache2/php.ini
+#                regexp='(^|^;)session.cookie_secure(.*)'
+#                replace='session.cookie_secure = True'
+#  tags: apache
+
+- name: Apache | phpenmod mcrypt
+  become: yes
+  command: phpenmod mcrypt
+  notify:
+  - apache-restart
+  tags: apache
+
+- name: Apache | Disable modules
+  become: yes
+  command: a2dismod {{ item }}
+#  apache2_module: state=present name={{ item }}
+  with_items:
+    - mpm_event
+
+- name: Apache | Enable modules
+  become: yes
+  command: a2enmod {{ item }}
+#  apache2_module: state=present name={{ item }}
+  with_items:
+    - userdir
+    - headers
+    - rewrite
+    - expires
+    - headers
+    - ssl
+    - php7.1
+    - mpm_prefork
+    - headers
+  notify:
+  - apache-restart
+  tags: apache
+
+- name: Apache | Enable conf
+  become: yes
+  command: a2enconf security
+  notify:
+  - apache-restart
+  tags: apache
+
+- name: start apache2 service
+  become: yes
+  tags: apache
+  service: name=apache2 state=started enabled={{ apache_enable }}
+
+#- name : awstats | set default passwd
+#  become: yes 
+#  command: htpasswd -cb /etc/awstats/htpasswd franck ach@nger
+#  tags: apache
+ 

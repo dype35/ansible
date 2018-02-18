@@ -1,0 +1,28 @@
+---
+# file: roles/packages/google_drive/main.yml
+
+#
+  - name: Add google_drive repository
+    apt_repository: repo='ppa:alessandro-strada/ppa' state=present
+    become: yes
+    tags: google_drive
+
+
+# Install specifics packages
+  - name: Install google_drive packages
+    become: yes
+    tags: google_drive
+    apt: pkg=google-drive-ocamlfuse state=latest update_cache=yes
+
+  - debug: msg="lancer google-drive-ocamlfuse"
+  - debug: msg="monter le drive avec google-drive-ocamlfuse ~/gdrive"
+
+# Create directory
+  - name: Create gdrive directory
+    tags: google_drive
+    file: path=/home/franck/gdrive state=directory owner=franck group=franck
+
+
+# 
+  - debug: msg="lancer - google-drive-ocamlfuse"
+  - debug: msg="monter le drive avec - google-drive-ocamlfuse ~/gdrive"

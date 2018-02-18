@@ -1,0 +1,13 @@
+---
+# file: roles/influxdb/tasks/main.yml
+
+- block:
+  - name: copy collectd plugins
+    template: src={{ item }}.j2 dest=/etc/collectd/collectd.conf.d/{{ item }} owner=root group=root mode=644                                  
+#    notify: restart collectd
+    with_items: "{{ collectd_plugins }}"
+
+  - name: Start the collectd service
+    service: name=collectd state=restarted
+
+

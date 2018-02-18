@@ -1,0 +1,10 @@
+---
+# Handlers for collectd notifications.
+
+- name: syslog-ng-restart
+  become: yes
+  service: >
+    name=syslog-ng
+    state=restarted
+    enabled=yes
+

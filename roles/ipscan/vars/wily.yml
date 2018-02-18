@@ -1,0 +1,4 @@
+pkgipscan:
+  - openjdk-8-jre
+  - libswt-gtk-3-jni
+

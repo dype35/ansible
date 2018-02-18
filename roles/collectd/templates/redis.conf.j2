@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+LoadPlugin exec
+
+<Plugin exec>
+  Exec "nobody:root" "/home/franck/bin/redis-monitor"
+#  NotificationExec "user" "/usr/lib/collectd/exec/handle_notification"
+</Plugin>

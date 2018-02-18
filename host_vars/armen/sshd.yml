@@ -1,0 +1,4 @@
+---
+# sshd specific configuration
+# host : kerbel
+AllowUsers:  franck coline marie paul

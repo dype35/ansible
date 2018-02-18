@@ -1,0 +1,49 @@
+# file: production
+
+#10.35.0.2 # armen
+#10.35.0.3 # kerbel
+#10.35.0.20 # Diskstation
+ansible_ssh_port=22
+
+[all]
+kerner
+kerbel
+armen
+kerzo
+locmalo
+pi3
+
+[vps]
+vps-ovh ansible_ssh_port=2222
+vps-ovh-as
+
+
+[desktop]
+kerbel
+armen
+kerzo
+
+[vm]
+vm-kerbel-ubuntu-14.10 ansible_ssh_host=10.35.0.200
+vb-kerbel-ubuntu1504   ansible_ssh_host=10.35.0.207
+vb-lubuntu-16.04 ansible_ssh_host=10.35.0.212
+#vb-lubuntu-16.04
+
+[windows]
+kerzow
+
+[hebergement]
+www.as-orange-cesson.fr
+monanglais
+clicandrun
+resasport
+lachalotais
+franck.michaud
+aclvern
+iadetout
+adminprono
+
+[wordpress]
+wp-vps-ovh-as-wp
+wp-vps-ovh-as-wp2
+wp-asorange

@@ -1,0 +1,4 @@
+---
+# packages on vb-lubuntu-16.04
+packages: 
+  nmap: nmap

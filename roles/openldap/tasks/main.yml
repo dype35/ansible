@@ -1,0 +1,19 @@
+---
+# file: roles/openldap/tasks/main.yml
+    
+# Install packages
+  - name: Install  packages
+    tags: openldap
+    apt: pkg={{ item }} state=present
+    with_items:
+     - slapd 
+     - ldap-utils
+     - fusiondirectory
+
+  - name: Set domain
+    tags: openldap
+    lineinfile: dest=/etc/hosts
+      state=present
+      line="127.0.0.1  localhost.maison.loc localhost"
+
+

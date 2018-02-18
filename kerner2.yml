@@ -1,0 +1,65 @@
+---
+# file: kerner.yml
+
+
+- hosts: kerner
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - apache-sites
+    - hosts
+#    - ansible-ohmyzsh
+##    - cryptomator
+##    - grafana
+##    - etckeeper
+#    - autosecupdate
+#    - aliases
+##    - nginx
+#    - redis
+#    - shm
+#    - packages
+##    - numlockx
+#    - grub
+#    - checkrestart
+#    - guest
+#    - common
+#    - motd
+#    - sensors
+#    - sshd
+##    - sshknownhosts
+#    - security
+##    - compiz
+##    - inventory
+#    - users
+#    - nfs
+#    - usersettings
+#    - firewall
+#    - logwatch
+#    - collectd
+##    - ipscan
+#    - bashrc
+#    - interface
+#    - wifi
+#    - noipv6
+#    - cron
+##    - virtualbox
+#    - backintime
+#    - php-fpm
+#    - apache2
+#
+#    - tls
+#    - mysql
+#    - glpi
+#    - fail2ban
+##    - bootstrap
+#    - cgp
+#    - lynis
+#    - firefox
+#    - google_drive
+#    - eclipse
+#    

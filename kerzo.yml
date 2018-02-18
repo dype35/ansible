@@ -1,0 +1,48 @@
+---
+# file: kerzo.yml
+
+
+- hosts: kerzo
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+    remote_tmp: /tmp/.ansible
+
+  roles:
+    - cgp
+    - aliases
+    - shm
+    - packages
+    - hosts
+    - grub
+    - guest
+    - common
+    - motd
+#    - sensors
+    - sshd
+    - nfs
+#    - sshknownhosts
+    - security
+#    - compiz
+    - inventory
+    - users
+#    - nfs
+    - usersettings
+    - firewall
+#    - logwatch
+    - collectd
+    - bashrc
+    - interface
+    - wifi
+    - noipv6
+#    - fail2ban
+#    - ipscan
+    - keepass
+    - mysql
+    - lynis
+    - firefox
+#    - apache2
+

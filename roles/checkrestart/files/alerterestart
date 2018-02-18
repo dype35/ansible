@@ -1,0 +1,4 @@
+#
+#
+# Every night at 5 o'clock.
+0 5	* * *	root	test -x /home/franck/bin/alerteRestart && /home/franck/bin/alerteRestart

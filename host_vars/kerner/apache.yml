@@ -1,0 +1,6 @@
+---
+# Whether the service should start on boot
+apache_enable: yes
+
+# default listen port in ports.conf
+apache_listen_port: 0.0.0.0:80

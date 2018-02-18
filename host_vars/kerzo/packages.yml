@@ -1,0 +1,11 @@
+---
+# packages on kerzo
+packages: 
+  conky: conky-all
+  git: git
+  python-setuptools: python-setuptools
+  libpam-cracklib: libpam-cracklib
+  terminator: terminator
+  keepassx: keepassx
+  dropbox: dropbox
+  gedit-plugins: gedit-plugins

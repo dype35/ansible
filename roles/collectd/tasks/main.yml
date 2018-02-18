@@ -1,0 +1,76 @@
+---
+# tasks file for ansible-collectd
+
+- block:
+  - name: install collectd
+    apt: 
+      pkg: collectd
+      default_release: jessie-backports
+      state: present 
+      force: yes
+
+  - name: configure collectd.conf Hostname
+    lineinfile: dest=/etc/collectd/collectd.conf
+                state=present
+                regexp="(^|#)Hostname"
+                line="Hostname \"{{ ansible_hostname }}\""
+    notify: restart collectd
+
+  - name: configure collectd.conf desactivate df
+    lineinfile: dest=/etc/collectd/collectd.conf
+                state=present
+                regexp="LoadPlugin df"
+                line="#LoadPlugin df"
+    notify: restart collectd
+
+  - name: copy collectd my_types.db
+    template: src=my_types.db.j2 dest=/etc/collectd/my_types.db owner=root group=root mode=644                                  
+    notify: restart collectd
+
+  # ajouter TypesDB "/etc/collectd/my_types.db" dans /etc/collectd/collectd.conf pour prise en compte des types perso 
+  - name: configure collectd.conf add my_db_types.db
+    lineinfile: dest=/etc/collectd/collectd.conf
+                state=present
+                regexp="TypesDB"
+                line="TypesDB \"/usr/share/collectd/types.db\" \"/etc/collectd/my_types.db\""
+    notify: restart collectd      
+
+  - name: Configure rsyslog (pb 0 Success 1 value has been dispatched)
+    template: src=30-collectd.conf dest=/etc/rsyslog.d/30-collectd.conf owner=root group=root mode=644                                  
+    notify: restart rsyslog 
+
+  - name: Configure logrotate
+    template: src=collectd.logrotate dest=/etc/logrotate.d/collectd owner=root group=root mode=644                                  
+    notify: restart collectd 
+
+
+  - name: copy collectd plugin client.conf or server.conf
+    template: src={{ collectd_client_server }}.j2 dest=/etc/collectd/collectd.conf.d/{{ collectd_client_server }} owner=root group=root mode=644                                  
+    notify: restart collectd
+
+
+  - name: copy collectd plugins
+    template: src={{ item }}.j2 dest=/etc/collectd/collectd.conf.d/{{ item }} owner=root group=root mode=644                                  
+    notify: restart collectd
+    with_items: "{{ collectd_plugins }}"
+
+  - name: copy influxdb plugins
+    template: src={{ item }}.j2 dest=/etc/collectd/collectd.conf.d/{{ item }} owner=root group=root mode=644                                  
+    notify: restart collectd
+    with_items: "influxdb.conf"
+    when: collectd_influxdb == true
+
+  - name: configure influxdb
+    import_tasks: roles/influxdb/tasks/collectd.yml
+    when: collectd_influxdb == true
+
+  become: yes
+  tags: collectd
+
+  
+
+       
+
+
+
+

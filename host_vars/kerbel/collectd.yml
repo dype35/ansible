@@ -1,0 +1,15 @@
+---
+# kerbel : collectd variables
+
+  # collectd status
+  collectd_client_server: server.conf
+
+  collectd_plugins: [
+    maillog.conf,
+    interface.conf,
+    df.conf,
+    hddtemp.conf,
+    sensors.conf,
+    livebox.conf
+  ]
+

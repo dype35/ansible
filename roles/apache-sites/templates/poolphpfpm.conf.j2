@@ -1,0 +1,21 @@
+[{{ item.value.user | default('www-data') }}]
+
+user = {{ item.value.user | default('www-data') }}
+group = www-data
+
+; listen = {{ php_run_dir }}/{{ php_ver }}-fpm.{{ item.value.ServerName }}.sock
+listen = {{ php_run_dir }}/{{ php_ver }}-fpm.{{ item.value.user | default('www-data') }}.sock
+
+listen.owner = {{ item.value.user | default('www-data') }}
+listen.group = www-data
+pm = dynamic
+
+; Valeurs optimisées pour vps
+; 1 vcore, 1G mem
+
+pm.max_children = 30
+
+pm.start_servers = {{ item.value.pm_start_servers | default('1') }}
+pm.min_spare_servers = {{ item.value.pm_min_spare_servers | default('1') }}
+pm.max_spare_servers = {{ item.value.pm_max_spare_servers | default('2') }}
+

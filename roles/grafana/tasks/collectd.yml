@@ -1,0 +1,21 @@
+---
+# file: roles/influxdb/tasks/collectd.yml
+
+- block:
+  - name: Configure collectd in influxdb.conf
+    blockinfile:
+      dest: /etc/influxdb/influxdb.conf
+      block: |
+        [[collectd]]
+          enabled = true
+          bind-address = ":25826"
+          database = "collectd_db"
+          typesdb = "/usr/share/collectd/types.db"
+      mode: 0644
+      backup: yes
+ 
+  - name: Start the InfluxDB service
+    service: name=influxdb state=restarted
+
+  tags:
+      - influxdb

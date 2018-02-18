@@ -1,0 +1,17 @@
+{{ ansible_managed | comment }}
+LoadPlugin sensors
+<Plugin sensors>
+	SensorConfigFile "/etc/sensors3.conf"
+	Sensor "f71882fg-isa-0a00/temperature-temp1"
+#	Sensor "it8712-isa-0290/fanspeed-fan3"
+#	Sensor "it8712-isa-0290/voltage-in8"
+#	IgnoreSelected false
+</Plugin>
+<Plugin sensors>
+        SensorConfigFile "/etc/sensors3.conf"
+        Sensor "radeon-pci-0100/temperature-temp1"
+#       Sensor "it8712-isa-0290/fanspeed-fan3"
+#       Sensor "it8712-isa-0290/voltage-in8"
+#       IgnoreSelected false
+</Plugin>
+

@@ -1,0 +1,13 @@
+---
+# file: roles/packages/cryptomator/main.yml
+
+- block:
+  - name: Add cryptomator repository
+    apt_repository: repo='ppa:sebastian-stenzel/cryptomator' state=present
+    
+  - name: Install cryptomator packages
+    apt: pkg=cryptomator state=latest update_cache=yes
+
+  become: yes
+  tags: cryptomator
+

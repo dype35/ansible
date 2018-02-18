@@ -1,0 +1,30 @@
+---
+# file: vm.yml
+
+
+- hosts: vm
+  user: franck
+  become: true
+  vars:
+    ssh_port: 22
+
+
+  roles:
+    - shm
+    - logwatch
+    - fail2ban
+    - common
+    - firewall
+    - inventory
+    - users
+    - nfs
+    - motd
+    - sensors
+    - sshd
+    - security
+    - compiz
+    - usersettings
+    - ipscan
+    - firefox
+
+

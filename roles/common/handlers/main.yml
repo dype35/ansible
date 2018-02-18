@@ -1,0 +1,12 @@
+---
+
+    - name: lightdm-restart
+      service: name=lightdm state=restarted
+
+    - name: apt-get-clean
+      command: apt-get -y clean
+
+      
+
+    - name: apt-get-autoremove
+      action: command apt-get autoremove

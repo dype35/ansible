@@ -1,0 +1,10 @@
+---
+# file: roles/common/tasks/apport.yml
+    
+# Desactivate apport
+  - name: Desactivate apport
+    tags: apport
+    lineinfile: dest=/etc/default/apport
+                state=present
+                regexp="enabled="
+                line="enabled=0"

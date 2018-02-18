@@ -1,0 +1,21 @@
+---
+# File: main.yml
+# Part: git
+#
+# Description: install git
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+
+- name: Install git packages
+  tags: git
+  become: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+     - git

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+HOSTNAME="${COLLECTD_HOSTNAME:-vps72403}"
+INTERVAL="${COLLECTD_INTERVAL:-60}"
+ 
+while sleep "$INTERVAL"; do
+   VALUE=$(redis-cli info memory | grep "used_memory:" | cut -d ":" -f 2)
+   echo "PUTVAL \"$HOSTNAME/redis/memory-used_memory\" interval=$INTERVAL N:$VALUE"
+
+   VALUE=$(redis-cli info clients | grep "connected_clients:" | cut -d ":" -f 2)
+   echo "PUTVAL \"$HOSTNAME/redis/gauge-connected_clients\" interval=$INTERVAL N:$VALUE"
+
+   VALUE=$(redis-cli info keyspace|grep keys| cut -d "," -f 1| cut -d "=" -f 2)
+   echo "PUTVAL \"$HOSTNAME/redis/gauge-keys\" interval=$INTERVAL N:$VALUE"
+
+done
+
+
+do_magic () {
+   return redis-cli info memory | grep "used_memory:" | cut -d ":" -f 2
+}

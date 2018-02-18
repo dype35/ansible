@@ -1,0 +1,56 @@
+---
+# File: main.yml
+# Part: mysqlbck
+#
+# Description: backup a mysql database 
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: 
+
+
+
+- name: Dump database (free.fr)
+  tags: 
+    - mysqlbck
+  command: wget {{ bck_site }}/backup.php -U "Mozilla/4.0" --post-data="login={{ bck_login }}&password={{ bck_password }}&mysql_host={{ bck_mysql_host }}&db={{ bck_db }}&check=1&all=1" -O {{bck_target_dir}}/{{bck_local_db_dir}}/{{ bck_db }}.{{ ansible_date_time.day }}.sql.gz
+  when: free
+
+
+- name: Install backup script (not free.fr)
+  tags: 
+    - mysqlbck
+  command: lftp ftp://{{ bck_ftp_login }}:{{ bck_ftp_password }}@{{ bck_ftp_site }} -e "put -O {{ bck_site_dir }} /home/franck/Documents/ansible/roles/mysqlbck/files/{{ bck_script }} -o backup.php ; quit"
+  when: not free
+
+- name: Dump database  (not free.fr)
+  tags: 
+    - mysqlbck
+  command: wget {{ bck_site }}/backup.php -U "Mozilla/4.0" --post-data="login={{ bck_login }}&password={{ bck_password }}&mysql_host={{ bck_mysql_host }}&db={{ bck_db }}" -O /dev/null
+  when: not free
+
+- name: Download the backup  (not free.fr)
+  tags: mysqlbck
+  get_url: url=ftp://{{ bck_ftp_login }}:{{ bck_ftp_password }}@{{ bck_ftp_site }}/{{ bck_db }}.sql
+           dest={{bck_target_dir}}/{{bck_local_db_dir}}/{{ bck_db }}.{{ ansible_date_time.day }}.sql
+           force=yes
+  when: not free
+
+- name: compress the backup  (not free.fr)
+  tags: mysqlbck
+  command: bzip2 -f {{bck_target_dir}}/{{bck_local_db_dir}}/{{ bck_db }}.{{ ansible_date_time.day }}.sql
+  when: not free
+
+- name: remove backup  (not free.fr)
+  tags: 
+    - mysqlbck
+  command: lftp ftp://{{ bck_ftp_login }}:{{ bck_ftp_password }}@{{ bck_ftp_site }} -e "rm {{ bck_db }}.sql; quit"
+  when: not free
+
+
+
+

@@ -1,0 +1,5 @@
+---
+# Defines variables for Debian
+
+phpredispkg: php5-redis
+

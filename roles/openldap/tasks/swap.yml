@@ -1,0 +1,15 @@
+---
+# file: roles/common/tasks/swap.yml
+    
+# Optimize swap
+  - name: Optimize swap
+    tags: swap
+    lineinfile: dest=/etc/sysctl.conf
+                state=present
+                line="{{ item }}"
+    with_items:
+      - '# Decrease swap usage to a workable level'
+      - 'vm.swappiness=10'
+      - '# Improve cache management'
+      - 'vm.vfs_cache_pressure=50'
+

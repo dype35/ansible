@@ -1,0 +1,4 @@
+---
+# sshd specific configuration
+# host : locmalo
+AllowUsers:  franck coline

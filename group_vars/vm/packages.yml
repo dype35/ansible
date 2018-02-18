@@ -1,0 +1,5 @@
+---
+# packages on vm
+packages: 
+  openssh-client: openssh-client
+

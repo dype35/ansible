@@ -1,0 +1,72 @@
+---
+# file: roles/usersettings/tasks/main.yml
+
+
+
+# Configure default settings
+#  - name: Protect privacy | remote-content-seach
+#    become: yes
+#    tags: settings
+#    gsetting: user={{ item.login }}
+#              key=com.canonical.Unity.Lenses.remote-content-search
+#              value="'none'"
+#    with_items:
+#      - "{{ users }}"
+    
+
+
+#  - name: Protect privacy | disabled-scopes
+#    become: yes
+#    tags: settings
+#    gsetting: user={{ item.login }}
+#              key=com.canonical.Unity.Lenses.disabled-scopes
+#              value="['more_suggestions-amazon.scope','more_suggestions-u1ms.scope','more_suggestions-populartracks.scope','music-musicstore.scope', 'more_suggestions-ebay.scope','more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
+#    with_items:
+#      - "{{ users }}"
+
+  - name: User conf | launcher copy configuration script file
+    become: yes
+    tags: 
+      - settings
+      - launcher
+    template: src=updatelauncher.j2 dest=/usr/local/bin/updatelauncher.sh mode="u=rwx,g=rx,o=rx"
+
+  - name: User conf | launcher copy launcher file
+#    become: yes
+    tags: 
+      - settings
+      - launcher
+    copy: src={{ item }}.desktop dest="/home/franck/.local/share/applications/" owner=franck group=franck mode="u=rw,g=,o="
+    with_items:
+      - sshconnexions
+      - eclipse
+
+  - name: User conf | launcher add launcher
+    tags: 
+      - settings
+      - launcher
+    command: sudo su - franck -c "/usr/local/bin/updatelauncher.sh {{ item }}"
+    with_items:
+      - nautilus
+      - thunderbird
+      - firefox
+      - sshconnexions
+      - keepassx
+      - gedit
+#    - eclipse
+
+      
+#  - name: User conf | launcher add launcher
+#    become: yes
+#    tags: 
+#      - launcher
+#    debug: msg="{{ item.0.login }} {{ item.1 }}"
+#    command: sudo su - {{ item.0.login }} -c "/usr/local/bin/updatelauncher.sh {{ item.1 }}"
+#    with_subelements:
+#      - userconf
+#      - launcher
+
+          
+    
+# ['application://libreoffice-calc.desktop', 'unity://running-apps', 'application://nautilus.desktop', 'unity://devices', 'application://sshconnexions.desktop', 'application://keepassx.desktop', 'application://gedit.desktop']
+ 

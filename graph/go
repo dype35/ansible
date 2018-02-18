@@ -1,0 +1,4 @@
+~/ansible-inventory-grapher/bin/ansible-inventory-grapher -i ../production kerzo armen kerbel  
+
+
+for f in *.dot ; do dot -Tpng -o `basename $f .dot`.png $f; done

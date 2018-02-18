@@ -1,0 +1,10 @@
+---
+# file: site.yml
+#- name: Top level playbook
+
+- include: pc.yml
+- include: pcbureau.yml
+- include: webservers.yml
+- include: servers.yml
+- include: dbservers.yml
+#- include: nomade.yml

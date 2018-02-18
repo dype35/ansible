@@ -1,0 +1,6 @@
+# file: mysqlbck/defaults/main.yml
+
+
+bck_script: mysqldump.php
+bck_local_db_dir: _backup.base
+free: False

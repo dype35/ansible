@@ -1,0 +1,13 @@
+[Unit]
+Description = start vnc server
+After=network.target
+
+[Service]
+User=osmc
+PIDFile=/home/osmc/.vnc/%H:%i.pid
+ExecStartPre=-/usr/bin/vncserver -kill :%i > /dev/null 2>&1
+ExecStart=/usr/bin/tightvncserver :%i -geometry 1280x800 -depth 16
+ExecStop=/usr/bin/vncserver -kill :%i
+
+[Install]
+WantedBy = multi-user.target

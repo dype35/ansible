@@ -1,0 +1,5 @@
+---
+
+    - name: launch lynis
+      become: yes
+      command: lynis -c --cronjob

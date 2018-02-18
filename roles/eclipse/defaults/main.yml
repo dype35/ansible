@@ -1,0 +1,12 @@
+
+eclipse_owner: "root"
+eclipse_group: "root"
+
+eclipse_name: "neon"
+SR: "1a"
+eclipse_archive: "eclipse-php-{{eclipse_name}}-{{SR}}-linux-gtk-x86_64.tar.gz"
+eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/{{SR}}/{{eclipse_archive}}&r=1"
+
+eclipse_dir: "/opt"
+
+

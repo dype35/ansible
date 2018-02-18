@@ -1,0 +1,23 @@
+---
+# numlockx
+
+- name: Install packages for Debian derivatives
+  apt: >
+    pkg={{ item }}
+    update_cache=yes
+    state=latest
+  with_items: numlockx
+  when: ansible_os_family == 'Debian'
+  tags:
+    - common
+    - numlockx
+
+- name: Create lightdm file
+  template: >
+    src=60-lightdm-gtk-greeter.conf.j2
+    dest=/usr/share/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
+    mode=0644 owner=root group=root
+  when: ansible_os_family == 'Debian'
+  tags:
+    - common
+    - numlockx

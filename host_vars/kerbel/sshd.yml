@@ -1,0 +1,5 @@
+---
+# sshd specific configuration
+# host : kerbel
+AllowUsers:  franck coline marie paul
+ansible_ssh_port: 22

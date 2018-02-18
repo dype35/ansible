@@ -1,0 +1,40 @@
+---
+# file: armen.yml
+
+
+- hosts: vb-kerbel-ubuntu1504
+  user: franck
+  become: yes
+  vars:
+#    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - shm
+    - packages
+    - numlockx
+    - guest
+    - hosts
+    - common
+    - motd
+    - keepass
+#    - sensors
+    - sshd
+    - sshknownhosts
+    - security
+    - compiz
+    - inventory
+    - users
+    - nfs
+    - usersettings
+    - firewall
+    - logwatch
+    - collectd
+    - bashrc
+    - interface
+    - wifi
+    - noipv6
+    - fail2ban
+    - checkrestart
+    

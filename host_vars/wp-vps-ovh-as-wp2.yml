@@ -1,0 +1,7 @@
+# file: 
+ansible_ssh_host: vps-ovh-as
+ansible_ssh_port: 2222 
+
+workdir: ~franck/tmp
+wpdir:   /var/www/site/wordpress2
+wptype: ssh

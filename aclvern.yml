@@ -1,0 +1,21 @@
+---
+# file: aclvern.yml
+
+- hosts: aclvern
+  connection: local
+  vars:
+    bck_site: http://sql.free.fr/
+    bck_site_dir: .
+    bck_script: backup.php
+    bck_login: aclvern
+    bck_db: aclvern
+    bck_mysql_host: localhost
+    bck_ftp_site: ftpperso.free.fr
+    bck_ftp_login: aclvern
+    bck_target_dir: /home/franck/Documents/site/aclvern
+    install_backup_script: no
+    free: True
+
+  roles:
+    - mysqlbck
+    - ftpbackup

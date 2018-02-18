@@ -1,0 +1,7 @@
+# file: glpi/defaults/main.yml
+
+glpipkg: /home/franck/Téléchargements/glpi-0.85.3.tar.gz
+glpi_dbhost: localhost
+glpi_dbuser: glpi
+glpi_db_password: iLBgurVE6rIPH
+glpi_dbdefault: glpi

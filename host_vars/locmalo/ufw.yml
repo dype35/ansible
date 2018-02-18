@@ -1,0 +1,10 @@
+---
+# ufw specifics rules for locmalo
+
+ufw:
+  # Allow web
+  - {rule: allow, 
+     port: 80, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }

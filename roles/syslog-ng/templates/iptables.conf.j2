@@ -1,0 +1,9 @@
+# syslog-ng iptables conf file
+# This file is under control by Ansible for {{inventory_hostname}}
+
+destination iptables { file("/var/log/iptables"); };
+
+filter f_iptables { facility(kern) and match ("UFW" value("MESSAGE")); };
+filter f_not_iptables { facility(kern) and not match("UFW" value(MESSAGE)); };
+
+log { source(s_src); filter(f_iptables); destination(iptables); };

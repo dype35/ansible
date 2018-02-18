@@ -1,0 +1,29 @@
+---
+# File: backintime.yml
+# Part: backintime
+#
+# Description: Setup backup
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+# Install backintime
+- name: Install backintime packages
+  tags: backintime
+  become: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+     - python-keyring
+     - python-gnomekeyring
+     - backintime-gnome
+
+# Run backintime once a day
+- cron: name="Back In Time system entry, this will be edited by the gui:" minute="*/15" job="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 /usr/bin/backintime backup-job >/dev/null 2>&1" 
+  tags:
+    - cron
+    - backintime

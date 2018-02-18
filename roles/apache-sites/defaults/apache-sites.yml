@@ -1,0 +1,13 @@
+---
+asites:
+  glpi:
+    ServerName:		glpi.kerbel
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/usr/share/glpi
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    ForceHttps:		true	# force redirect htpp to https
+    SetHttpConf:	true		# set a http virtualhost conf 
+    ForceConf:		true		# set a http conf file
+    cakephp:		true		# defined if the site is a cakephp site

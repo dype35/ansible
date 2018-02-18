@@ -1,0 +1,30 @@
+---
+# file: roles/guest/tasks/guest.yml
+#
+# il faut prendre encompte un répertoire différent 
+#    /etc/lightdm sur xubuntu
+#    voir si ça fonctionne avec un fichier dans lightdm.conf.d
+# sur lubuntu : /usr/share/lightdm/lightdm.conf.d/20-lubuntu.conf
+    
+# Desactivate guest login
+  - name: Desactivate guest login
+    become: yes
+    tags: guest
+    lineinfile: dest=/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
+                state=present
+                line="allow-guest=false"
+    when: ansible_distribution == "Ubuntu" and ansible_lsb.major_release|int >= 15
+#    notify:
+#     - lightdm-restart
+
+# Desactivate remote login
+  - name: Desactivate remote login
+    become: yes
+    tags: guest
+    lineinfile: dest=/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf
+                state=present
+                line="greeter-show-remote-login=false"
+    when: ansible_distribution == "Ubuntu" and ansible_lsb.major_release|int >= 15
+#    notify:
+#    - lightdm-restart
+

@@ -1,0 +1,34 @@
+---
+# file: roles/common/tasks/nobluetooth.yml
+    
+# Desactivate bluetooth
+  - name: Desactivate bluetooth
+    become: yes
+    tags: nobluetooth
+    lineinfile: dest=/etc/rc.local
+                state=present
+                regexp="pkill bluetoothd"
+                line="#pkill bluetoothd"
+
+
+#  - name: Desactivate bluetooth
+#    become: yes
+#    tags: nobluetooth
+#    command: /usr/sbin/update-rc.d -f bluetooth remove
+
+
+# A priori c'est cette commande qui désactive vraiment de daemon bluetooth
+  - name: Desactivate bluetooth
+    become: yes
+    tags: nobluetooth
+    lineinfile: dest=/etc/modprobe.d/blacklist.conf
+                state=present
+                line="blacklist bluetooth"
+
+  - name: Desactivate bluetooth service
+    become: yes
+    tags: nobluetooth
+    service: name=bluetooth enabled=no
+
+
+

@@ -1,0 +1,8 @@
+---
+# file: roles/dconf/tasks/main.yml
+
+# Disable Sticky Edges
+  - name: Disable Sticky Edges
+    command: dbus-launch dconf write /org/compiz/profiles/unity/plugins/unityshell/launcher-capture-mouse false
+    tags:
+      - unity

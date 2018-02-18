@@ -1,0 +1,55 @@
+{{ ansible_managed | comment }}
+127.0.0.1	localhost
+10.35.0.1	livebox
+10.35.0.2	armen gauche
+10.35.0.3	kerbel droite
+10.35.0.5	kerzo kerzow
+10.35.0.6	locmalo
+10.35.0.7	pi3
+10.35.0.8	kerner
+10.35.0.10	imprimante
+
+10.35.0.19	switch
+10.35.0.20	diskStation
+
+# décodeurs et radio
+10.35.0.30	canal
+10.35.0.31	radio
+10.35.0.210	orangetv
+
+# 
+# Tablettes et smartphones
+#
+10.35.0.50	tablette-isa
+10.35.0.51	gs-coline
+
+#
+# vps
+#
+92.222.4.240	vps-ovh
+51.255.207.94	vps-ovh-as
+
+# virtual hosts
+10.35.0.3	prono5.kerbel
+10.35.0.3	prono6.kerbel
+10.35.0.3	p35.kerbel
+10.35.0.3	asendurance.kerbel
+10.35.0.3	cgp.kerbel
+10.35.0.3	glpi.kerbel
+10.35.0.3	mysql.kerbel
+10.35.0.3	gplus.kerbel
+10.35.0.5	cgp.kerzo
+
+10.35.0.8	prono5.kerner
+10.35.0.8	p35.kerner
+10.35.0.8	macave.kerner
+10.35.0.8	asendurance.kerner
+10.35.0.8	cgp.kerner
+10.35.0.8	glpi.kerner
+10.35.0.8	mysql.kerner
+10.35.0.8	amp.p35.kerner
+
+
+{% if ansible_os_family == "Windows" %}
+{% include 'privacywindows.j2' ignore missing %}
+{% endif %}

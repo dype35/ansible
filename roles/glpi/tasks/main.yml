@@ -1,0 +1,125 @@
+---
+# file: roles/glpi/tasks/main.yml
+
+
+- name: Install require packages
+  tags: glpi
+  become: yes
+  apt: pkg={{ item }} state=present
+  with_items:
+     - php-curl
+  notify:
+  - apache-restart
+
+# Install glpi packages
+- name: Install glpi packages
+  tags: glpi
+  debug: msg="A télécharger et installer manuellement depuis  http://www.glpi-project.org/?article3&lang=fr"
+ 
+
+# Backup database
+- name: Make sure that the glpi persistant directory exists ATTENTION répertoires à créer avec group en www-data
+  tags: glpi
+  become: yes
+#  action: file path=/home/franck/Documents/site/glpi/_dumps state=directory
+# 
+  action: file path=/home/franck/Documents/site/glpi/{{ item }} mode=0775  state=directory
+  with_items:
+    - _dumps
+    - PDF
+
+- name: Backup database at level 3
+  tags: glpi
+  become: yes
+  copy: src=S99backupglpi dest=/etc/init.d/backupglpi owner=root mode=0755
+
+- name: Backup database at level 3
+  tags: glpi
+  become: yes
+  file: src=/etc/init.d/backupglpi dest=/etc/rc3.d/S99backupglpi state=link
+
+- name : Check if glpi installed
+  stat: path=/usr/share/glpi/config
+  register: glpi_installed
+  tags: glpi
+  
+#- debug: msg="{{ glpi_installed }}"
+#  tags: glpi
+
+- name: backup /usr/share/glpi/config directory
+  tags: glpi
+  become: yes
+  ignore_errors: yes
+  copy: src=/usr/share/glpi/config dest=/usr/share/glpi/config.old backup=yes
+  when: glpi_installed.stat.exists == true
+    
+#- name: Remove /etc/glpi/config link
+#  tags: glpi
+#  become: yes
+#  file: path=/usr/share/glpi/config state=absent
+  
+- debug: msg=unarchive {{ glpipkg }}
+  tags: glpi
+
+- name: install new glpi release
+  tags: glpi
+  become: yes
+  unarchive: src={{ glpipkg }} dest=/usr/share
+  
+- name: remove old _dumps directory
+  tags: glpi
+  become: yes
+  file: path=/usr/share/glpi/files/_dumps state=absent
+     
+- name: create links
+  tags: glpi
+  become: yes
+  file: src=/home/franck/Documents/site/glpi/{{ item }}  dest=/usr/share/glpi/files/{{ item }} state=link
+  with_items:
+    - _dumps
+    - PDF
+    - JPG
+    - PNG
+
+- name: enable cron
+  tags: glpi
+  become: yes
+  copy: src=crond-glpi  dest=/etc/cron.d/glpi owner=root group=root mode=444
+
+- name: copy apache conf
+  tags: glpi
+  become: yes
+  copy: src=apache-glpi.conf  dest=/etc/apache2/conf-available/glpi.conf owner=root group=root mode=444
+  notify:
+  - apache-restart
+
+- name: enable apache conf
+  tags: glpi
+  become: yes
+  file: src=/etc/apache2/conf-available/glpi.conf  dest=/etc/apache2/conf-enabled/glpi.conf state=link
+  notify:
+  - apache-restart
+    
+#- name: Create /usr/share/glpi/config link
+#  tags: glpi
+#  become: yes
+#  file: src=/etc/glpi/config dest=/usr/share/glpi/config state=link
+    
+- name: Set files rights
+  tags: glpi
+  become: yes
+  file: path=/usr/share/glpi/files recurse=yes group=www-data
+
+- name: Set config rights
+  tags: glpi
+  become: yes
+  file: path=/usr/share/glpi/config recurse=yes group=www-data
+    
+- name: configure language
+  tags: glpi
+  uri: url=http://localhost/glpi/install/install.php return_content=yes
+       method=POST install=lang_select language="fr_FR" submit=OK
+  register: language
+
+#- debug: msg="{{ language }}"
+#  tags: glpi

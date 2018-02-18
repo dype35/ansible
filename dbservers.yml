@@ -1,0 +1,7 @@
+---
+# file: dbservers.yml
+- hosts: dbservers
+  vars:
+    hash_behaviour: merge
+  roles:
+    - dbserver

@@ -1,0 +1,89 @@
+---
+# file: roles/apache-sites/tasks/main.yml
+  - name: debug hostvars
+    debug:
+      var: hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+    tags: apache-sites
+
+  - name: debug hostvars
+    debug:
+      var: hostvars[inventory_hostname]['ansible_hostname']
+    tags: apache-sites
+
+# set facts
+  - import_tasks: facts.yml
+    tags: apache-sites
+
+# Create site conf
+  - name: Create php-fpm pool
+    tags: apache-sites
+    become: yes
+    template: src=poolphpfpm.conf.j2 dest={{ php_conf_dir }}/fpm/pool.d/{{ item.value.user | default('www-data') }}.conf owner=root group=root mode=0644
+    with_dict: "{{asites}}"
+    when: item.value.phpfpm is defined
+    notify: php-fpm-restarted
+
+  - name: Create tls virtualhost conf
+    tags: apache-sites
+    become: yes
+    template: src=site-tls.conf.j2 dest=/etc/apache2/sites-available/{{ item.key }}-tls.conf owner=root group=root mode=0644
+    with_dict: "{{asites}}"
+
+  - name: Create http virtualhost conf
+    tags: apache-sites
+    become: yes
+    template: src=site.conf.j2 dest=/etc/apache2/sites-available/{{ item.key }}.conf owner=root group=root mode=0644
+    with_dict: "{{asites}}"
+    when: item.value.SetHttpConf is defined
+
+  - name: Enable virtualhosts 
+    tags: apache-sites
+    become: yes
+    command: a2ensite {{ item.key }}-tls
+    with_dict: "{{asites}}"
+    notify: apache-reload
+
+  - name: Enable http virtualhosts 
+    tags: apache-sites
+    become: yes
+    command: a2ensite {{ item.key }}
+    with_dict: "{{asites}}"
+    notify: apache-reload
+    when: item.value.SetHttpConf is defined
+
+  - name: Create http conf
+    tags: apache-sites
+    become: yes
+    template: src=conf.conf.j2 dest=/etc/apache2/conf-available/{{ item.key }}.conf owner=root group=root mode=0644
+    with_dict: "{{asites}}"
+    when: item.value.ForceConf is defined
+
+  - name: Enable conf 
+    tags: apache-sites
+    become: yes
+    command: a2enconf {{ item.key }}
+    with_dict: "{{asites}}"
+    notify: apache-reload
+    when: item.value.ForceConf is defined
+
+#  - name: Create well-known dir
+#    tags:
+#      - apache-sites
+#      - well-known
+#    become: yes
+#    file: path=/var/www/html/.well-known.{{ item.value.ServerName }} state=directory mode=0755
+#    with_dict: "{{asites}}"
+        
+ 
+  - name: Check names
+    debug: msg="Check the name {{ item.value.ServerName }} in /etc/hosts or DNS"
+    tags: apache-sites
+    with_dict: "{{asites}}"
+
+  - name: Configure logrotate
+    tags: apache-sites
+    become: yes
+    template: src=logrotate.j2 dest=/etc/logrotate.d/{{ item.key }} owner=root group=root mode=0644
+    with_dict: "{{asites}}"
+    when: item.value.log is defined
+

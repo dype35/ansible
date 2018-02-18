@@ -1,0 +1,15 @@
+---
+asites:
+  pronofoot5:
+    ServerName:		prono55.kerbel
+    ServerIp:		"{{ ansible_ssh_host }}"
+    DocumentRoot:	/home/franck/public_html/pronostics5
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+    phpfpm:		true
+    SpecificConf:       SpecificConf/prono.conf
+#    SpecificConf:       SpecificConf/cakephp.conf
+

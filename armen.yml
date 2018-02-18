@@ -1,0 +1,44 @@
+---
+# file: armen.yml
+
+
+- hosts: armen
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - aliases
+    - shm
+    - google-drive-nautilus
+    - packages
+    - numlockx
+    - hosts
+    - grub
+    - guest
+    - common
+    - motd
+    - keepass
+    - sensors
+    - sshd
+ #   - sshknownhosts
+    - security
+#    - compiz
+    - inventory
+    - users
+    - nfs
+    - usersettings
+    - firewall
+    - logwatch
+    - collectd
+    - bashrc
+    - interface
+    - wifi
+    - noipv6
+#    - fail2ban
+    - lynis
+    - firefox
+    

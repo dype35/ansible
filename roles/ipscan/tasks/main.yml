@@ -1,0 +1,35 @@
+---
+# file: roles/ipscan/tasks/main.yml
+
+  - include_vars: "{{ ansible_distribution_release }}.yml"
+    tags: ipscan
+  - include_vars: "{{ ansible_architecture }}.yml"
+    tags: ipscan
+
+# Install ipscan packages
+  - stat: path=/usr/bin/ipscan
+    tags: ipscan
+    register: installed
+
+  - name : Download ipscan package
+    tags: ipscan
+    get_url: url={{ urlipscan }} dest=/tmp
+    when: not installed.stat.exists
+    
+  - name: Install mandatories packages
+    become: yes
+    tags: ipscan
+    apt: pkg={{ item }} state=present
+    with_items:
+     - "{{ pkgipscan }}"
+#     - openjdk-8-jre
+#     - libswt-gtk-3-jni
+
+  - name: Install ipscan
+    become: yes
+    tags: ipscan
+    apt: deb=/tmp/{{ debipscan }}
+    when: not installed.stat.exists
+    
+
+

@@ -1,0 +1,19 @@
+---
+# File: main.yml
+# Part: ftpbackup
+#
+# Description: backup via ftp 
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: 
+
+
+- name: Archive the site (wget mirror)
+  tags: 
+    - ftpbackup
+  command: wget --mirror --ftp-user={{ bck_ftp_login }} --ftp-password={{ bck_ftp_password }} ftp://{{ bck_ftp_site }} -P {{bck_target_dir}} -o {{bck_target_dir}}/mirror.log -X tmp

@@ -1,0 +1,19 @@
+---
+# file: roles/aliases/tasks/main.yml
+
+  - block:
+    - name: check if /etc/aliases exists
+      stat: path=/etc/aliases
+      register: aliases_file
+
+    - name: configure /etc/aliases
+      lineinfile:
+        dest: /etc/aliases
+        line: '{{ item.user }}: {{ item.alias }}'
+        regexp: "^{{ item.user }}:"
+      with_items: "{{ aliases }}"
+      notify: update aliases database
+      when: aliases_file.stat.exists
+
+    tags: aliases
+    become: yes

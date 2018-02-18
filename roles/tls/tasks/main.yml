@@ -1,0 +1,46 @@
+---
+# Create a tls autosigned certificat
+
+- stat: path={{ tls_dir }}/{{ tls_file }}.key
+  register: tls_key_file_status
+  tags:
+    - tls
+
+- stat: path={{ tls_dir }}/{{ tls_file }}.csr
+  register: tls_csr_file_status
+  tags:
+    - tls
+
+- stat: path={{ tls_dir }}/{{ tls_file }}.crt
+  register: tls_crt_file_status
+  tags:
+    - tls
+
+- name: Create the directory
+  file: path={{ tls_dir }} state=directory mode=0755
+  when: tls_key_file_status.stat.exists == False
+  tags:
+    - tls
+
+- name: Create the key
+  shell: openssl genrsa -out {{ tls_dir }}/{{ tls_file }}.key 4096
+  when: tls_key_file_status.stat.exists == False
+  tags:
+    - tls
+
+- name: Protect the key
+  file: path={{ tls_dir }}/{{ tls_file }}.key mode=0444
+  tags:
+    - tls
+
+#- name: Create the certicats request (csr)
+#  shell: openssl req -new -key {{ tls_dir }}/{{ tls_file }}.key -subj {{ tls_subj }} > {{ tls_dir }}/{{ tls_file }}.csr
+#  when: tls_csr_file_status.stat.exists == False or tls_csr_file_status.stat.size == 0
+#  tags:
+#    - tls
+
+- name: Create the certicats (crt)
+  shell: openssl req -new -x509 -sha512 -days 3650 -key {{ tls_dir }}/{{ tls_file }}.key -subj {{ tls_subj }} -out {{ tls_dir }}/{{ tls_file }}.crt
+  when: tls_crt_file_status.stat.exists == False or tls_crt_file_status.stat.size == 0
+  tags:
+    - tls

@@ -1,0 +1,31 @@
+---
+# File: main.yml
+# Part: archive
+#
+# Description: archive a directory
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- set_fact:
+      exclude_file: '/tmp/exclude.txt'
+  tags: archive
+
+- name: copy the exclude file
+  copy: src=exclude.txt  dest={{ exclude_file }}
+  tags: archive
+
+
+- name: archive a directory (bzip2 -> j )
+  shell: tar cjf backup/_backup.site/pronofoot-{{ ansible_date_time.day }}.tar.bz2  -X {{ exclude_file }} {{ dir2archive }}
+  tags: archive
+
+- name: remove the exclude file
+  file: path={{ exclude_file }} state=absent
+  tags: archive
+

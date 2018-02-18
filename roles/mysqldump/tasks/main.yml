@@ -1,0 +1,25 @@
+---
+# File: main.yml
+# Part: mysqldump
+#
+# Description: dump a mysql database
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- name: Create backup directory
+  tags: mysqldump
+  file: path={{ mysql_backup_dir }} state=directory
+  
+- name: dump mysql database
+  tags: mysqldump
+  mysql_db: state=dump name={{ mysql_database }} login_user={{ mysql_db_user }} login_password={{ mysql_db_pass }} target={{ mysql_backup_dir }}/{{ mysql_database }}.{{ ansible_date_time.day }}.sql.bz2
+
+
+
+

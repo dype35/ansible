@@ -1,0 +1,30 @@
+---
+# file: roles/common/tasks/main.yml
+
+# Install packages
+#  - include: packages.yml
+
+# Update /etc/hostname file
+  - include: hostname.yml
+
+# Update /etc/resolv.conf file
+  - include: setresolv.yml
+
+# Update /etc/cups/printer.conf file
+  - include: printer.yml
+
+# Move tmp to RAM
+#  - include: tmp.yml
+
+# Optimize swap
+  - include: swap.yml
+
+# desactivate apport
+  - include: apport.yml
+
+# desactivate bluetooth
+#  - include: nobluetooth.yml
+
+# optimise
+#  - include: optimise.yml
+

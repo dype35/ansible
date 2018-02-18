@@ -1,0 +1,18 @@
+---
+# pc Userconf
+userconf:
+  franck:
+    login: franck
+    launcher: 
+        - application://nautilus.desktop
+        - application://thunderbird.desktop
+        - application://firefox.desktop
+        - application://libreoffice-calc.desktop
+        - application://libreoffice-writer.desktop
+        - application://keepassx.desktop
+        - application://sshconnexions.desktop
+        - application://gedit.desktop
+        - application://eclipse.desktop
+        - unity://devices
+        - unity://running-apps
+        - unity://desktop-icon

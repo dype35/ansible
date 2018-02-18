@@ -1,0 +1,18 @@
+---
+# file: roles/packages/google-drive-nautilus/main.yml
+
+#
+#  - name: Add google_drive repository
+#    apt_repository: repo='ppa:alessandro-strada/ppa' state=present
+#    become: yes
+#    tags: google_drive
+
+
+# Install specifics packages
+  - name: Install google_drive packages
+    become: yes
+    tags: google-drive-nautilus
+    apt: pkg={{ item }} state=present update_cache=yes
+    with_items:
+      - gnome-control-center
+      - gnome-online-accounts

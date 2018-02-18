@@ -1,0 +1,47 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[fr_FR]=terminator
+Name[fr_FR]=sshconnexions
+Exec=terminator
+Name=ssh connexions
+Icon=terminator
+
+Actions=terminator;kerbel;armen;kerzo;locmalo;pi3;vps-ovh;vps-ovh-as
+
+[Desktop Action terminator]
+Name=terminator (local)
+Exec=terminator
+
+[Desktop Action kerbel]
+Name=ssh kerbel
+Exec=terminator --command="ssh -X kerbel"
+
+[Desktop Action armen]
+Name=ssh armen
+Exec=terminator --command="ssh -X armen"
+
+[Desktop Action kerzo]
+Name=ssh kerzo
+Exec=terminator --command="ssh -X kerzo"
+
+[Desktop Action locmalo]
+Name=ssh locmalo
+Exec=terminator --command="ssh -X locmalo"
+
+[Desktop Action pi3]
+Name=ssh pi3
+Exec=terminator --command="ssh -X pi3"
+
+[Desktop Action vps-ovh]
+Name=ssh vps-ovh
+Exec=terminator -T vps-ovh --command="ssh vps-ovh -p 2222"
+
+
+[Desktop Action vps-ovh-as]
+Name=ssh vps-ovh-as
+Exec=terminator -T vps-ovh-as --command="ssh vps-ovh-as -p 2222"
+

@@ -1,0 +1,35 @@
+---
+# kerbel User conf
+userconf:
+  franck:
+    login: franck
+    launcher: 
+        - application://nautilus.desktop
+        - application://thunderbird.desktop
+        - application://firefox.desktop
+        - application://libreoffice-calc.desktop
+        - application://libreoffice-writer.desktop
+        - application://keepassx.desktop
+        - application://sshconnexions.desktop
+        - application://gedit.desktop
+        - application://eclipse.desktop
+        - unity://devices
+        - unity://running-apps
+        - unity://desktop-icon
+      
+  paul:
+    login: paul
+    launcher: 
+        - application://nautilus.desktop
+        - application://thunderbird.desktop
+        - application://firefox.desktop
+        - application://libreoffice-calc.desktop
+        - application://libreoffice-writer.desktop
+        - application://keepassx.desktop
+        - application://gedit.desktop
+        - application://eclipse.desktop
+        - unity://running-apps
+        - unity://desktop-icon
+
+
+# ['unity://running-apps', 'unity://desktop-icon', 'unity://expo-icon', 'unity://devices', 'unity://desktop-icon', 'application://devices.desktop', 'application://running-apps.desktop', 'application://nautilus.desktop', 'application://thunderbird.desktop', 'application://firefox.desktop', 'application://libreoffice-calc.desktop', 'application://libreoffice-writer.desktop', 'application://keepassx.desktop', 'application://sshconnexions.desktop', 'application://gedit.desktop', 'application://eclipse.desktop', 'application://devices', 'application://running-apps', 'application://desktop-icon']

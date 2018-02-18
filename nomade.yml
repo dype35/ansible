@@ -1,0 +1,25 @@
+---
+# file: nomade.yml
+
+
+- hosts: nomade
+  user: franck
+  become: true
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - common
+    - usersettings
+#    - ipscan
+    - keepass
+    - nfs
+    - collectd
+    - firewall
+    - mysql
+    - apache2
+
+
+#    - fail2ban_jail

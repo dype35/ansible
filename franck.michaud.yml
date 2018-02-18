@@ -1,0 +1,21 @@
+---
+# file: franck.michaud.yml
+
+- hosts: franck.michaud
+  connection: local
+  vars:
+    bck_site: http://sql.free.fr/
+    bck_site_dir: .
+    bck_script: backup.php
+    bck_login: franck.michaud
+    bck_db: franck.michaud
+    bck_mysql_host: localhost
+    bck_ftp_site: ftpperso.free.fr
+    bck_ftp_login: franck.michaud
+    bck_target_dir: /home/franck/Documents/site/franck.michaud
+    install_backup_script: no
+    free: True
+
+  roles:
+    - mysqlbck
+    - ftpbackup

@@ -1,0 +1,6 @@
+---
+# file: wordpress.yml
+- hosts: wordpress
+
+  roles:
+    - wordpress

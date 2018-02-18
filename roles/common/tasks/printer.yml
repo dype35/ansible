@@ -1,0 +1,28 @@
+---
+# file: roles/common/tasks/printer.yml
+    
+# Install cups
+  - name: Install cups
+    become: yes
+    tags: printer
+    apt: pkg={{ item }} state=present
+    with_items:
+     - cups
+
+# Update /etc/cups/printer.conf file
+  - name: Setup | printer
+    become: yes
+    tags: printer
+    copy: src=printers.conf dest=/etc/cups/printers.conf owner=root group=lp mode=644
+
+# Install driver file
+  - name: Setup | printer driver
+    become: yes
+    tags: printer
+    copy: src=HP-Photosmart-3210.ppd dest=/etc/cups/ppd/HP-Photosmart-3210.ppd owner=root group=lp mode=644
+
+# Install driver file
+  - name: Setup | printer driver
+    become: yes
+    tags: printer
+    copy: src=hp dest=/usr/lib/cups/backend/hp owner=root group=lp mode=555

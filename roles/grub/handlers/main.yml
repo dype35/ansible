@@ -1,0 +1,4 @@
+---
+
+    - name: grub-update
+      command: update-grub

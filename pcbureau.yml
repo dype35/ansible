@@ -1,0 +1,23 @@
+---
+# file: pcbureau.yml
+
+
+- hosts: pcbureau
+#  user: franck
+#  become: true
+  vars:
+    default_runlevel: 2
+    ssh_port: 22
+    hash_behaviour: merge
+
+  roles:
+    - users
+    - nfs
+    - firewall
+    - ipscan
+    - usersettings
+    - common
+    - bashrc
+    - interface
+    - wifi
+    - noipv6

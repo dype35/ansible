@@ -1,0 +1,10 @@
+{{ item.value.log }}/*.log {
+	su www-data www-data
+	weekly
+	missingok
+	rotate 6
+	compress
+	notifempty
+	create 664 www-data www-data
+}
+

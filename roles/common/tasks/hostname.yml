@@ -1,0 +1,10 @@
+---
+# file: roles/common/tasks/hostname.yml
+    
+# Update /etc/hostname file
+
+# Update /etc/hosts file
+  - name: Setup | /etc/hostname
+    become: yes
+    template: src=hostname.j2 dest=/etc/hostname owner=root group=root mode=644
+    tags: hostname

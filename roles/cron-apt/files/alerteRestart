@@ -1,0 +1,11 @@
+#!/bin/bash
+NB=`checkrestart 2>/dev/null | grep 'Found [0-9] processes' | awk '{print $2}'`
+#echo $NB
+if [ "$NB" != "" ]; then
+  if [ $NB -gt 0 ]; then
+    #echo "Redemarrage nécessaire";
+    echo "Redemarage necessaire de $(hostname)" | mail -s "Redemarage necessaire de $(hostname)" franck.du35@gmail.com
+  else 
+    echo "Pas de Redemarrage nécessaire";
+  fi
+fi

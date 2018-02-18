@@ -1,0 +1,11 @@
+# file: sshknownhosts/defaults/main.yml
+
+ssh_known_hosts_command: "ssh-keyscan -T 10"
+ssh_known_hosts_file: "/etc/ssh/ssh_known_hosts"
+ssh_known_hosts:
+  - { host: 'kerbel', port: 22 }
+  - { host: 'armen', port: 22 }
+  - { host: 'kerzo', port: 22 }
+  - { host: 'locmalo', port: 22 }
+  - { host: 'pronofoot35.info', port: 2222 }
+  - { host: 'vps-ovh-as', port: 2222 }

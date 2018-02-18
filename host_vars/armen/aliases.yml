@@ -1,0 +1,7 @@
+---
+# aliases for kerbel
+
+aliases: [
+  { user: root, alias: franck@localhost },
+  { user: www-data, alias: franck@localhost }
+]

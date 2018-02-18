@@ -1,0 +1,13 @@
+---
+# file: clients.yml
+- hosts: clients
+  become: true
+  vars:
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - collectd
+    
+
+

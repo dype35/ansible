@@ -1,0 +1,21 @@
+---
+# packages on all
+packages_all: 
+  classicmenu-indicator: classicmenu-indicator
+  compizconfig-settings-manager: compizconfig-settings-manager
+  dconf-tools: dconf-tools
+  flashplugin-installer: flashplugin-installer
+  gimp: gimp
+  gufw: gufw
+  hddtemp: hddtemp
+  indicator-cpufreq: indicator-cpufreq
+  indicator-multiload: indicator-multiload
+  keepassx: keepassx
+  lm-sensors: lm-sensors
+  openssh-server: openssh-server
+  openssh-client: openssh-client
+  terminator: terminator
+  unity-tweak-tool: unity-tweak-tool
+  vim: vim
+  vim-gnome: vim-gnome
+  vlc: vlc

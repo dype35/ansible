@@ -1,0 +1,21 @@
+---
+# file: www.as-orange-cesson.fr.yml
+# 
+# 
+- hosts: www.as-orange-cesson.fr
+  connection: local
+  vars:
+    bck_site: http://www.as-orange-cesson.fr
+    bck_site_dir: www
+    bck_script: mysqldump.php
+    bck_login: asorangedb01
+    bck_db: asorangedb01
+    bck_mysql_host: mysql5-24.perso
+    bck_ftp_site: ftp.cluster014.hosting.ovh.net/
+    bck_ftp_login: asorange
+    bck_target_dir: /home/franck/Documents/site/asorange
+    install_backup_script: yes
+
+  roles:
+    - ftpbackup
+    - mysqlbck

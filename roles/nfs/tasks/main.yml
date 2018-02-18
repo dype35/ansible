@@ -1,0 +1,72 @@
+---
+# file: roles/common/tasks/nfs.yml
+
+#  - name: Test
+#    file: path=/tmp/{{ item.login }} state=touch
+#    with_items:
+#      - "{{ users }}"
+#    tags:
+#      - test
+
+
+  - name: Create mount point in home dir
+    become: yes
+    file: path=/home/{{ item.login }}/Documents state=directory owner={{ item.login }}
+    with_items:
+      - "{{ users }}"
+    tags:
+      - nfs
+
+# Install  packages
+  - name: Install packages
+    become: yes
+    tags: nfs
+    apt: pkg={{ item }} state=present
+    with_items:
+     - nfs-common
+     - autofs
+
+  - name: Setup | auto.nfs
+    become: yes
+    #copy: src=ref/auto.nfs dest=/etc/auto.nfs owner=root group=root mode=644
+    lineinfile: dest=/etc/auto.nfs
+                state=present
+                create=yes
+                line="/home/{{ item.login }}/Documents  -fstype=nfs,rw,intr   DiskStation:/volume1/doc_{{ item.login }}"
+    with_items:
+      - "{{ users }}"
+    tags:
+      - nfs
+    
+  - file: path=/etc/auto.nfs owner=root group=root mode=0644
+    become: yes
+
+  - name: Setup | auto.master
+    become: yes
+    #copy: src=ref/auto.nfs dest=/etc/auto.nfs owner=root group=root mode=644
+    lineinfile: dest=/etc/auto.master
+                state=present
+                create=yes
+                line="/- /etc/auto.nfs --ghost,--timeout=300"
+    tags:
+      - nfs
+      - auto.master
+
+# public_html
+  - name: Create mount point public_html in home dir
+    become: yes
+    file: path=/home/franck/public_html state=directory owner=franck
+    tags:
+      - nfs
+
+  - name: Setup | auto.nfs for public_html
+    become: yes
+    #copy: src=ref/auto.nfs dest=/etc/auto.nfs owner=root group=root mode=644
+    lineinfile: dest=/etc/auto.nfs
+                state=present
+                create=yes
+                line="/home/franck/public_html  -fstype=nfs,rw,intr   DiskStation:/volume1/www"
+    notify:
+    - autofs-restart
+    tags:
+      - nfs

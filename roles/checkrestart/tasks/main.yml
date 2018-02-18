@@ -1,0 +1,20 @@
+---
+
+- name: install debian-goodies
+  apt: pkg=debian-goodies state=present force=yes
+  become: yes
+  tags: checkrestart
+
+- name: Create target directory
+  file: path=~franck/bin state=directory mode=0755 owner=franck group=franck
+  tags: checkrestart
+
+- name: copy script
+  become: yes
+  copy: src=alerteRestart dest=~franck/bin/alerteRestart  mode=0555 backup=yes owner=franck group=franck
+  tags: checkrestart
+
+- name: create cron
+  become: yes
+  copy: src=alerterestart dest=/etc/cron.d/alerterestart owner=root group=root mode=0644 backup=yes
+  tags: checkrestart

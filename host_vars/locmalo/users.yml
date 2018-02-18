@@ -1,0 +1,13 @@
+---
+# Users on locmalo
+users:
+  - {login: franck,
+     comment: Franck,
+     uid: 1000,
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtT0qsmJgVfXG7l6j0j7lXehQwb0EMqgPkeLqFzJXfrjupcxxXVESa3tzR1JT7XCx3PDqiF+qICtP2JR5zEsFCMVuFf4RJLyEEdJqqJ6oxmDaC6ftR+MfXnXLCy/6rrH9N28ks7gscHovB2FdbC5nXMRp4asD8tsOcqQjT+ivZZsl1N46l+Zo6/rRmamNY/as0v25uXmdYSrPH+NNlQ9o1CG/IMlF/3fzcj5xu7SRGS/jLEaEbYpEggAl10TxRRsKCFJRPm0chyNLPsmMCxbDk1AOINhVh8CLMf8thIiCBEsg2M0ilCIL5jjD0WMbk18oGNPezSXoyzVL+ta6TeMl6w== franck@riantec
+     }
+  - {login: coline, 
+     comment: Coline, 
+     uid: 1001, 
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbl0V8q6LGrPO89dH6zgCf5qgLtywxW27gKr85QEDU9NF1J/0eeh7AiQFjx9D+qO4UEda8p5Qw1AREoF0D7mpIac2Do2QTrxsW07ss1ehbb0gOJZBsEBHaeliZKDasEzEDNId6QbwskOlLftY8uxHhhux8hm4JjK4rx0RVrFSZ0gV1xjAq0CWExTwDZ+ko/LWQjvuNd6Z61OLBK0MTZScMDZQrwh6zqjQxWi22ynTePsHmRJ3vODIgAWkN6daVPUZZithKByUL5ZK2pA+F13YNYq+jANwTgqewSyxsYuH1U/g+HxI/eddSbGqR7DiDkscG9hnPNcMN6ZApyLhVkbYP ansible-generated
+    }

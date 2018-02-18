@@ -1,0 +1,19 @@
+---
+
+collectd_hostname: "{{ ansible_fqdn }}"
+collectd_server_addr: 10.35.0.3
+
+collectd_client_server: client.conf
+
+collectd_influxdb: true
+collectd_influxdb_db: collectd_db
+
+collectd_plugins: [
+  sshd.conf,
+  maillog.conf,
+  interface.conf,
+  df.conf,
+  hddtemp.conf,
+  sensors.conf
+]
+

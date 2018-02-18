@@ -1,0 +1,19 @@
+digraph kerbel {
+  pc -> kerbel;
+  webservers -> kerbel;
+  pcbureau -> kerbel;
+  all -> pcbureau;
+  all -> servers;
+  all -> webservers;
+  dbservers -> kerbel;
+  all -> dbservers;
+  servers -> kerbel;
+  all -> pc;
+  pc [shape=record label=<<font face="Times New Roman, Bold" point-size="16">pc</font>>]
+  all [shape=record label=<<font face="Times New Roman, Bold" point-size="16">all</font>>]
+  dbservers [shape=record label=<<font face="Times New Roman, Bold" point-size="16">dbservers</font>>]
+  webservers [shape=record label=<<font face="Times New Roman, Bold" point-size="16">webservers</font>>]
+  pcbureau [shape=record label=<<font face="Times New Roman, Bold" point-size="16">pcbureau</font>>]
+  kerbel [label="kerbel"]
+  servers [shape=record label=<<font face="Times New Roman, Bold" point-size="16">servers</font>>]
+}

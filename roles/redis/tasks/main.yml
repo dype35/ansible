@@ -1,0 +1,17 @@
+---
+ - block:
+   - name: Include the OS specific varibles
+     include_vars: "{{ ansible_distribution }}.yml"
+ 
+   - debug: msg="php redis pkg {{ phpredispkg }} Distribution {{ ansible_distribution }}"
+
+   - name: Install redis
+     apt: name={{ item }} state=latest
+     with_items:
+       - redis-server
+       - "{{ phpredispkg }}"
+     notify:
+       - php-fpm-restart
+
+   become: yes  
+   tags: redis

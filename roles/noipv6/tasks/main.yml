@@ -1,0 +1,41 @@
+# file: roles/noipv6/tasks/main.yml
+    
+
+# noipv6 in /etc/avahi/avahi-daemon.conf 
+#  - local_action: stat path=/etc/avahi/avahi-daemon.conf
+#    register: avahi_file
+#    become: no
+
+#  - name: noipv6 in /etc/avahi/avahi-daemon.conf
+#    become: yes
+#    tags: noipv6
+#    lineinfile: dest=/etc/avahi/avahi-daemon.conf
+#                state=present
+#                regexp="use-ipv6"
+#                line="use-ipv6=no"
+#    when: avahi_file.stat.exists
+
+# noipv6 in /etc/sysctl.conf 
+  - name: noipv6 in /etc/sysctl.conf
+    become: yes
+    tags: noipv6
+    lineinfile: dest=/etc/sysctl.conf
+                state=present
+                regexp="net.ipv6.conf.all.disable_ipv6"
+                line="net.ipv6.conf.all.disable_ipv6 = 1"
+
+  - name: noipv6 in /etc/sysctl.conf
+    become: yes
+    tags: noipv6
+    lineinfile: dest=/etc/sysctl.conf
+                state=present
+                regexp="net.ipv6.conf.default.disable_ipv6"
+                line="net.ipv6.conf.default.disable_ipv6 = 1"
+
+  - name: noipv6 in /etc/sysctl.conf
+    become: yes
+    tags: noipv6
+    lineinfile: dest=/etc/sysctl.conf
+                state=present
+                regexp="net.ipv6.conf.lo.disable_ipv6"
+                line="net.ipv6.conf.lo.disable_ipv6 = 1"

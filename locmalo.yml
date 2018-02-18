@@ -1,0 +1,39 @@
+---
+# file: locmalo.yml
+
+
+- hosts: locmalo
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+    remote_tmp: /tmp/.ansible
+
+  roles:
+    - shm
+#    - guest
+    - hosts
+    - common
+    - motd
+    - sshd
+#    - sshknownhosts
+    - packages
+    - security
+    - inventory
+    - users
+    - nfs
+    - usersettings
+    - firewall
+    - collectd
+    - bashrc
+    - interface
+    - wifi
+    - noipv6
+    - ipscan
+    - keepass
+    - lynis
+    - firefox
+
+    

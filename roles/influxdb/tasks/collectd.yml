@@ -1,0 +1,51 @@
+---
+# file: roles/influxdb/tasks/collectd.yml
+
+- block:
+  - debug:
+      msg: "influxdb bind-address {{ influxdb_conf['collectd']['bind-address'] }}"
+
+  - name: Configure collectd in influxdb.conf
+    blockinfile:
+      dest: /etc/influxdb/influxdb.conf
+      block: |
+        [[collectd]]
+          enabled = true
+          bind-address = "{{ influxdb_conf['collectd']['bind-address'] }}"
+          database = "{{ collectd_influxdb_db }}"
+          typesdb = "/usr/share/collectd/types.db"
+      mode: 0644
+      backup: yes
+ 
+  - name: Create collectd_db database
+    uri:
+       url: http://{{ influxdb_server_addr }}:{{ influxdb_admin_port }}/query?q=CREATE+DATABASE+{{ collectd_influxdb_db }}
+       dest: /tmp/db
+
+  - name: Create Retention Policies
+    uri:
+       url: http://{{ influxdb_server_addr }}:{{ influxdb_admin_port }}/query?q=CREATE+RETENTION+POLICY+{{ item.rp }}+ON+{{ collectd_influxdb_db }}+DURATION+{{ item.duration }}+REPLICATION+1&db={{ collectd_influxdb_db }}
+       dest: /tmp/{{ item.rp }}
+    with_items:
+      - { rp: 'rp_6h', duration: '6h' }
+      - { rp: 'rp_24h', duration: '24h' }
+      - { rp: 'rp_week', duration: '1w' }
+      - { rp: 'rp_month', duration: '4w' }
+      - { rp: 'rp_quarter', duration: '13w' }
+      - { rp: 'rp_year', duration: '52w' }
+
+  - name: Create Continuous Queries
+    uri:
+       url: http://{{ influxdb_server_addr }}:{{ influxdb_admin_port }}/query?q=CREATE+CONTINUOUS+QUERY+{{ item.cq }}+ON+{{ collectd_influxdb_db }}+BEGIN+SELECT+avg({{ item.field }})+INTO+{{ item.rp }}+FROM+%22current_measurement%22+GROUP+BY+time(30m)+END&db={{ collectd_influxdb_db }}
+       dest: /tmp/{{ item.rp }}
+    with_items:
+      - { cq: 'cpu_day', field: 'cpu_value', rp: 'rp_24h' }
+ 
+
+
+  - name: Start the InfluxDB service
+    service: name=influxdb state=restarted
+
+
+  tags:
+      - influxdb

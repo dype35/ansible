@@ -1,0 +1,29 @@
+---
+# file: roles/vncserver/tasks/main.yml
+    
+
+
+
+# Install systemd file
+  - block:
+    - name: Install tightvncserver packages
+      apt: pkg=tightvncserver state=latest
+
+    - name: Copy systemd file
+      copy: src=vncserver@.service dest=/etc/systemd/system owner=root group=root mode=644
+ 
+    - name: Relaod units
+#      systemd: 
+      command: systemctl daemon-reload
+
+    - name: Enable vncserver
+#      systemd: name=vncserver@1 enabled=yes
+      command: systemctl enable vncserver@1
+
+    - name: Start vncserver
+#      systemd: name=vncserver@1 state=started
+      command: systemctl start vncserver@1
+                
+    become: yes
+    tags: vncserver
+    when: ansible_os_family == "Debian"

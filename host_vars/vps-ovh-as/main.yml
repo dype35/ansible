@@ -1,0 +1,4 @@
+---
+
+  logwatch_email: "f2015@orange.fr"  # Email Address which Logwatch reports to
+  postfix_notify_email: f2015@orange.fr

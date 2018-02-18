@@ -1,0 +1,11 @@
+---
+# file: webservers.yml
+- hosts: webservers
+  vars:
+    default_runlevel: 2
+    hash_behaviour: merge
+
+  roles:
+    - common
+    - apache2
+    - bootstrap

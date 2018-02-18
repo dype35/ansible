@@ -1,0 +1,37 @@
+---
+
+  - name: Install lm-sensors package
+    become: true
+    apt: pkg={{ item }} state=present
+    with_items:
+      - lm-sensors
+      - hddtemp
+    tags:
+      - sensors
+      - hddtemp
+
+  - name: set rights on hddtemps (u+s for conky)
+    become: true
+    file: path=/usr/sbin/hddtemp mode=4755
+    tags:
+     - sensors
+     - hddtemp
+
+  - name: hddtemp as daemon
+    become: true
+    tags: 
+      - sensors
+      - hddtemp
+    lineinfile: dest=/etc/default/hddtemp
+                state=present
+                regexp="^RUN_DAEMON="
+                line='RUN_DAEMON="true"'
+
+
+  
+  - name: Setup | sensors-detect with yes to all values
+    become: true
+    shell: /usr/sbin/sensors-detect --auto
+    tags:
+     - sensors
+

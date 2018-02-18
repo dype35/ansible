@@ -1,0 +1,24 @@
+---
+# file: roles/inventory/tasks/ocs.yml
+
+# OCSinventory Install packages
+  - name: Install ocs packages
+    tags: ocs
+    apt: pkg={{ item }} state=present
+    with_items:
+     - ocsinventory-agent
+
+  - name: Update ocsinventory-agent.cfg file
+    tags: ocs
+    copy: src=ocsinventory-agent.cfg dest=/etc/ocsinventory/ocsinventory-agent.cfg owner=root group=root mode=600
+
+  - name: Update cron.daily file
+    tags: ocs
+    lineinfile:
+        dest=/etc/cron.daily/ocsinventory-agent
+        regexp="PROG > /dev/null"
+        line="$PROG --server http://kerbel/ocsinventory > /dev/null 2>&1"
+
+  - name: Exec OCS
+    tags: ocs
+    command: /etc/cron.daily/ocsinventory-agent

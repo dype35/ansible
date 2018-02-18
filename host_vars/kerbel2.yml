@@ -1,0 +1,54 @@
+# file: 
+
+fail2ban_loglevel: 3
+
+fail2ban_services:
+  - name: "ssh"
+    enabled: "true"
+    port: "ssh"
+    filter: "sshd"
+    logpath: "/var/log/auth.log"
+    maxretry: 6
+
+  - name: "dropbear"
+    enabled: "true"
+    port: "ssh"
+    filter: "dropbear"
+    logpath: "/var/log/auth.log"
+    maxretry: 6
+
+  - name: "ssh-ddos"
+    enabled: "true"
+    port: "ssh"
+    filter: "sshd-ddos"
+    logpath: "/var/log/auth.log"
+    maxretry: 4
+
+  - name: "apache"
+    enabled: "true"
+    port: "http,https"
+    filter: "apache-auth"
+    logpath: "/var/log/apache*/*error.log"
+    maxretry: 6
+
+  - name: "apache-noscript"
+    enabled: "true"
+    port: "http,https"
+    filter: "apache-noscript"
+    logpath: "/var/log/apache*/*error.log"
+    maxretry: 6
+
+  - name: "apache-overflows"
+    enabled: "true"
+    port: "http,https"
+    filter: "apache-overflows"
+    logpath: "/var/log/apache*/*error.log"
+    maxretry: 2
+
+  - name: "php-url-fopen"
+    enabled: "true"
+    port: "http,https"
+    filter: "php-url-fopen"
+    logpath: "/var/log/apache*/*access.log"
+    maxretry: 2
+

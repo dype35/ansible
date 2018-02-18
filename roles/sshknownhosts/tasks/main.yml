@@ -1,0 +1,24 @@
+---
+# Create a /etc/ssh/ssh_known_hosts
+
+- block:
+   - name: Scan the public key
+     shell: "{{ ssh_known_hosts_command}} -p {{ item.port }} {{ item.host }}"
+     with_items: ssh_known_hosts
+     register: ssh_hosts_key
+
+#   - debug: msg="{{ ssh_hosts_key }}"
+
+   - debug: msg="{{ item.stdout }}"
+     with_items: "{{ ssh_hosts_key.results }}"
+
+   - name: tell the host about our servers it might want to ssh to
+     known_hosts: path={{ ssh_known_hosts_file }}
+               name="{{ item.item.host }}"
+               key="{{ item.stdout }}"
+     with_items: "{{ ssh_hosts_key.results }}"
+
+  tags: sshknownhosts
+  become: yes
+
+

@@ -1,0 +1,26 @@
+---
+# file: roles/virtualbox/tasks/main.yml
+
+
+  - name: Add repository for virtualbox
+#    apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib'
+    apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian xenial contrib'
+    become: yes
+    tags: 
+     - virtualbox
+     - test
+
+
+  - name: add key
+    apt_key: state=present
+           url={{ item }}
+    with_items:
+      - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc
+      - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    become: yes
+    tags: virtualbox
+
+  - name: install vitualbox
+    apt: pkg=virtualbox state=present
+    become: yes
+    tags: virtualbox

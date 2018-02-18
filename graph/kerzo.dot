@@ -1,0 +1,10 @@
+digraph kerzo {
+  pc -> kerzo;
+  nomade -> kerzo;
+  all -> nomade;
+  all -> pc;
+  nomade [shape=record label=<<font face="Times New Roman, Bold" point-size="16">nomade</font>>]
+  pc [shape=record label=<<font face="Times New Roman, Bold" point-size="16">pc</font>>]
+  kerzo [label="kerzo"]
+  all [shape=record label=<<font face="Times New Roman, Bold" point-size="16">all</font>>]
+}

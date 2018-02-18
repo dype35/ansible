@@ -1,0 +1,45 @@
+---
+# file: roles/win_services/tasks/main.yml
+
+# http://www.revuedugeek.com/post/2010/09/12/Ameliorer-les-performances-de-Windows-7
+    
+# echo Name: Diagnostic Policy Service
+#sc config DPS start= DISABLED 
+# auto, manual, disabled
+# started/stopped
+
+  - name: win_services | set services
+    tags: 
+     - win
+     - win_services
+
+    win_service:
+      name={{ item.name }}
+      start_mode={{ item.mode }}
+      state={{ item.state }}
+    with_items:
+        - { name: 'WinDefend', mode: 'auto', state: 'started' }
+# Service Panneau de saisie Tablet PC (désactiver si vous n’avez pas une tablette PC)  
+        - { name: 'TabletInputService', mode: 'disabled', state: 'stopped' }
+# Service de rapport d’erreurs Windows (à désactiver)    
+        - { name: 'WerSvc', mode: 'disabled', state: 'stopped' }
+
+
+#
+# Les service qui ne peuvent pas être mis à jour via ansible (plantage)
+# ---------------------------------------------------------------------
+# Client de suivi de lien distribué (à désactivé)  
+#        - { name: 'TrkWks', mode: 'disabled', state: 'stopped' }
+# Service de l’assistant Compatibilité des programmes (à désactiver) 
+#        - { name: 'PcaSvc', mode: 'disabled', state: 'stopped' }
+# Hote de périphérique UPnP (à désactiver) 
+#        - { name: 'upnphost', mode: 'disabled', state: 'stopped' }
+# Registre à distance (à désactiver pour des raisons de sécurité) 
+#        - { name: 'RemoteRegistry', mode: 'disabled', state: 'stopped' }
+# Centre de sécurité (à désactiver) 
+#        - { name: 'wscsvc', mode: 'disabled', state: 'stopped' }
+# Service Partage réseau du Lecteur Windows Media (à désactiver)   
+#        - { name: 'WMPNetworkSvc', mode: 'disabled', state: 'stopped' }
+# Service de réception Windows Media Center (à désactiver) 
+#        - { name: 'ehRecvr', mode: 'disabled', state: 'stopped' }
+

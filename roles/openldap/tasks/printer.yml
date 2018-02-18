@@ -1,0 +1,16 @@
+---
+# file: roles/common/tasks/printer.yml
+    
+# Install cups
+  - name: Install cups
+    tags: packages
+    apt: pkg={{ item }} state=present
+    with_items:
+     - cups
+
+# Update /etc/cups/printer.conf file
+  - name: Setup | printer
+    tags: printer
+    become: yes
+    copy: src=printers.conf dest=/etc/cups/printers.conf owner=root group=lp mode=600
+

@@ -1,0 +1,28 @@
+---
+# file: roles/wordpress/tasks/main.yml
+    
+
+  - name: check ftp
+    debug: var={{ wpdir }}
+
+  - name: create work dir
+    command: lftp ftp://{{ wp_ftp_login }}:{{ wp_ftp_password }}@{{ wp_ftp_site }} -e "mkdir {{ workdir }} ; quit"
+  
+    #file: path={{ workdir }} state=directory mode=0700
+
+  - name: copy check script on remote host
+    command: lftp ftp://{{ wp_ftp_login }}:{{ wp_ftp_password }}@{{ wp_ftp_site }} -e "put -O {{ workdir }} /home/franck/Documents/ansible/roles/wordpress/files/wpgetwpversion.php -o wpgetwpversion.php ; quit"
+#
+#  - name: exec the check script
+#    command: php {{ workdir }}/wpgetwpversion.php {{ wpdir }}
+#    register: wpcheck
+#
+##  - name: check result
+##    debug: var=wpcheck
+#
+#  - name: send an email when upgrade needed 
+#    local_action: mail
+#        to="Franck <franck@localhost>"
+#        subject='WP {{ ansible_hostname }} need upgrade'
+#        body="Wordpress {{ ansible_hostname }} need upgrade. Version {{ wpdir }}. {{ wpcheck.stdout }}"
+#    when:  wpcheck.stderr == "upgrade"

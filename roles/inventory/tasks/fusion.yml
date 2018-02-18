@@ -1,0 +1,76 @@
+---
+# file: roles/inventory/tasks/fusion.yml
+
+# fusioninventory Install packages
+  - name: Add repository in /etc/apt/sources.list
+    tags: fusion
+    become: yes
+    lineinfile: dest=/etc/apt/sources.list
+                state=present
+                line="deb http://debian.fusioninventory.org/debian/ wheezy main"
+ 
+  - name: register the GPG key
+    tags: fusion
+    become: yes
+    apt_key: url=http://debian.fusioninventory.org/debian/archive.key state=present
+#    shell: /usr/bin/wget -O - http://debian.fusioninventory.org/debian/archive.key | apt-key add -
+
+
+  - name: Install fusioninventory packages
+    tags: fusion
+    become: yes
+    apt: pkg={{ item }} state=present
+    with_items:
+     - fusioninventory-agent
+     - libnet-snmp-perl
+     - libnet-nbname-perl
+     - nmap
+     - fusioninventory-agent-task-network
+
+  - name: Configure fusioninventory agent
+    tags: fusion
+    become: yes
+    lineinfile:
+        dest=/etc/fusioninventory/agent.cfg
+        regexp="glpi\/plugins\/fusioninventory\/"
+        line="server = http://10.35.0.3/glpi/plugins/fusioninventory/"
+    when: fusioninventory-server
+    notify:
+     - fusion-start
+
+  - name: Configure fusioninventory agent
+    tags: fusion
+    become: yes
+    lineinfile:
+        dest=/etc/fusioninventory/agent.cfg
+        regexp="local = /tmp"
+        line="local = /tmp"
+    when: fusioninventory-local
+    notify:
+     - fusion-start
+
+  - name: Configure fusioninventory agent
+    tags: fusion
+    become: yes
+    lineinfile:
+        dest=/etc/default/fusioninventory-agent
+        create=yes
+        regexp="^MODE"
+        line="MODE=daemon"
+    notify:
+     - fusion-start
+
+#  - name: Define init level
+#    tags: fusion
+#    become: yes
+#    shell: update-rc.d -f fusioninventory-agent defaults
+
+#  - name: Define init level
+#    tags: fusion
+#    become: yes
+#    shell: update-rc.d -f fusioninventory-agent disable 2
+
+#  - name: Define init level
+#    tags: fusion
+#    become: yes
+#    shell: update-rc.d -f fusioninventory-agent enable 3

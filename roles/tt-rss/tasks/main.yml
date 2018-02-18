@@ -1,0 +1,29 @@
+---
+# File: main.yml
+# Part: tt-rss
+#
+# Description: Setup tt_rss
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+
+  - block:
+    - name: setup systemd file for tt-rss
+      copy: src=tt-rss.service dest=/etc/systemd/system/.
+
+    - name: systemd reload
+      command: systemctl daemon-reload
+
+    - name: enable tt-rss
+      command: systemctl enable tt-rss
+
+    - name: restart tt-rss
+      command: systemctl restart tt-rss
+
+
+    tags: tt-rss
+    become: yes

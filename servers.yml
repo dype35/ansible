@@ -1,0 +1,22 @@
+---
+# file: servers.yml
+- hosts: servers
+  become: true
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - cron
+    - virtualbox
+    - backintime
+    - apache2
+    - mysql
+    - glpi
+    - common
+    - logwatch
+    - fail2ban
+    
+
+

@@ -1,0 +1,26 @@
+---
+# File: main.yml
+# Part: sshbackup
+#
+# Description: backup via ssh 
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: 
+#
+# Notes: avec ansible 2 : become: yes ne fonctionne pas, de toute façon il n'y en a pas besoin
+
+
+- name: Archive the site (rsync mirror)
+  become: no
+  tags: 
+    - sshbackup
+  synchronize: src={{ bck_source_dir }}
+    dest={{ bck_target_dir }}
+    mode=pull
+    rsync_path="rsync"
+    group=no

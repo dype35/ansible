@@ -1,0 +1,10 @@
+# file: 
+ansible_ssh_host: vps-ovh-as
+ansible_ssh_port: 2222 
+
+wp_ftp_login: asorange
+wp_ftp_site: ftp://ftp.cluster014.hosting.ovh.net/
+
+workdir: tmp4check
+wpdir:   /var/www/site/wordpress2
+wptype: ftp

@@ -1,0 +1,3 @@
+urlipscan: http://github.com/angryziber/ipscan/releases/download/3.3.2/ipscan_3.3.2_amd64.deb
+
+debipscan: ipscan_3.3.2_amd64.deb

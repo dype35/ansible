@@ -1,0 +1,13 @@
+---
+# file: roles/ansible/tasks/main.yml
+
+
+
+# Install default packages
+  - name: Install ansible  dconf packages
+    tags: ansible
+    command: curl https://raw.github.com/jistr/ansible-dconf/master/dconf.py > ~/Documents/ansible/ansible_dir/library/dconf
+
+  - name: Install ansible fail2ban packages
+    tags: ansible
+    command: ansible-galaxy install ANXS.fail2ban

@@ -1,0 +1,9 @@
+---
+# file: roles/common/tasks/setresolv.yml
+    
+# Update /etc/resolv.conf file
+  - name: Setup | /etc/resolv.conf
+    copy: src=resolv.conf dest=/run/resolvconf/resolv.conf owner=root group=root mode=644
+    become: yes
+    tags: resolv
+

@@ -1,0 +1,17 @@
+---
+# Users on pcbureau
+users:
+  - {login: coline, 
+     comment: Coline, 
+     uid: 1003, 
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbl0V8q6LGrPO89dH6zgCf5qgLtywxW27gKr85QEDU9NF1J/0eeh7AiQFjx9D+qO4UEda8p5Qw1AREoF0D7mpIac2Do2QTrxsW07ss1ehbb0gOJZBsEBHaeliZKDasEzEDNId6QbwskOlLftY8uxHhhux8hm4JjK4rx0RVrFSZ0gV1xjAq0CWExTwDZ+ko/LWQjvuNd6Z61OLBK0MTZScMDZQrwh6zqjQxWi22ynTePsHmRJ3vODIgAWkN6daVPUZZithKByUL5ZK2pA+F13YNYq+jANwTgqewSyxsYuH1U/g+HxI/eddSbGqR7DiDkscG9hnPNcMN6ZApyLhVkbYP ansible-generated
+    }
+  - {login: franck,
+     comment: Franck,
+     uid: 1000,
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAtT0qsmJgVfXG7l6j0j7lXehQwb0EMqgPkeLqFzJXfrjupcxxXVESa3tzR1JT7XCx3PDqiF+qICtP2JR5zEsFCMVuFf4RJLyEEdJqqJ6oxmDaC6ftR+MfXnXLCy/6rrH9N28ks7gscHovB2FdbC5nXMRp4asD8tsOcqQjT+ivZZsl1N46l+Zo6/rRmamNY/as0v25uXmdYSrPH+NNlQ9o1CG/IMlF/3fzcj5xu7SRGS/jLEaEbYpEggAl10TxRRsKCFJRPm0chyNLPsmMCxbDk1AOINhVh8CLMf8thIiCBEsg2M0ilCIL5jjD0WMbk18oGNPezSXoyzVL+ta6TeMl6w== franck@riantec
+     }
+  - {login: marie, comment: Marie, uid: 1002,
+     public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFXdurVJXBQErI2Yz7drUmvha/e+JTakbuadPXQhFxO2+XzWD0KkT5Ry/N7oX+amP3j5djbJugczqFNK7X6ESSSCjLxX5sc8+JKfxJelaLVfXN1QUv5dmavT+HJnp7P8dFVP22WQGdl7xzREmkwW98KfCaf/+A62dOld9G7dL2qE7lxK/l+E2zU7gqo4apfKcZWFhkR0++jujp2WsROrzgLEWkhDH77SHtqyVZMBwI6BdZTMF67WDJPJOLesmTL1+4FNgIhthlQY5Q7eP+Sr7E5+EltjA2mL+hrYP/tV4lNiotbwjsH8Tdj8pfI1obP1i/exB9QTnS7u/Pg0iPqAeF ansible-generated}
+  - {login: paul, comment: Paul, uid: 1001,
+     public_key: ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGtuTVwQjXN26bNZRO7QLYUZH/YoA7QBZMxQsaDWCvUKT1XjGl3Gg3c+N0jgCBSAUbG7krJwYGzvgSEdZ+9wzVyuQOuRAePcJteIJeBIa0rkVb/r/sJvG0MmACHP3qR/jLAWa/LLVlSAB+qozuWx+kT8JpYGDHE2KrbFbmnFXgaC3VvIP6boLbYoiTrpOLsDtwuPQ5X0v610YOIsFVn5hE6aO5TTluqUX2z7a4WyfS5Krhzdsv784iZph5iliwHbaXCywZSc9nlizQ1a7zKNAx2rlw+WLC/DGDST26nx3mziVcQ8Zg5vLIpx/tchw3eyuu0ht1FZGv+DitXT34lKgF ansible-generated}

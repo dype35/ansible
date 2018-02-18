@@ -1,0 +1,50 @@
+---
+# file: vps.yml
+
+
+- hosts: vps
+  remote_user: franck
+  become: yes
+  vars:
+    dbdir: /home/franck/Documents/site/pronofoot35/_backup.base
+    default_runlevel: 3
+    ssh_port: 2222
+    bck_target_dir: /home/franck/Documents/site/pronofoot35    
+    bck_source_dir: backup/
+    mysql_database: pronostics
+    mysql_backup_dir: backup/_backup.base
+    dir2archive: /home/franck/html/pronostics5
+    archive_dir: backup/_backup.site
+
+
+  roles:
+    - influxdb
+    - aliases
+    - php-fpm
+    - redis
+    - tt-rss
+    - shm
+    - archive
+    - mysqldump
+    - mysql
+    - cron-apt
+    - checkrestart
+    - apache2
+    - motd
+    - dbserver
+    - security
+    - firewall
+    - sshd
+    - postfix
+    - fail2ban
+    - logwatch
+    - fstrim
+    - collectd
+    - cgp
+    - bashrc
+    - lynis
+    - syslog-ng
+    - sshbackup
+    - apache-sites
+#    - well-known
+    - inventory

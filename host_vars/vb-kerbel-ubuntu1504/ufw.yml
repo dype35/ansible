@@ -1,0 +1,11 @@
+---
+# ufw specifics rules for kerbel
+
+ufw:
+# Allow ssh
+  - {rule: allow, 
+     port: 22, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+

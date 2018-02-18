@@ -1,0 +1,42 @@
+---
+# File: main.yml
+# Part: nginx
+#
+# Description: install nginx
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: 
+#
+- block:
+   - name: Install nginx packages
+     apt: pkg={{ item }} state=present
+     with_items:
+       - nginx
+     notify:
+       - nginx-restart
+
+   - name: change default port (avoid conflics with apache)
+     lineinfile: dest=/etc/nginx/sites-available/default
+                state=present
+                regexp="^(\s*)listen 80"
+                line="        listen 8080;"
+     notify:
+       - nginx-restart
+
+   - name: disable ipv6
+     lineinfile: dest=/etc/nginx/sites-available/default
+                state=present
+                regexp="^(\s*)listen \[\:\:\]\:80"
+                line="#        listen \[\:\:\]\:80;"
+     notify:
+       - nginx-restart
+
+  tags: nginx
+  become: yes
+  
+

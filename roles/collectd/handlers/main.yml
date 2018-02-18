@@ -1,0 +1,17 @@
+---
+# Handlers for collectd notifications.
+
+- name: restart collectd
+  become: yes
+  service: >
+    name=collectd
+    state=restarted
+    enabled=yes
+
+- name: restart rsyslog
+  become: yes
+  service: >
+    name=rsyslog
+    state=restarted
+    enabled=yes
+

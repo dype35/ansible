@@ -1,0 +1,10 @@
+---
+# packages on servers
+packages: 
+  lftp: lftp
+  openshot: openshot
+  terminator: terminator
+  remmina: remmina
+  mercurial: mercurial
+  etckeeper: etckeeper
+

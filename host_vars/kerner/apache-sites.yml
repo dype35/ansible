@@ -1,0 +1,143 @@
+---
+asites:
+  glpi:
+    ServerName:		glpi.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/usr/share/glpi
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    ForceHttps:		true	# force redirect htpp to https
+    SetHttpConf:	true		# set a http virtualhost conf 
+    ForceConf:		true		# set a http conf file
+    phpfpm:		true		# use php-fpm
+
+
+  cgp:
+    ServerName:		cgp.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/var/www/cgp
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+
+  pronofoot5:
+    ServerName:		prono5.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/pronostics5
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+    SpecificConf:       SpecificConf/prono.conf
+#    SpecificConf:       SpecificConf/cakephp.conf
+    phpfpm:		true		# use php-fpm
+    log:		/home/franck/public_html/pronostics5/tmp/logs
+
+
+  pronofoot6:
+    ServerName:		prono6.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/pronostics6
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SpecificConf:       SpecificConf/cakephp.conf
+    SetHttpConf:	true
+#    ForceHttps:		true
+    log:		/home/franck/public_html/pronostics6/tmp/logs
+
+  phpmyadmin:
+    ServerName:		mysql.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/usr/share/phpmyadmin
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    SpecificConf:       SpecificConf/phpmyadmin.conf
+    SpecificConf:       SpecificConf/phpmyadmin2.conf
+#    SetHttpConf:	true
+#    ForceHttps:		true
+
+  gplus:
+    ServerName:		gplus.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/gplus-quickstart-php
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    SpecificConf:       SpecificConf/phpmyadmin.conf
+#    SpecificConf:       SpecificConf/phpmyadmin2.conf
+#    SetHttpConf:	true
+#    ForceHttps:		true
+
+  p35:
+    ServerName:		p35.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/p35
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/public_html/p35/logs
+    phpfpm:		true		# use php-fpm
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+  amp.p35:
+    ServerName:		amp.p35.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/p35
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/public_html/p35/logs
+    phpfpm:		true		# use php-fpm
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+
+  asendurance:
+    ServerName:		asendurance.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/asendurance
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/public_html/asendurance/logs
+    phpfpm:		true		# use php-fpm
+
+  macave:
+    ServerName:		macave.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/macave
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	false
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/public_html/macave/logs
+    phpfpm:		true		# use php-fpm
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+

@@ -1,0 +1,16 @@
+---
+# file: roles/security/tasks/umask.yml
+
+  - name: AUTH-9328 - Default umask login.defs
+    tags: umask
+    lineinfile: dest=/etc/login.defs
+              state=present
+              regexp="UMASK"
+              line="UMASK		022"
+
+  - name: AUTH-9328 - Default umask rc
+    tags: umask
+    lineinfile: dest=/etc/init.d/rc
+              state=present
+              regexp="umask"
+              line="umask 022"

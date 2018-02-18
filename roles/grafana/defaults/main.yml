@@ -1,0 +1,17 @@
+# file: influx/defaults/main.yml
+
+
+influxdb_server_addr: 127.0.0.1
+influxdb_server_port: 25826
+
+influxdb_collectd_enabled: true
+
+
+influxdb_conf:
+  collectd:
+    enable:	  yes
+    bind-address: ":25826"
+    database:     "collectd_db"
+    typesdb:      "/usr/share/collectd/types.db"
+
+

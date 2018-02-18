@@ -1,0 +1,41 @@
+---
+# file: roles/packages/tasks/main.yml
+
+  - block:
+    - name: Install specifics packages (defined in group_vars and host_vars)
+      apt: pkg={{ item.value }} state=latest autoremove=yes
+      with_dict: '{{ packages | combine(packages_all) }}'
+      ignore_errors: yes
+     
+
+     # Purge unused packages
+    - name: Purge unused packages
+      apt: name={{ item }} state=absent purge=yes autoremove=yes
+      with_items:
+       - bluez-alsa
+       - bluez-cups
+       - modemmanager
+       - ppp
+       - remote-login-service
+       - speech-dispatcher
+       - tracker-extract  
+       - gnome-orca
+       - onboard
+       - deja-dup
+       - myspell-en-za
+       - myspell-en-au
+       - libreoffice-l10n-en-za
+       - ppp
+       - pppconfig
+       - pppoeconf
+       - wvdial
+       - gnome-accessibility-themes
+       - bum
+       - ubuntuone-client-data
+       - evolution-data-server
+       - deja-dup
+       - deja-dup-backend-gvfs
+
+    become: yes
+    tags: packages
+

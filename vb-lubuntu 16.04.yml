@@ -1,0 +1,26 @@
+---
+# file: vb-lubuntu-16.04.yml
+
+
+- hosts: vb-lubuntu-16.04
+  user: franck
+  become: yes
+  vars:
+#    hash_behaviour: merge
+    default_runlevel: 2
+    ansible_ssh_host: 10.35.0.212
+    ssh_port: 22
+
+  roles:
+    - influxdb
+#    - cgp
+#    - autosecupdate
+#    - postfix
+    - collectd
+    - aliases
+#    - php-fpm
+#    - apache-sites
+#    - shm
+    - hosts
+    - motd
+#    - packages

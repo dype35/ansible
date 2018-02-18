@@ -1,0 +1,29 @@
+---
+# File: mail.yml
+# Part: fstrim
+#
+# Description: disable weekly fstrim exec
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- name: stat /etc/cron.weekly/fstrim
+  tags: fstrim
+  stat: path=/etc/cron.weekly/fstrim
+  register: fstrim_stat
+  
+#- debug: var=fstrim_stat
+#  tags: fstrim
+
+- name: disable weekly fstrim exec
+  tags: fstrim
+  become: yes
+  command: mv /etc/cron.weekly/fstrim /etc/cron.weekly/fstrim.disabled
+  when: fstrim_stat.stat.exists
+
+

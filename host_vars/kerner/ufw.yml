@@ -1,0 +1,37 @@
+---
+# ufw specifics rules for kerbel
+
+ufw:
+  # Allow web
+  - {rule: allow, 
+     port: 80, 
+    proto: tcp,
+     src: 10.35.0.0/24
+    }
+  - {rule: allow, 
+     port: 443, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+
+  # Allow collectd
+  - {rule: allow, 
+     port: 25826, 
+     proto: udp,
+     src: 10.35.0.0/24
+    }
+
+  # Allow fusioninventory agent
+  - {rule: allow, 
+     port: 62354, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+
+  # Allow jenkins
+  - {rule: allow, 
+     port: 8080, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+

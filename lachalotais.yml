@@ -1,0 +1,21 @@
+---
+# file: lachalotais.yml
+
+- hosts: lachalotais
+  connection: local
+  vars:
+    bck_site: http://sql.free.fr/
+    bck_site_dir: .
+    bck_script: backup.php
+    bck_login: lachalotais
+    bck_db: lachalotais
+    bck_mysql_host: localhost
+    bck_ftp_site: ftpperso.free.fr
+    bck_ftp_login: lachalotais
+    bck_target_dir: /home/franck/Documents/site/lachalotais
+    install_backup_script: no
+    free: True
+
+  roles:
+    - ftpbackup
+    - mysqlbck

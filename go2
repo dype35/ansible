@@ -1,0 +1,33 @@
+#!/bin/bash
+
+choix[0]='ansible-playbook -i production site.yml  --syntax-check --list-tasks'
+
+choix=$(zenity --list \
+  --title="Choisir la commande à lancer" \
+  --radiolist \
+  --width=1000 --height=500 \
+  --column="choix" \
+  --column="commande" \
+    2 "ansible-playbook -i production site.yml  --ask-sudo-pass" \
+    1 "ansible-playbook -i production site.yml  --syntax-check --list-tasks" \
+    1 "ansible-playbook -i production site.yml  --ask-sudo-pass --tags ntp" \
+    1 "ansible-playbook -i production site.yml  --ask-sudo-pass --tags glpi" \
+    1 "ansible-playbook -i production pcbureau.yml  --ask-sudo-pass --tags wifi" \
+    1 "ansible-playbook -i production test.yml  --ask-sudo-pass --tags test" \
+    1 "ansible -m setup kerbel" \
+    1 "ansible kerbel -m setup -a \"filter=ansible_distribution_release\"" \
+    1 "ansible-playbook -i production test.yml  --ask-sudo-pass --tags settings --module-path ~/Documents/ansible/ansible_dir/library" \
+   1 "ansible windows -i production -m win_ping --ask-vault-pass" \
+   1 "ansible-playbook -i production windows.yml --ask-vault-pass" \
+   1 "ansible-playbook -i production vm.yml  --ask-sudo-pass" \
+   1 "ansible-playbook -i production webservers.yml --tags bootstrap" \
+   1 "ansible-playbook -i production vps.yml --vault-password-file ~/.vault_pass.txt" \
+   1 "ansible-playbook -i production vpsas.yml --vault-password-file ~/.vault_pass.txt" \
+   1 "ansible-playbook -i production wordpress.yml --vault-password-file ~/.vault_pass.txt" \
+)
+
+ notify-send "$choix"
+    
+echo $choix
+$choix
+

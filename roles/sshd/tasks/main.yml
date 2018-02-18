@@ -1,0 +1,112 @@
+---
+# File: sshd/tasks/main.yml
+# Part:sshd
+#
+# Description: configure ssh server
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- block:
+  - name: sshd | Limit number of unauthenticated sessions
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^MaxStartups"
+                line="MaxStartups 5:50:15"
+
+
+  - name: sshd | Empty passwd is dissallow
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^PermitEmptyPasswords"
+                line="PermitEmptyPasswords no"
+
+
+  - name: sshd | reduce login grace time
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^LoginGraceTime"
+                line="LoginGraceTime 20s"
+
+
+  - name: sshd | reduce max auth tries
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^MaxAuthTries"
+                line="MaxAuthTries 1"
+
+
+  - name: sshd | disable root login
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^PermitRootLogin"
+                line="PermitRootLogin no"
+ 
+  - name: sshd | for X11 forward
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^AddressFamily"
+                line="AddressFamily inet"
+
+  - name: sshd | Disable Password Authentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="^ChallengeResponseAuthentication"
+                line="ChallengeResponseAuthentication no"
+  
+  - name: sshd | Disable Password Authentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="PasswordAuthentication"
+                line="PasswordAuthentication no"
+                  
+  - name: sshd | Disable Password Authentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="UsePAM"
+                line="UsePAM no"
+ 
+  - name: sshd | Hide server information
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="DebianBanner"
+                insertafter="Banner "
+                line="DebianBanner no"
+  
+  - name: sshd | AllowUsers
+    when: AllowUsers is defined
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="AllowUsers"
+                insertafter="PermitEmptyPasswords "
+                line="AllowUsers {{ AllowUsers }}"
+ 
+  - name: sshd | GatewayPorts (allow tunnel)
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="GatewayPorts"
+                line="GatewayPorts yes"
+
+  - name: sshd | Remove deprecated option
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=absent
+                regexp="^{{ item }}"
+    with_items:
+     - KeyRegenerationInterval 
+     - ServerKeyBits
+     - RSAAuthentication
+     - RhostsRSAAuthentication
+    notify: 
+     - sshd-restart
+  
+
+
+  tags: sshd
+  become: yes
+  
+

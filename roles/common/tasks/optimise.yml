@@ -1,0 +1,14 @@
+---
+# file: roles/common/tasks/optimise.yml
+    
+# Reduce priority
+
+  - name: Reduce priority of update-apt-xapian-index
+    become: yes
+    tags: optimise
+    lineinfile: dest=/etc/cron.daily/apt
+                state=present
+                regexp="nice ionice(.*)"
+                line="nice -n 19 ionice\1"
+                backrefs=True
+

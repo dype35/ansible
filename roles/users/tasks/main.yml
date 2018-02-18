@@ -1,0 +1,26 @@
+---
+# file: roles/users/tasks/main.yml
+
+# Create users
+  - name: Setup | Create users
+    become: yes
+    user: name={{ item.login }} comment={{ item.comment }} uid={{ item.uid }}
+    
+    with_items:
+      - "{{ users }}"
+    tags:
+      - users
+ 
+  - debug: msg="Ne pas oublier de positionner un mot de passe"
+    tags: users
+
+
+# Manage public key
+  - name: Set up authorized_keys for the deploy user
+    become: yes
+    authorized_key: user={{ item.login }} key="{{ item.public_key }}"
+    with_items:
+      - "{{ users }}"
+    tags:
+      - users
+      - public_key

@@ -1,0 +1,16 @@
+---
+# file: roles/common/tasks/tmp.yml
+    
+# Move /tmp to RAM
+
+  - name: Move /tmp to RAM
+    tags: tmp
+    become: yes
+#    lineinfile: dest=/etc/fstab
+#                state=present
+#                line="# Move /tmp to RAM"
+    lineinfile: dest=/etc/fstab
+                state=present
+                regexp="^tmpfs /tmp"
+                line="tmpfs /tmp tmpfs defaults,nosuid 0 0"
+

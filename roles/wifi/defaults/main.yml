@@ -1,0 +1,6 @@
+# file: wifi/defaults/main.yml
+
+WirelessEnabled: false
+WWANEnabled: false
+WimaxEnabled: false
+

@@ -1,0 +1,46 @@
+---
+# File: main.yml
+# Part: Etckeeper
+#
+# Description: Etckeeper : install and configure
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+
+- block:
+  - name: Install etckeeper packages
+    apt: pkg={{ item }} state=present
+    with_items:
+      - etckeeper
+
+  - name: Do not use git
+    lineinfile: dest=/etc/etckeeper/etckeeper.conf
+                state=present
+                regexp="VCS=\"git\""
+                line="#VCS=\"git\""
+
+  - name: Use hg
+    lineinfile: dest=/etc/etckeeper/etckeeper.conf
+                state=present
+                regexp="VCS=\"hg\""
+                line="VCS=\"hg\""
+
+  - name: Check if .hg exists
+    stat: path=/etc/.hg
+    register: etc_keeper
+
+  - name: Initializing the Repository
+    command: etckeeper init chdir=/etc
+    when: etc_keeper.stat.exists == False
+
+  - name: Initial Commit
+    command: etckeeper commit "First commit of my /etc directory" chdir=/etc
+    when: etc_keeper.stat.exists == False
+
+  tags: etckeeper
+  become: yes

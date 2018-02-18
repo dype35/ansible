@@ -1,0 +1,35 @@
+---
+# file: roles/influxdb/tasks/main.yml
+
+- block:
+  - name: Import InfluxDB GPG signing key
+    apt_key: url=https://repos.influxdata.com/influxdb.key state=present
+
+  - name: Install apt-transport-https packages
+    apt: name=apt-transport-https state=present
+
+  - name: Add InfluxDB repository
+    apt_repository: repo='deb https://repos.influxdata.com/ubuntu {{ ansible_distribution_release }} stable' state=present
+  
+  - name: Install python-influxdb packages
+    apt: name=python-influxdb state=present
+
+  - name: Install InfluxDB packages
+    apt: 
+      name: influxdb
+      state: present
+      update_cache: yes
+
+  - name: Modify InfluxDB hostname
+    lineinfile:
+      dest=/etc/influxdb/influxdb.conf
+      regexp='hostname = '
+      line='hostname = "{{ ansible_hostname }}"'
+      backup=yes
+
+
+  - name: Start the InfluxDB service
+    service: name=influxdb state=restarted
+
+  tags:
+      - influxdb

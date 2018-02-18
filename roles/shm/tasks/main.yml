@@ -1,0 +1,25 @@
+---
+# File: main.yml
+# Part: shm
+#
+# Description: secure shm
+#  Shared memory can be used in an attack against a running service
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: 
+#
+
+
+- name: secure shm
+  become: yes
+  tags: 
+    - shm
+  lineinfile: dest=/etc/fstab
+                state=present
+                create=yes
+                line="tmpfs     /run/shm     tmpfs     defaults,noexec,nosuid     0     0"

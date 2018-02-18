@@ -1,0 +1,14 @@
+---
+# file: roles/test/tasks/main.yml
+    
+
+# Install default packages
+  - name: test {{ssh_port}}
+    tags: test
+    file: path=/tmp/web owner=franck state=directory
+
+  - name: test {{ssh_port}}
+    tags: test
+    file: path=/tmp/web owner=franck state=absent
+
+

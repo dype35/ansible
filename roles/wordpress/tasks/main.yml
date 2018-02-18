@@ -1,0 +1,9 @@
+---
+# file: roles/wordpress/tasks/main.yml
+    
+
+  - include: ssh.yml
+    when: wptype == 'ssh'
+
+  - include: ftp.yml
+    when: wptype == 'ftp'

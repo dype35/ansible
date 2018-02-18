@@ -1,0 +1,8 @@
+---
+
+    - name: fusion-start
+      command: /usr/bin/fusioninventory-agent
+
+    - name: apache-restart
+      become: yes
+      service: name=apache2 state=restarted

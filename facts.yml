@@ -1,0 +1,17 @@
+# set facts
+  - name: setting default facts
+    set_fact:
+      php_ver: "php7"
+      php_conf_dir: "/etc/php/7.1"
+      php_fpm_pkg: "php-fpm"
+      php_run_dir: "/var/run/php"
+      php_fpm_service: "php7.1-fpm"
+
+  - name: setting debian facts
+    set_fact:
+      php_ver: "php5"
+      php_conf_dir: "/etc/php5"
+      php_fpm_pkg: "php5-fpm"
+      php_run_dir: "/var/run"
+      php_fpm_service: "php5-fpm"
+    when: ansible_distribution == "Debian" and ansible_distribution_major_version <= "8"

@@ -1,0 +1,113 @@
+---
+# File: role/firewall/main.yml
+# Part:firewall
+#
+# Description: configure firewall rules
+#
+# Parameters:
+# - 
+#
+# Dependencies 
+# 
+#
+# OS: Ubuntu
+- name: Install ufw package
+  become: yes
+  tags: fw
+  apt: pkg={{ item }} state=present
+  with_items:
+     - ufw
+
+- name: fw | disable IPV6 in /etc/default/ufw
+  become: yes
+  lineinfile: dest=/etc/default/ufw
+                state=present
+                regexp="^IPV6="
+                line="IPV6=no"
+  tags: fw
+
+
+# reset firewall
+- name: fw | reset
+  ufw: state=reset
+  become: yes
+  tags: fw
+
+# Reject everything and enable UFW
+- name: fw | enable
+  ufw: state=enabled policy=reject
+  become: yes
+  tags: fw
+
+
+# Set logging
+- name: fw | set logging
+  ufw: logging=off
+  become: yes
+  tags: fw
+
+- name: fw | disable ipv6
+  ufw: rule=reject proto=ipv6
+  become: yes
+  tags: fw
+
+- name: fw | allow outgoing
+  ufw: rule=allow interface=enp0s20 direction=out
+  become: yes
+  tags: fw
+
+
+
+# ssh
+# pas necessaire avec fail2ban qui bloque dynamiquement
+#- name: fw | reject tcp/22 from specific adresses
+#  ufw: rule=deny port=22 proto=tcp src={{ item }}
+#  with_items:
+#     - 14.63.244.42
+#     - 113.193.31.220
+#     - 118.98.43.33
+#     - 121.101.208.41
+#     - 144.0.0.34
+#  become: yes
+#  tags: fw
+
+# Allow ssh
+- debug: msg="ssh on port  {{ ansible_ssh_port }}/tcp"
+  tags: fw
+
+- name: fw | Allow ssh 
+#  ufw: rule=allow port=22 proto=tcp
+  ufw: rule=allow port={{ ansible_ssh_port }} proto=tcp src=10.35.0.0/24
+  become: yes
+  tags: fw
+
+
+#- name: fw | Allow tcp/2222
+#  ufw: rule=allow port=2222 proto=tcp
+#  become: yes
+#  tags: fw
+
+# Manage hosts dependant rules
+- name: Manage hosts dependant rules
+  ufw: rule={{ item.rule }} port={{ item.port }} proto={{ item.proto }} src={{ item.src }}
+  with_items:
+    - "{{ ufw }}"
+  become: yes
+  tags: fw
+      
+# Allow ping
+#- name: fw | Allow icmp
+#  shell: ufw allow from 10.35.0.0/24 
+#  become: yes
+#  tags: fw
+
+- name: fw | deny incoming
+  ufw: rule=reject direction=in
+  become: yes
+  tags: fw
+
+- name: enable ufw and block everything else
+  ufw: state=enabled policy=deny
+  become: yes
+  tags: fw
+

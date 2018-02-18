@@ -1,0 +1,7 @@
+---
+
+  # collectd status
+  collectd_server: true
+
+  # Wifi status
+  WirelessEnabled: true
