@@ -1,8 +1,9 @@
-
-addondir: /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}   
-tmpdir: /tmp/addon
-addons: 
-  ghostery:   https://addons.mozilla.org/firefox/downloads/latest/9609/addon-9609-latest.xpi
-  cookieswap: https://addons.mozilla.org/firefox/downloads/latest/3255/addon-3255-latest.xpi
-  uaswitcher: https://addons.mozilla.org/firefox/downloads/latest/59/addon-59-latest.xpi
-  qwant:      https://addons.mozilla.org/firefox/downloads/latest/544242/addon-544242-latest.xpi
+---
+  addondir: /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}   
+  tmpdir: /tmp/addon
+  firefox_addons: 
+    cookieswap: https://addons.mozilla.org/firefox/downloads/latest/3255/addon-3255-latest.xpi
+    uaswitcher: https://addons.mozilla.org/firefox/downloads/latest/59/addon-59-latest.xpi
+    privacyBdg: https://www.eff.org/files/privacy-badger-latest.xpi
+#  ghostery:   https://addons.mozilla.org/firefox/downloads/latest/9609/addon-9609-latest.xpi
+#  qwant:      https://addons.mozilla.org/firefox/downloads/latest/544242/addon-544242-latest.xpi

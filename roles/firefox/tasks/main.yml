@@ -14,18 +14,19 @@
 
 
 - name: Install firefox package
-  sudo: yes
+  become: yes
   tags: firefox
   apt: pkg={{ item }} state=present
   with_items:
      - firefox
 
-- name: firefox | download add-ons
-  sudo: yes
-  tags: firefox
-  get_url: url={{ item.value }} dest={{ addondir }} mode=0755
-  register: ext
-  with_dict: addons
+#- name: firefox | download addons
+#  become: yes
+#  tags: firefox
+#  get_url: url={{ item.value }} dest={{ firefox.addondir }} mode=0755
+#  register: ext
+#  with_dict: firefox_addons | default({})
+#  when: firefox_addons is defined
 
 
 # target name : firefox@ghostery.com.xpi
@@ -39,37 +40,37 @@
 #  tags: firefox
 #  debug: var="{{ ext.results[0].dest }}"
 
-- name: firefox | create tmp dir
-  tags: firefox
-  file: path={{ tmpdir }}/{{ item.item.key }} state=directory mode=0700
-  with_items: "{{ ext.results }}"
+#- name: firefox | create tmp dir
+#  tags: firefox
+#  file: path={{ tmpdir }}/{{ item.item.key }} state=directory mode=0700
+#  with_items: "{{ ext.results }}"
 
 
 #- name: firefox | unzip add-ons
 #  tags: firefox
 #  unarchive: src={{ ext.results[0].dest }} dest={{ tmpdir }} copy=no
 
-- name: firefox | unzip add-ons
-  tags: firefox
-  unarchive: src={{ item.dest }} dest={{ tmpdir }}/{{ item.item.key }} copy=no mode=0700
-  with_items: "{{ ext.results }}"
+#- name: firefox | unzip add-ons
+#  tags: firefox
+#  unarchive: src={{ item.dest }} dest={{ tmpdir }}/{{ item.item.key }} copy=no mode=0700
+#  with_items: "{{ ext.results }}"
 
 
 #grep -A 1 -E 'install-manifest' install.rdf | grep -e '<em:id>.*</em:id>' |cut -d\> -f2|cut -d\< -f1
-- name: firefox | search the plugin name
-  tags: firefox
-  shell: grep -A6 -E 'install-manifest' {{ tmpdir }}/{{ item.item.key }}/install.rdf | grep -e '<em:id>.*</em:id>' |cut -d\> -f2|cut -d\< -f1
-  register: re
-  with_items: "{{ ext.results }}"
+#- name: firefox | search the plugin name
+#  tags: firefox
+#  shell: grep -A6 -E 'install-manifest' {{ tmpdir }}/{{ item.item.key }}/install.rdf | grep -e '<em:id>.*</em:id>' |cut -d\> -f2|cut -d\< -f1
+#  register: re
+#  with_items: "{{ ext.results }}"
 
 #- name: firefox | debug 3
 #  tags: firefox
 #  debug: var=re
 #  with_items: "{{ ext.results }}"
 
-- name: firefox | rename the file
-  sudo: yes
-  tags: firefox
-  command: mv {{ item.item.dest }} {{ addondir }}/{{ item.stdout }}.xpi
-  with_items: "{{ re.results }}"
+#- name: firefox | rename the file
+#  become: yes
+#  tags: firefox
+#  command: mv {{ item.item.dest }} {{ addondir }}/{{ item.stdout }}.xpi
+#  with_items: "{{ re.results }}"
 
