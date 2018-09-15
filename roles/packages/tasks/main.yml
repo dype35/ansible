@@ -21,18 +21,15 @@
        - tracker-extract  
        - gnome-orca
        - onboard
-       - deja-dup
        - myspell-en-za
        - myspell-en-au
        - libreoffice-l10n-en-za
-       - ppp
        - pppconfig
        - pppoeconf
        - wvdial
        - gnome-accessibility-themes
        - bum
        - ubuntuone-client-data
-       - evolution-data-server
        - deja-dup
        - deja-dup-backend-gvfs
 

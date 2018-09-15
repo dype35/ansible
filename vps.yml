@@ -2,7 +2,7 @@
 # file: vps.yml
 
 
-- hosts: vps
+- hosts: vps-ovh
   remote_user: franck
   become: yes
   vars:

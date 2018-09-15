@@ -10,7 +10,7 @@ asites:
 #    ForceHttps:		true	# force redirect htpp to https
     SetHttpConf:	true		# set a http virtualhost conf 
     ForceConf:		true		# set a http conf file
-    phpfpm:		true		# use php-fpm
+#    phpfpm:		true		# use php-fpm
 
 
   cgp:
@@ -34,7 +34,7 @@ asites:
 #    ForceHttps:		true
     SpecificConf:       SpecificConf/prono.conf
 #    SpecificConf:       SpecificConf/cakephp.conf
-    phpfpm:		true		# use php-fpm
+#    phpfpm:		true		# use php-fpm
     log:		/home/franck/public_html/pronostics5/tmp/logs
 
 
@@ -86,10 +86,30 @@ asites:
 #    SpecificConf:       SpecificConf/prono.conf
     SpecificConf:       SpecificConf/cakephp.conf
     log:		/home/franck/public_html/p35/logs
-    phpfpm:		true		# use php-fpm
+#    phpfpm:		true		# use php-fpm
     pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
     pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
     pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+  p35g:
+    ServerName:		p35g.kerbel
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/home/franck/public_html/p35g
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    RedirectBlock:      SpecificConf/redirect.conf
+    log:		/home/franck/public_html/p35g/logs
+    phpfpm:		true		# use php-fpm
+#    phpfpm_pool:        p35g
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 10   # Si non defini ici, utilisation de valeur par defaut du template
+
 
   asendurance:
     ServerName:		asendurance.kerbel
@@ -103,5 +123,8 @@ asites:
 #    SpecificConf:       SpecificConf/prono.conf
     SpecificConf:       SpecificConf/cakephp.conf
     log:		/home/franck/public_html/asendurance/logs
-    phpfpm:		true		# use php-fpm
+#    phpfpm:		true		# use php-fpm
+    pm.start_servers:	2
+    pm.min_spare_servers: 2
+    pm.max_spare_servers: 10
 

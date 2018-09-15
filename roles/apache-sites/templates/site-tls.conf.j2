@@ -21,6 +21,10 @@
 		ServerAdmin {{ item.value.ServerAdmin }}
 		DocumentRoot {{ item.value.DocumentRoot }}
 
+		{% if item.value.RedirectBlock is defined %}
+		{% include item.value.RedirectBlock ignore missing %}
+        {% endif %}
+
 		# Guarantee HTTPS for 1 Year including Sub Domains 
 		Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 		Header always set X-Content-Type-Options "nosniff"
@@ -130,7 +134,6 @@
 
         alias /robots.txt /var/www/html/robots.txt
 #        alias /sitemap.xml /var/www/html/sitemap.xml
-#        alias /.well-known /var/www/html/.well-known.{{ item.value.ServerName }}        
         alias /.well-known /var/www/html/.well-known
 
 

@@ -8,6 +8,11 @@ ufw:
      proto: tcp,
      src: 10.35.0.0/24
     }
+  - {rule: allow, 
+     port: 443, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
   # Allow influxdb
   - {rule: allow, 
      port: 8086, 

@@ -92,6 +92,32 @@
                 regexp="GatewayPorts"
                 line="GatewayPorts yes"
 
+  - name: sshd | AllowTcpForwarding No
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="AllowTcpForwarding"
+                line="AllowTcpForwarding no"
+
+  - name: sshd | ClientAliveCountMax 2
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="ClientAliveCountMax"
+                line="ClientAliveCountMax 2"
+
+  - name: sshd | GatewayPorts No
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="GatewayPorts"
+                line="GatewayPorts No"
+
+  - name: sshd | TCPKeepAlive No
+    lineinfile: dest=/etc/ssh/sshd_config
+                state=present
+                regexp="TCPKeepAlive"
+                line="GatewayPorts No"
+
+
+
   - name: sshd | Remove deprecated option
     lineinfile: dest=/etc/ssh/sshd_config
                 state=absent

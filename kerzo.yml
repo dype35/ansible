@@ -45,4 +45,5 @@
     - lynis
     - firefox
 #    - apache2
+    - apache-sites
 

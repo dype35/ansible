@@ -3,6 +3,7 @@
 Alias /{{ item.key }} {{ item.value.DocumentRoot }}
 
 <Directory {{ item.value.DocumentRoot }}>
+    SetOutputFilter DEFLATE
     Options FollowSymLinks
     DirectoryIndex index.php
 </Directory>

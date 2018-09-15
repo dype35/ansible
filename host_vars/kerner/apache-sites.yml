@@ -108,6 +108,23 @@ asites:
     pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
     pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
 
+  amp:
+    ServerName:		amp.{{ hostvars[inventory_hostname]['ansible_hostname'] }}
+    ServerIp:		"{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    DocumentRoot:	/home/franck/public_html/p35
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/public_html/p35/logs
+    phpfpm:		true		# use php-fpm
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
 
   asendurance:
     ServerName:		asendurance.{{ hostvars[inventory_hostname]['ansible_hostname'] }}

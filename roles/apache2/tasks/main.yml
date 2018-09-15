@@ -24,7 +24,7 @@
        - php-gettext
        - apache2
        - apache2-utils
-       - php-mcrypt
+       #- php-mcrypt
        - php-intl
        #- awstats
 
@@ -191,7 +191,7 @@
     - expires
     - headers
     - ssl
-    - php7.1
+    - php7.2
     - mpm_prefork
     - headers
   notify:
