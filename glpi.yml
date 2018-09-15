@@ -1,0 +1,14 @@
+---
+# file: glpi.yml
+
+
+- hosts: kerbel
+  user: franck
+  become: yes
+  vars:
+    hash_behaviour: merge
+    default_runlevel: 2
+    ssh_port: 22
+
+  roles:
+    - glpi

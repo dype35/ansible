@@ -1,0 +1,32 @@
+---
+asites:
+
+  phpmyadmin:
+    ServerName:		mysql.kerzo
+    ServerIp:		10.35.0.5
+    DocumentRoot:	/usr/share/phpmyadmin
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerzo.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerzo.key
+#    SpecificConf:       SpecificConf/phpmyadmin.conf
+    SpecificConf:       SpecificConf/phpmyadmin2.conf
+#    SetHttpConf:	true
+#    ForceHttps:		true
+
+  p35:
+    ServerName:		p35.kerzo
+    ServerIp:		10.35.0.5
+    DocumentRoot:	/home/franck/pub_html/p35g
+    ServerAdmin:	franck@localhost
+    SSLCertificateFile:	/etc/apache2/tls/prono.kerzo.crt
+    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerzo.key
+    SetHttpConf:	true
+#    ForceHttps:		true
+#    SpecificConf:       SpecificConf/prono.conf
+    SpecificConf:       SpecificConf/cakephp.conf
+    log:		/home/franck/pub_html/p35g/logs
+#    phpfpm:		true		# use php-fpm
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
