@@ -1,7 +1,7 @@
 ---
 asites:
 
-  pronostics.eu:
+  www.pronostics.eu:
     ServerName:		www.pronostics.eu
     ServerIp:		_default_
     DocumentRoot:	/var/www/html/p35g
@@ -71,6 +71,41 @@ asites:
     pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
     pm_min_spare_servers: 1  # Si non defini ici, utilisation de valeur par defaut du template
     pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+  amp.www.pronostics.eu:
+    ServerName:		amp.www.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/html/p35g
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/amp.p35.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/cakephp.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    log:		/var/www/html/p35g/logs
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1  # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
+  amp.pronostics.eu:
+    ServerName:		amp.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/var/www/html/p35g
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+#    SSLCertificateChainFile: /etc/letsencrypt/live/amp.p35.pronostics.eu/chain.pem
+    SpecificConf:       SpecificConf/cakephp.conf
+#    SetHttpConf:	false
+    ForceHttps:		true
+#    log:		/var/www/html/p35g/logs
+#    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1  # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+
 
   redmine:
     ServerName:		redmine.pronostics.eu

@@ -16,17 +16,35 @@
 - block:
   - include: facts.yml
   - name: Install  packages
-    apt: pkg={{ item }} state=present
+    apt: 
+      pkg: "{{ item }}"
+      state: present
     with_items:
       - "{{ php_fpm_pkg }}"
       #- libapache2-mod-fastcgi
 
   - name: enable module
-    apache2_module: state=present name={{ item }}
+    apache2_module: 
+      state: present 
+      name: "{{ item }}"
     with_items:
       - actions
-      - fastcgi
       - alias
+      - proxy_fcgi
+#      - fastcgi
+    notify:
+      - apache-restart
+
+  - name: copy apache conf for /fpm-status
+    template:
+      src: php7.2-fpm.conf
+      dest: /etc/apache2/conf-available/php7.2-fpm.conf
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: enable conf for /fpm-status
+    command: a2enconf php7.2-fpm
     notify:
       - apache-restart
 

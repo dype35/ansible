@@ -1,130 +1,190 @@
 ---
 asites:
-  glpi:
-    ServerName:		glpi.kerbel
+  seopanel:
+    ServerName:		seo.kerbel
     ServerIp:		10.35.0.3
-    DocumentRoot:	/usr/share/glpi
+    DocumentRoot:	/opt/applications/seopanel
     ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-#    ForceHttps:		true	# force redirect htpp to https
-    SetHttpConf:	true		# set a http virtualhost conf 
-    ForceConf:		true		# set a http conf file
-#    phpfpm:		true		# use php-fpm
-
-
-  cgp:
-    ServerName:		cgp.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/var/www/cgp
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+#    SSLVerifyClient: /admin
     SetHttpConf:	true
-#    ForceHttps:		true
+    ForceHttps:		true
+    phpfpm:		true		# use php-fpm
+    phpfpm_pool:        www
+#    pm_max_children:   5     # Si non defini ici, utilisation de valeur par defaut du template (30)
+    pm_start_servers:   3     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 3   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 7   # Si non defini ici, utilisation de valeur par defaut du template
 
-  pronofoot5:
-    ServerName:		prono5.kerbel
+
+  p35k:
+    ServerName:		p35k.pronostics.eu
     ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/pronostics5
+    DocumentRoot:	/opt/applications/p35
     ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+#    SSLVerifyClient: /admin
     SetHttpConf:	true
-#    ForceHttps:		true
-    SpecificConf:       SpecificConf/prono.conf
-#    SpecificConf:       SpecificConf/cakephp.conf
-#    phpfpm:		true		# use php-fpm
-    log:		/home/franck/public_html/pronostics5/tmp/logs
-
-
-  pronofoot6:
-    ServerName:		prono6.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/pronostics6
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-    SpecificConf:       SpecificConf/cakephp.conf
-    SetHttpConf:	true
-#    ForceHttps:		true
-    log:		/home/franck/public_html/pronostics6/tmp/logs
-
-  phpmyadmin:
-    ServerName:		mysql.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/usr/share/phpmyadmin
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-#    SpecificConf:       SpecificConf/phpmyadmin.conf
-    SpecificConf:       SpecificConf/phpmyadmin2.conf
-#    SetHttpConf:	true
-#    ForceHttps:		true
-
-  gplus:
-    ServerName:		gplus.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/gplus-quickstart-php
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-#    SpecificConf:       SpecificConf/phpmyadmin.conf
-#    SpecificConf:       SpecificConf/phpmyadmin2.conf
-#    SetHttpConf:	true
-#    ForceHttps:		true
-
-  p35:
-    ServerName:		p35.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/p35
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-    SetHttpConf:	true
-#    ForceHttps:		true
-#    SpecificConf:       SpecificConf/prono.conf
-    SpecificConf:       SpecificConf/cakephp.conf
-    log:		/home/franck/public_html/p35/logs
-#    phpfpm:		true		# use php-fpm
-    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
-    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
-    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
-
-  p35g:
-    ServerName:		p35g.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/p35g
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-    SetHttpConf:	true
-#    ForceHttps:		true
-#    SpecificConf:       SpecificConf/prono.conf
+    ForceHttps:		true
     SpecificConf:       SpecificConf/cakephp.conf
     RedirectBlock:      SpecificConf/redirect.conf
-    log:		/home/franck/public_html/p35g/logs
+#    log:		/opt/applications/p35/logs
     phpfpm:		true		# use php-fpm
-#    phpfpm_pool:        p35g
-    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
-    pm_min_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
-    pm_max_spare_servers: 10   # Si non defini ici, utilisation de valeur par defaut du template
+    phpfpm_pool:        www
+#    pm_max_children:   5     # Si non defini ici, utilisation de valeur par defaut du template (30)
+    pm_start_servers:   3     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 3   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 7   # Si non defini ici, utilisation de valeur par defaut du template
 
+  p35:
+    ServerName:    p35.kerbel
+    ServerIp:    10.35.0.3
+    DocumentRoot: /opt/applications/p35
+    ServerAdmin:  franck@localhost
+    SSLCertificateFile: /etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+    SetHttpConf:  true
+    ForceHttps:   true
+#    SSLVerifyClient: /admin
+    SpecificConf:       SpecificConf/cakephp.conf
+    RedirectBlock:      SpecificConf/redirect.conf
+#    log:    /opt/applications/p35/logs
+    phpfpm:   true    # use php-fpm
+    phpfpm_pool:        www
+#    pm_max_children:   5     # Si non defini ici, utilisation de valeur par defaut du template (30)
+    pm_start_servers:   3     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 3   # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 6   # Si non defini ici, utilisation de valeur par defaut du template
+
+
+#
+  pronofoot5:
+    ServerName:    prono5.kerbel
+    ServerIp:    10.35.0.3
+    DocumentRoot:  /opt/applications/pronostics5
+    ServerAdmin: franck@localhost
+    SSLCertificateFile:  /etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+    SetHttpConf: true
+    ForceHttps:   true
+    SpecificConf:       SpecificConf/cakephp.conf
+    phpfpm:   true    # use php-fpm
+    phpfpm_pool:        www    
+    log:   /home/franck/public_html/pronostics5/tmp/logs
+
+  phpmyadmin:
+    ServerName:    mysql.kerbel
+    ServerIp:    10.35.0.3
+    DocumentRoot:  /usr/share/phpmyadmin
+    ServerAdmin: franck@localhost
+    SSLCertificateFile:  /etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+#    SSLVerifyClient: /
+    SpecificConf:       SpecificConf/phpmyadmin2.conf
+    SetHttpConf:  true
+    ForceHttps:   true
+    phpfpm:   true    # use php-fpm
+    phpfpm_pool:        www    
 
   asendurance:
-    ServerName:		asendurance.kerbel
-    ServerIp:		10.35.0.3
-    DocumentRoot:	/home/franck/public_html/asendurance
-    ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
-    SetHttpConf:	true
-#    ForceHttps:		true
-#    SpecificConf:       SpecificConf/prono.conf
+    ServerName:    asendurance.kerbel
+    ServerIp:    10.35.0.3
+    DocumentRoot:  /opt/applications/asendurance
+    ServerAdmin: franck@localhost
+    SSLCertificateFile:  /etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+    SetHttpConf: true
+    ForceHttps:   true
     SpecificConf:       SpecificConf/cakephp.conf
-    log:		/home/franck/public_html/asendurance/logs
-#    phpfpm:		true		# use php-fpm
-    pm.start_servers:	2
-    pm.min_spare_servers: 2
-    pm.max_spare_servers: 10
+    log:   /opt/applications/asendurance/logs
+    phpfpm:   true    # use php-fpm
+    phpfpm_pool:        www    
+
+#  grafana:
+#    ServerName:    grafana.kerbel
+#    ServerIp:    10.35.0.3
+#    DocumentRoot:  /usr/share/grafana
+#    ServerAdmin: franck@localhost
+#    SSLCertificateFile:  /etc/ssl/kerbel/kerbel/kerbel.crt
+#    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+##    SSLVerifyClient: /
+#    SpecificConf:       SpecificConf/grafana.conf
+#    SetHttpConf:  true
+#    ForceHttps:   true
+    
+
+
+#  glpi:
+#    ServerName:		glpi.kerbel
+#    ServerIp:		10.35.0.3
+#    DocumentRoot:	/usr/share/glpi
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+#    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+##    ForceHttps:		true	# force redirect htpp to https
+#    SetHttpConf:	true		# set a http virtualhost conf 
+#    ForceConf:		true		# set a http conf file
+##    phpfpm:		true		# use php-fpm
+#
+#
+#  cgp:
+#    ServerName:		cgp.kerbel
+#    ServerIp:		10.35.0.3
+#    DocumentRoot:	/var/www/cgp
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+#    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    SetHttpConf:	true
+##    ForceHttps:		true
+#
+
+#
+#
+##  pronofoot6:
+##    ServerName:		prono6.kerbel
+##    ServerIp:		10.35.0.3
+##    DocumentRoot:	/home/franck/public_html/pronostics6
+##    ServerAdmin:	franck@localhost
+##    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+##    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+##    SpecificConf:       SpecificConf/cakephp.conf
+##    SetHttpConf:	true
+##    ForceHttps:		true
+##    log:		/home/franck/public_html/pronostics6/tmp/logs
+#
+
+#
+#  gplus:
+#    ServerName:		gplus.kerbel
+#    ServerIp:		10.35.0.3
+#    DocumentRoot:	/home/franck/public_html/gplus-quickstart-php
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+#    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+##    SpecificConf:       SpecificConf/phpmyadmin.conf
+##    SpecificConf:       SpecificConf/phpmyadmin2.conf
+##    SetHttpConf:	true
+##    ForceHttps:		true
+#
+#  p35:
+#    ServerName:		p35.kerbel
+#    ServerIp:		10.35.0.3
+#    DocumentRoot:	/home/franck/public_html/p35
+#    ServerAdmin:	franck@localhost
+#    SSLCertificateFile:	/etc/apache2/tls/prono.kerbel.crt
+#    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerbel.key
+#    SetHttpConf:	true
+##    ForceHttps:		true
+##    SpecificConf:       SpecificConf/prono.conf
+#    SpecificConf:       SpecificConf/cakephp.conf
+#    log:		/home/franck/public_html/p35/logs
+##    phpfpm:		true		# use php-fpm
+#    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+#    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+#    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+#
+
+#
 

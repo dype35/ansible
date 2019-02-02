@@ -3,7 +3,9 @@
 packages: 
   git: git
   conky: conky-all
-  musescore: musescore
+  lftp: lftp
+  pcscd: pcscd
+#  musescore: musescore
   terminator: terminator
   language-pack-fr: language-pack-fr
   language-pack-gnome-fr: language-pack-gnome-fr
@@ -13,8 +15,8 @@ packages:
   audacity: audacity
   mercurial: mercurial
   gimp: gimp
-  lftp: lftp
-  dropbox: dropbox
+  wireshark: wireshark
+#  dropbox: dropbox
   gedit-plugins: gedit-plugins
   
 #  pcbureau: [ conky terminator language-pack-fr language-pack-gnome-fr musescore]

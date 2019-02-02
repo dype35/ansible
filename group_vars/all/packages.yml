@@ -3,8 +3,8 @@
 packages_all: 
   classicmenu-indicator: classicmenu-indicator
   compizconfig-settings-manager: compizconfig-settings-manager
-  dconf-tools: dconf-tools
-  flashplugin-installer: flashplugin-installer
+#  dconf-tools: dconf-tools
+#  flashplugin-installer: flashplugin-installer
   gimp: gimp
   gufw: gufw
   hddtemp: hddtemp
@@ -15,7 +15,8 @@ packages_all:
   openssh-server: openssh-server
   openssh-client: openssh-client
   terminator: terminator
-  unity-tweak-tool: unity-tweak-tool
+#  unity-tweak-tool: unity-tweak-tool
   vim: vim
   vim-gnome: vim-gnome
   vlc: vlc
+  net-tools: net-tools

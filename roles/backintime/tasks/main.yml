@@ -18,8 +18,8 @@
   become: yes
   apt: pkg={{ item }} state=present
   with_items:
-     - python-keyring
-     - python-gnomekeyring
+#     - python-keyring
+#     - python-gnomekeyring
      - backintime-gnome
 
 # Run backintime once a day

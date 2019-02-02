@@ -19,7 +19,14 @@
     with_items:
       - mysql-server
       - phpmyadmin
+      - python3-pip
+      - python3-setuptools
+      - python3-dev 
       - python-mysqldb
+      - libmysqlclient-dev
+
+  - name: Install the Python MySQLB module
+    pip: name=mysqlclient
 
   - name: set mysql_mode
     template: src=sql_mode.cnf.j2 dest=//etc/mysql/mysql.conf.d/sql_mode.cnf owner=root mode=0644

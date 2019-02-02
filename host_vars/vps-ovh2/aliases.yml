@@ -1,0 +1,6 @@
+---
+# aliases for vps-ovh
+
+aliases: [
+  { user: root, alias: franck.du35@gmail.com }
+]

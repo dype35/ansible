@@ -35,3 +35,17 @@ ufw:
      src: 10.35.0.0/24
     }
 
+# Allow gsconnect
+  - {rule: allow, 
+     port: 1716, 
+     proto: tcp,
+     src: 10.35.0.0/24
+    }
+
+# Allow redis
+  - {rule: allow, 
+     port: 6379,
+     proto: tcp,
+     src: 127.0.0.1
+    }
+

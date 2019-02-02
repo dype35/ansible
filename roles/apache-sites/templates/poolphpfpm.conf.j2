@@ -4,7 +4,8 @@ user = {{ item.value.user | default('www-data') }}
 group = www-data
 
 ; listen = {{ php_run_dir }}/{{ php_ver }}-fpm.{{ item.value.ServerName }}.sock
-listen = {{ php_run_dir }}/{{ php_ver }}-fpm.{{ item.value.user | default('www-data') }}.sock
+; listen = {{ php_run_dir }}/{{ php_ver }}-fpm.{{ item.value.user | default('www-data') }}.sock
+listen = 127.0.0.1:9000
 
 listen.owner = {{ item.value.user | default('www-data') }}
 listen.group = www-data
@@ -13,9 +14,10 @@ pm = dynamic
 ; Valeurs optimisées pour vps
 ; 1 vcore, 1G mem
 
-pm.max_children = 30
+pm.max_children = {{ item.value.pm_max_children | default('40') }}
 
-pm.start_servers = {{ item.value.pm_start_servers | default('1') }}
-pm.min_spare_servers = {{ item.value.pm_min_spare_servers | default('1') }}
-pm.max_spare_servers = {{ item.value.pm_max_spare_servers | default('2') }}
+pm.start_servers = {{ item.value.pm_start_servers | default('2') }}
+pm.min_spare_servers = {{ item.value.pm_min_spare_servers | default('2') }}
+pm.max_spare_servers = {{ item.value.pm_max_spare_servers | default('5') }}
 
+pm.status_path = /fpm-status

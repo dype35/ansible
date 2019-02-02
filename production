@@ -8,14 +8,15 @@ ansible_ssh_port=22
 [all]
 kerner
 kerbel
-armen
+armen ansible_ssh_port=22
 kerzo
 locmalo
 pi3
 
 [vps]
 vps-ovh ansible_ssh_port=2222
-vps-ovh-as
+vps-ovh-as 
+vps-ovh2 ansible_python_interpreter=/usr/bin/python3
 
 
 [desktop]

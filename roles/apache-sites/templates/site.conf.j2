@@ -13,23 +13,23 @@
 
 {% if item.value.SetHttpConf is defined %}
 <VirtualHost {{ item.value.ServerIp }}:80>
-		ServerName {{ item.value.ServerName }}
-		ServerAdmin {{ item.value.ServerAdmin }}
-		DocumentRoot {{ item.value.DocumentRoot }}
+    ServerName {{ item.value.ServerName }}
+    ServerAdmin {{ item.value.ServerAdmin }}
+    DocumentRoot {{ item.value.DocumentRoot }}
 
-		# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-		# error, crit, alert, emerg.
-		# It is also possible to configure the loglevel for particular
-		# modules, e.g.
-		LogLevel  info
-		#LogLevel debug
+    # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+    # error, crit, alert, emerg.
+    # It is also possible to configure the loglevel for particular
+    # modules, e.g.
+    LogLevel  info
+    #LogLevel debug
 
-        ErrorLog ${APACHE_LOG_DIR}/{{ item.key }}.error.log
-        CustomLog ${APACHE_LOG_DIR}/{{ item.key }}.access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/{{ item.key }}.error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ item.key }}.access.log combined
 
-        {% if item.value.SpecificConf is defined %}
-		{% include item.value.SpecificConf ignore missing %}
-        {% endif %}
+    {% if item.value.SpecificConf is defined %}
+    {% include item.value.SpecificConf ignore missing %}
+    {% endif %}
 
 </VirtualHost>
 {% endif %}

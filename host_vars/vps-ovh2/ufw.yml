@@ -1,0 +1,31 @@
+---
+# ufw specifics rules for vps-ovh2
+
+ufw:
+  # Allow ssh
+  - {rule: allow, 
+     port: 2222, 
+     proto: tcp,
+     src: 0.0.0.0/0
+    }
+  # Allow web
+  - {rule: allow, 
+     port: 80, 
+     proto: tcp,
+     src: 0.0.0.0/0
+    }
+  - {rule: allow, 
+     port: 443, 
+     proto: tcp,
+     src: 0.0.0.0/0
+    }
+  - {rule: allow, 
+     port: 8083, 
+     proto: tcp,
+     src: 127.0.0.1
+    }
+  - {rule: allow, 
+     port: 8086, 
+     proto: tcp,
+     src: 127.0.0.1
+    }

@@ -1,0 +1,22 @@
+---
+# tasks file for zsh
+- block:
+
+  - name: Install  packages
+    apt: 
+      pkg: "{{ item }}"
+      state: present
+    with_items:
+      - zsh
+
+  - name: instal oh my zsh
+    comand: cd /home/franck;sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+  - name: set default theme
+    lineinfile:
+      path: /home/franck/.zshrc
+      regexp: 'ZSH_THEME='
+      line: 'ZSH_THEME="bira"'
+
+  tags: zsh
+  become: yes

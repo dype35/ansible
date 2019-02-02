@@ -1,0 +1,6 @@
+---
+# fusioninventory specific configuration
+# host : vps-ovh
+# send taks result
+fusioninventory-server:  false
+fusioninventory-local: true

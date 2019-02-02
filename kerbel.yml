@@ -12,53 +12,53 @@
 
   roles:
     - ansible-ohmyzsh
-    - cryptomator
-    - grafana
-    - etckeeper
-    - autosecupdate
-    - aliases
-    - nginx
+#    - cryptomator
+#    - grafana
+#    - etckeeper
+#    - autosecupdate
+#    - aliases
+#    - nginx
     - redis
-    - shm
+#    - shm
     - packages
 #    - numlockx
     - hosts
-    - grub
-    - checkrestart
-    - guest
-    - common
+#    - grub
+#    - checkrestart
+#    - guest
+#    - common
     - motd
     - sensors
     - sshd
 #    - sshknownhosts
-    - security
+#    - security
 #    - compiz
-    - inventory
+#    - inventory
     - users
-    - nfs
-    - usersettings
+#    - nfs
+#    - usersettings
     - firewall
-    - logwatch
-    - collectd
+#    - logwatch
+#    - collectd
 #    - ipscan
-    - bashrc
-    - interface
-    - wifi
+#    - bashrc
+#    - interface
+#    - wifi
     - noipv6
-    - cron
+#    - cron
 #    - virtualbox
     - backintime
     - apache2
     - php-fpm
-    - tls
+#    - tls
     - mysql
-    - glpi
-    - fail2ban
+#    - glpi
+#    - fail2ban
 #    - bootstrap
-    - cgp
-    - lynis
-    - firefox
+#    - cgp
+#    - lynis
+#   - firefox
     - apache-sites
-    - google_drive
-    - eclipse
-    
+#    - google_drive
+#    - eclipse
+

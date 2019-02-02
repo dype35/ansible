@@ -1,0 +1,55 @@
+---
+# file: vps-ovh2.yml
+
+
+- hosts: vps-ovh2
+  remote_user: franck
+  become: yes
+  vars:
+#    default_runlevel: 3
+    ansible_ssh_port: 2222
+    postfix_domain: pronostics.eu
+    postfix_relayhost: ""
+    mysql_database: pronostics
+    mysql_backup_dir: backup/_backup.base
+    bck_target_dir: /home/franck/Documents/site/pronostics    
+    bck_source_dir: backup/
+
+  roles:
+    - postfix
+    - noipv6
+    - motd
+    - apache2
+    - php-fpm
+#    - redis
+    - mysql
+    - sshd
+    - firewall
+    - apache-sites
+    - fail2ban
+#    - zsh
+    - mysqldump
+    - sshbackup
+
+
+#    - influxdb
+#    - aliases
+
+
+#    - shm
+##    - archive
+
+#    - cron-apt
+#    - checkrestart
+#    - dbserver
+#    - security
+
+#    - logwatch
+#    - fstrim
+#    - collectd
+#    - cgp
+#    - bashrc
+##    - lynis
+#    - syslog-ng
+#    - inventory
+

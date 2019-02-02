@@ -16,202 +16,207 @@
 - block:
 
   - name: Install webserver packages
-    apt: pkg={{ item }} state=present
+    apt: 
+      pkg: "{{ item }}"
+      state: present
     with_items:
-       - php
+       - php7.2
+       - php7.2-common
        - libapache2-mod-php
        - php-mbstring
        - php-gettext
+       - php-json
        - apache2
        - apache2-utils
        #- php-mcrypt
        - php-intl
+       - php-mysql
+       - php-xml
        #- awstats
 
   - name: Set default listen port
-    lineinfile: dest=/etc/apache2/ports.conf
-      state=present
-      regexp="^Listen"
-      line="Listen {{ apache_listen_port }}"
+    lineinfile: 
+      dest: /etc/apache2/ports.conf
+      create: yes
+      state: present
+      regexp: "^Listen"
+      line: "Listen {{ apache_listen_port }}"
 
-  tags: apache
-  become: yes
+  - name: Enable modules
+    apache2_module:
+      state: "{{ item.state }}"
+      name: "{{ item.name }}"
+      ignore_configcheck: True
+    with_items:
+      - { name: 'php7.2' ,state: 'absent' }
+      - { name: 'mpm_prefork' ,state: 'absent' }      
+      - { name: 'mpm_event' ,state: 'absent' }      
+      - { name: 'mpm_worker' ,state: 'present' }      
+      - { name: 'userdir' ,state: 'present' }      
+      - { name: 'headers' ,state: 'present' }
+      - { name: 'rewrite' ,state: 'present' }
+      - { name: 'expires' ,state: 'present' }
+      - { name: 'ssl' ,state: 'present' }
+      - { name: 'proxy_fcgi' ,state: 'present' }
+      - { name: 'socache_shmcb' ,state: 'present' }
+      - { name: 'http2' ,state: 'present' }
 
+  - name : desactivate SSLv3
+    lineinfile: 
+      dest: /etc/apache2/mods-available/ssl.conf
+      state: present
+      regexp: "SSLProtocol"
+      line: "        SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1"
 
-- name : desactivate SSLv3
-  tags: apache
-  become: yes
-  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
-    state=present
-    regexp="SSLProtocol"
-    line="        SSLProtocol all -SSLv3"
+  - name : desactivate unsecure cipher
+    lineinfile: 
+      dest: /etc/apache2/mods-available/ssl.conf
+      state: present
+      regexp: "SSLCipherSuite"
+      line: "        SSLCipherSuite HIGH:!aNULL:!MD5:!3DES:!CAMELLIA:!AES128"
 
+  - name : SSL server cipher order preference
+    lineinfile: 
+      dest: /etc/apache2/mods-available/ssl.conf
+      state: present
+      regexp: "SSLHonorCipherOrder"
+      line: "        SSLHonorCipherOrder on"
 
-- name : desactivate unsecure cipher
-  tags: apache
-  become: yes
-  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
-    state=present
-    regexp="SSLCipherSuite"
-    line="        SSLCipherSuite HIGH:!aNULL:!MD5:!3DES:!CAMELLIA:!AES128"
+  - name: Apache | Mask version
+    replace: 
+      dest: /etc/apache2/conf-available/security.conf
+      regexp: '^ServerTokens (.*)'
+      replace: 'ServerTokens ProductOnly'
 
-- name : SSL server cipher order preference
-  tags: apache
-  become: yes
-  lineinfile: dest=/etc/apache2/mods-available/ssl.conf
-    state=present
-    regexp="SSLHonorCipherOrder"
-    line="        SSLHonorCipherOrder on"
+  - name: Apache | Mask version
+    replace: 
+      dest: /etc/apache2/conf-available/security.conf
+      regexp: '^ServerSignature (.*)'
+      replace: 'ServerSignature Off'
 
+  - name: Apache | anti-clickjacking X-Frame-Options header
+    replace: 
+      dest: /etc/apache2/conf-available/security.conf
+      regexp: '(^|^#)Header set X-Frame-Options(.*)'
+      replace: 'Header always append X-Frame-Options SAMEORIGIN'
 
-- block:
-  # Do not start in the default runlevel 2
-  - name : Do not start apache in the default runlevel 2
-    tags: apache
-    become: yes
-    shell: update-rc.d apache2 disable 2
+  - name: Apache | 
+    lineinfile: 
+      dest: /etc/apache2/conf-available/security.conf
+      state: present
+      line: 'FileETag None'
 
-  # Start in the runlevel 3
-  - name : Start apache in the runlevel 3
-    tags: apache
-    become: yes
-    shell: update-rc.d apache2 enable 3
-
-  # Set default runlevel
-  - name : Set default runlevel
-    tags: apache
-    become: yes
-    lineinfile: dest=/etc/init/rc-sysinit.conf
-      state=present
-      regexp="^env DEFAULT_RUNLEVEL="
-      line="env DEFAULT_RUNLEVEL={{ default_runlevel}}"
-
-  when: false
-
-
-
-- name: Apache | Mask version
-  become: yes
-  replace: dest=/etc/apache2/conf-available/security.conf
-                regexp='^ServerTokens (.*)'
-                replace='ServerTokens ProductOnly'
-  tags: apache
-
-- name: Apache | Mask version
-  become: yes
-  replace: dest=/etc/apache2/conf-available/security.conf
-                regexp='^ServerSignature (.*)'
-                replace='ServerSignature Off'
-  tags: apache
-
-- name: Apache | anti-clickjacking X-Frame-Options header
-  become: yes
-  replace: dest=/etc/apache2/conf-available/security.conf
-                regexp='(^|^#)Header set X-Frame-Options(.*)'
-                replace='Header always append X-Frame-Options SAMEORIGIN'
-  tags: apache
-
-- name: Apache | 
-  become: yes
-  lineinfile: dest=/etc/apache2/conf-available/security.conf
-              state=present
-              line='FileETag None'
-  tags: apache
   
-- name: Apache | 
-  become: yes
-  lineinfile: dest=/etc/apache2/conf-available/security.conf
-              state=present
-              line='Header unset ETag'
-  tags: apache
+  - name: Apache | 
+    lineinfile: 
+      dest: /etc/apache2/conf-available/security.conf
+      state: present
+      line: 'Header unset ETag'
+
+  # Enable intl extension
+  - name : Enable intl extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=intl"
+      line: "extension=intl"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
+
+  # Enable mbstring extension
+  - name : Enable mbstring extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=mbstring"
+      line: "extension=mbstring"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
+
+  - name : Enable json extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=json"
+      line: "extension=json"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
+
+  - name : Enable pdo extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=pdo"
+      line: "extension=pdo"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
+
+  - name : Enable pdo_mysql extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=pdo_mysql"
+      line: "extension=pdo_mysql"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
+
+  - name : Enable mysqli extension 
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "extension=mysqli"
+      line: "extension=mysqli"
+    with_items:
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
 
 
-# php configuration
-- block:
-  - name: Apache | do not expose php
-    replace: dest=/etc/php5/apache2/php.ini
-                regexp='(^|^#)expose_php =(.*)'
-                replace='expose_php = off'
 
-  - name: Apache | secure cookies
-    replace: dest=/etc/php5/apache2/php.ini
-                regexp='(^|^;)session.cookie_httponly(.*)'
-                replace='session.cookie_httponly = True'
 
   # Set default timezone for php
   - name : Set default timezone for php
-    lineinfile: dest={{ item }}
-      state=present
-      regexp="date.timezone"
-      line="date.timezone = "Europe/Paris""
+    lineinfile: 
+      dest: "{{ item }}"
+      state: present
+      regexp: "date.timezone"
+      line: 'date.timezone = "Europe/Paris"'
     with_items:
-       - /etc/php5/apache2/php.ini
-       - /etc/php5/cli/php.ini
+       - /etc/php/7.2/apache2/php.ini
+       - /etc/php/7.2/fpm/php.ini
+       - /etc/php/7.2/cli/php.ini
 
-  - name: Apache | Enable htaccess in user dirs
-    lineinfile: dest=/etc/apache2/mods-available/php5.conf
-                state=present
-                regexp="^#? *php_admin_flag"
-                line="#        php_admin_flag engine Off"
+  - name: Apache | Enable conf
+    command: a2enconf security
+    notify:
+      - apache-restart
 
   tags: apache
   become: yes
-  when: ansible_distribution == 'Ubuntu' and ansible_lsb.major_release < 16
-
-# Attention GLPI, PIWIK, Joomla ne fonctionnent plus avec True ...
-#- name: Apache | secure cookies
-#  become: yes
-#  replace: dest=/etc/php5/apache2/php.ini
-#                regexp='(^|^;)session.cookie_secure(.*)'
-#                replace='session.cookie_secure = True'
-#  tags: apache
-
-- name: Apache | phpenmod mcrypt
-  become: yes
-  command: phpenmod mcrypt
-  notify:
-  - apache-restart
-  tags: apache
-
-- name: Apache | Disable modules
-  become: yes
-  command: a2dismod {{ item }}
-#  apache2_module: state=present name={{ item }}
-  with_items:
-    - mpm_event
-
-- name: Apache | Enable modules
-  become: yes
-  command: a2enmod {{ item }}
-#  apache2_module: state=present name={{ item }}
-  with_items:
-    - userdir
-    - headers
-    - rewrite
-    - expires
-    - headers
-    - ssl
-    - php7.2
-    - mpm_prefork
-    - headers
-  notify:
-  - apache-restart
-  tags: apache
-
-- name: Apache | Enable conf
-  become: yes
-  command: a2enconf security
-  notify:
-  - apache-restart
-  tags: apache
+  
 
 - name: start apache2 service
   become: yes
   tags: apache
-  service: name=apache2 state=started enabled={{ apache_enable }}
+  service: 
+    name: apache2 
+    state: started 
+    enabled: "{{ apache_enable }}"
 
-#- name : awstats | set default passwd
-#  become: yes 
-#  command: htpasswd -cb /etc/awstats/htpasswd franck ach@nger
-#  tags: apache
- 
+- name: restart php-fpm service
+  become: yes
+  tags: apache
+  service: 
+    name: php7.2-fpm
+    state: restarted 
+    enabled: "{{ apache_enable }}"

@@ -27,6 +27,13 @@
       line='hostname = "{{ ansible_hostname }}"'
       backup=yes
 
+  - name: Enable reporting
+    lineinfile:
+      dest=/etc/influxdb/influxdb.conf
+      regexp='reporting-enabled = '
+      line='reporting-enabled = true'
+      backup=yes
+
 
   - name: Start the InfluxDB service
     service: name=influxdb state=restarted

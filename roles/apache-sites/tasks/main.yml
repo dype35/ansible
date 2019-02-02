@@ -52,7 +52,7 @@
       mode: 0644
       backup: yes
     with_dict: "{{asites}}"
-    when: item.value.SetHttpConf is defined
+    when: item.value.SetHttpConf|bool == true
 
   - name: Enable virtualhosts 
     tags: apache-sites
@@ -67,7 +67,7 @@
     command: a2ensite {{ item.key }}
     with_dict: "{{asites}}"
     notify: apache-reload
-    when: item.value.SetHttpConf is defined
+    when: item.value.SetHttpConf|bool == true
 
   - name: Create http conf
     tags: apache-sites

@@ -13,5 +13,13 @@
      notify:
        - php-fpm-restart
 
+   - name: disable listen on ipv6
+     lineinfile:
+       path: /etc/redis/redis.conf
+       regexp: '^bind'
+       line: 'bind: 127.0.0.1'
+     notify:
+       - php-fpm-restart
+
    become: yes  
    tags: redis

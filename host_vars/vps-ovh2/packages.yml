@@ -1,0 +1,5 @@
+---
+# packages on vps-ovh
+packages: 
+  mercurial: mercurial
+  php-intl: php-intl
