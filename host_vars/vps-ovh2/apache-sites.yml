@@ -5,9 +5,9 @@ asites:
     ServerIp:		_default_
     DocumentRoot:	/usr/share/phpmyadmin
     ServerAdmin:	franck
-    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
-    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
-    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu/chain.pem
     SpecificConf:       SpecificConf/phpmyadmin.conf
     SetHttpConf:	false
     ForceHttps:		true
@@ -20,9 +20,9 @@ asites:
     ServerIp:		_default_
     DocumentRoot:	/opt/applications/p35
     ServerAdmin:	franck
-    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
-    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
-    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu/chain.pem
     SpecificConf:       SpecificConf/cakephp.conf    
     RedirectBlock:      SpecificConf/redirect.conf
     SetHttpConf:	false
@@ -38,9 +38,9 @@ asites:
     ServerIp:    _default_
     DocumentRoot:  /opt/applications/p35
     ServerAdmin: franck
-    SSLCertificateFile:  /etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
-    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
-    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SSLCertificateFile:  /etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu/chain.pem
     SpecificConf:       SpecificConf/cakephp.conf    
     RedirectBlock:      SpecificConf/redirect.conf
     SetHttpConf:  false
@@ -56,9 +56,9 @@ asites:
     ServerIp:		_default_
     DocumentRoot:	/opt/applications/p5
     ServerAdmin:	franck
-    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
-    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
-    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu/chain.pem
     SpecificConf:       SpecificConf/cakephp.conf
     SetHttpConf:	false
     ForceHttps:		true
@@ -73,9 +73,9 @@ asites:
     ServerIp:		_default_
     DocumentRoot:	/opt/applications/matomo
     ServerAdmin:	franck
-    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
-    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
-    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu/chain.pem
     SpecificConf:       SpecificConf/piwik.conf
     SetHttpConf:	false
     ForceHttps:		true
