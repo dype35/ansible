@@ -1,0 +1,35 @@
+
+{{ ansible_managed | comment }}
+
+
+LoadPlugin tail
+
+<Plugin "tail">
+  <File "/opt/applications/p35/logs/debug.log">
+
+   Instance "p35-debug"
+
+   # number of NOTICE
+   <Match>
+     Regex "Notice:"
+     DSType "CounterInc"
+     Type "count"
+     Instance "debug-notice"
+   </Match>
+  </File>
+
+  <File "/opt/applications/p35/logs/error.log">
+
+   Instance "p35-error"
+
+   # number of Warning
+   <Match>
+     Regex "Warning:"
+     DSType "CounterInc"
+     Type "count"
+     Instance "error-warning"
+   </Match>
+  </File>
+
+</Plugin>
+

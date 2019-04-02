@@ -5,7 +5,7 @@
   - name: install collectd
     apt: 
       pkg: collectd
-      default_release: jessie-backports
+#      default_release: jessie-backports
       state: present 
       force: yes
 
@@ -58,11 +58,13 @@
     template: src={{ item }}.j2 dest=/etc/collectd/collectd.conf.d/{{ item }} owner=root group=root mode=644                                
     notify: restart collectd
     with_items: fail2ban
+    when: false
 
   - name: copy fail2ban conf
     copy: src={{item}} dest=/etc/collectd/exec/{{ item }} owner=root group=root mode=755                                
     notify: restart collectd
     with_items: statban.sh
+    when: false
 
   - name: copy influxdb plugins
     template: src={{ item }}.j2 dest=/etc/collectd/collectd.conf.d/{{ item }} owner=root group=root mode=644                                  

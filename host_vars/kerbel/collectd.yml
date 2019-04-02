@@ -5,7 +5,7 @@
   collectd_client_server: server.conf
 
   collectd_plugins: [
-    maillog.conf,
+    pronostics.conf,
     interface.conf,
     df.conf,
     hddtemp.conf,

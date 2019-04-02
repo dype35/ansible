@@ -39,7 +39,7 @@
 #    - usersettings
     - firewall
 #    - logwatch
-#    - collectd
+    - collectd
 #    - ipscan
 #    - bashrc
 #    - interface
