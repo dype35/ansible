@@ -3,9 +3,14 @@
 Protocols h2 http/1.1
 
 <Directory {{ item.value.DocumentRoot }}/>
-        Options Indexes FollowSymLinks
-        AllowOverride None
-        Require all granted
+  Options Indexes FollowSymLinks
+  AllowOverride None
+
+  {% if item.value.SpecificDirConf is defined %}
+  {% include item.value.SpecificDirConf ignore missing %}
+  {% else %}
+  Require all granted
+  {% endif %}
 </Directory>
 
 

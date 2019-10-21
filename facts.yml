@@ -2,10 +2,10 @@
   - name: setting default facts
     set_fact:
       php_ver: "php7"
-      php_conf_dir: "/etc/php/7.2"
+      php_conf_dir: "/etc/php/7.3"
       php_fpm_pkg: "php-fpm"
       php_run_dir: "/var/run/php"
-      php_fpm_service: "php7.2-fpm"
+      php_fpm_service: "php7.3-fpm"
 
   - name: setting debian facts
     set_fact:

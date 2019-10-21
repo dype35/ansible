@@ -1,5 +1,19 @@
 ---
 asites:
+  dig:
+    ServerName:		dig.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/opt/applications/dig/WebContent
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SpecificDirConf:       SpecificConf/authentication.conf
+    SetHttpConf:	false
+    ForceHttps:		true
+    SSLVerifyClient: /admin
+    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+
   phpmyadmin:
     ServerName:		mysql.pronostics.eu
     ServerIp:		_default_

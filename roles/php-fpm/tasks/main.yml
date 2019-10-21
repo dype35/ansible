@@ -37,14 +37,14 @@
 
   - name: copy apache conf for /fpm-status
     template:
-      src: php7.2-fpm.conf
-      dest: /etc/apache2/conf-available/php7.2-fpm.conf
+      src: php7.3-fpm.conf
+      dest: /etc/apache2/conf-available/php7.3-fpm.conf
       owner: root
       group: root
       mode: 0644
 
   - name: enable conf for /fpm-status
-    command: a2enconf php7.2-fpm
+    command: a2enconf php7.3-fpm
     notify:
       - apache-restart
 

@@ -1,5 +1,40 @@
 ---
 asites:
+  asorange:
+    ServerName:		asorange.kerbel
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/opt/applications/asorange/www
+    ServerAdmin:	franck@localhost
+    SetHttpConf:	true
+    phpfpm:		true		# use php-fpm
+    phpfpm_pool:        www
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+
+  dig:
+    ServerName:		dig.kerbel
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/opt/applications/dig/WebContent
+    ServerAdmin:	franck@localhost
+    SetHttpConf:	true
+    phpfpm:		true		# use php-fpm
+    phpfpm_pool:        www
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+
+  dig2:
+    ServerName:		kerbel.ddns.net
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/opt/applications/dig/WebContent
+    ServerAdmin:	franck@localhost
+    SetHttpConf:	true
+    phpfpm:		true		# use php-fpm
+    phpfpm_pool:        www
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+    SpecificDirConf:     SpecificConf/authentication.conf
+
+
   seopanel:
     ServerName:		seo.kerbel
     ServerIp:		10.35.0.3

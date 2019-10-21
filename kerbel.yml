@@ -61,4 +61,5 @@
     - apache-sites
 #    - google_drive
 #    - eclipse
+    - telegraf
 
