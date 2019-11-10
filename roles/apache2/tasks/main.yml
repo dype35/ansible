@@ -17,22 +17,22 @@
 
   - name: Install webserver packages
     apt: 
-      pkg: "{{ item }}"
+      pkg: 
+        - php7.3
+        - php7.3-common
+        - libapache2-mod-php
+        - php-mbstring
+        - php-gettext
+        - php-json
+        - apache2
+        - apache2-utils
+        #- php-mcrypt
+        - php-intl
+        - php-mysql
+        - php-xml
+        #- awstats
       state: present
-    with_items:
-       - php7.3
-       - php7.3-common
-       - libapache2-mod-php
-       - php-mbstring
-       - php-gettext
-       - php-json
-       - apache2
-       - apache2-utils
-       #- php-mcrypt
-       - php-intl
-       - php-mysql
-       - php-xml
-       #- awstats
+      force_apt_get: True
 
   - name: Set default listen port
     lineinfile: 
@@ -117,7 +117,7 @@
   - name : Enable intl extension 
     lineinfile: 
       dest: "{{ item }}"
-      state: present
+      state: absent
       regexp: "extension=intl"
       line: "extension=intl"
     with_items:
@@ -129,7 +129,7 @@
   - name : Enable mbstring extension 
     lineinfile: 
       dest: "{{ item }}"
-      state: present
+      state: absent
       regexp: "extension=mbstring"
       line: "extension=mbstring"
     with_items:
@@ -140,7 +140,7 @@
   - name : Enable json extension 
     lineinfile: 
       dest: "{{ item }}"
-      state: present
+      state: absent
       regexp: "extension=json"
       line: "extension=json"
     with_items:
@@ -151,7 +151,7 @@
   - name : Enable pdo extension 
     lineinfile: 
       dest: "{{ item }}"
-      state: present
+      state: absent
       regexp: "extension=pdo"
       line: "extension=pdo"
     with_items:
