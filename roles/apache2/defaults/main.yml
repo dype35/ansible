@@ -4,3 +4,5 @@ apache_enable: no
 
 # default listen port in ports.conf
 apache_listen_port: 80
+
+PHP_version: 7.3

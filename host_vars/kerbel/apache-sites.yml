@@ -137,6 +137,20 @@ asites:
     phpfpm:   true    # use php-fpm
     phpfpm_pool:        www    
 
+  adminer:
+    ServerName:    adminer.kerbel
+    ServerIp:    10.35.0.3
+    DocumentRoot:  /usr/share/adminer
+    ServerAdmin: franck@localhost
+    SSLCertificateFile:  /etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+    SetHttpConf: true
+    ForceHttps:   false
+#    SpecificConf:       SpecificConf/cakephp.conf
+#    log:   /opt/applications/asendurance/logs
+    phpfpm:   false    # use php-fpm
+
+
 #  grafana:
 #    ServerName:    grafana.kerbel
 #    ServerIp:    10.35.0.3
