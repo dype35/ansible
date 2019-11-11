@@ -151,13 +151,13 @@
   - name : Enable pdo extension 
     lineinfile: 
       dest: "{{ item }}"
-      state: absent
+      state: present
       regexp: "extension=pdo"
       line: "extension=pdo"
     with_items:
        - "/etc/php/{{ PHP_version }}/apache2/php.ini"
-       - "/etc/php/{{ PHP_version }}/fpm/php.ini"
-       - "/etc/php/{{ PHP_version }}/cli/php.ini"
+#       - "/etc/php/{{ PHP_version }}/fpm/php.ini"
+#       - "/etc/php/{{ PHP_version }}/cli/php.ini"
 
   - name : Enable pdo_mysql extension 
     lineinfile: 
