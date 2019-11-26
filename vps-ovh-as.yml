@@ -5,6 +5,7 @@
 - hosts: vps-ovh-as
   remote_user: franck
   become: yes
+  gather_facts: yes
   vars:
     default_runlevel: 3
     ansible_ssh_port: 2222
