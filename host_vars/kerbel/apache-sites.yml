@@ -1,5 +1,17 @@
 ---
 asites:
+  cake4:
+    ServerName:		cake4.kerbel
+    ServerIp:		10.35.0.3
+    DocumentRoot:	/opt/applications/cake4
+    ServerAdmin:	franck@localhost
+    SetHttpConf:	true
+    phpfpm:		true		# use php-fpm
+    phpfpm_pool:        www
+    ForceHttps:		false
+    SSLCertificateFile:	/etc/ssl/kerbel/kerbel/kerbel.crt
+    SSLCertificateKeyFile: /etc/ssl/kerbel/kerbel/kerbel.key
+
   asorange:
     ServerName:		asorange.kerbel
     ServerIp:		10.35.0.3

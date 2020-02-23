@@ -15,3 +15,13 @@
       php_run_dir: "/var/run"
       php_fpm_service: "php5-fpm"
     when: ansible_distribution == "Debian" and ansible_distribution_major_version <= "8"
+
+  - name: setting facts for vps-ovh-as
+    set_fact:
+      php_ver: "php7"
+      php_conf_dir: "/etc/php/7.4"
+      php_fpm_pkg: "php-fpm"
+      php_run_dir: "/var/run/php"
+      php_fpm_service: "php7.4-fpm"
+    when: inventory_hostname == "vps-ovh-as"
+

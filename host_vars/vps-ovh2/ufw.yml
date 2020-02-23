@@ -4,7 +4,7 @@
 ufw:
   # Allow ssh
   - {rule: allow, 
-     port: 9222, 
+     port: 9022, 
      proto: tcp,
      src: 0.0.0.0/0
     }

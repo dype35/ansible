@@ -4,7 +4,7 @@ asites:
   asendurance:
     ServerName:		www.vps362437.net
     ServerIp:		_default_
-    DocumentRoot:	/var/www/html/asendurance2
+    DocumentRoot:	/var/www/html/asendurance
     ServerAdmin:	franck@localhost
     SSLCertificateFile:	/etc/letsencrypt/live/endurance.as-orange-cesson.fr/fullchain.pem
     SSLCertificateKeyFile: /etc/letsencrypt/live/endurance.as-orange-cesson.fr/privkey.pem

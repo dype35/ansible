@@ -32,7 +32,30 @@ asites:
   www.pronostics.eu:
     ServerName:		www.pronostics.eu
     ServerIp:		_default_
-    DocumentRoot:	/opt/applications/p35
+    DocumentRoot:	/opt/applications/prono4
+    ServerAdmin:	franck
+    SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
+    SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
+    SSLCertificateChainFile: /etc/letsencrypt/live/pronostics.eu-0001/chain.pem
+    SpecificConf:       SpecificConf/cakephp.conf    
+    RedirectBlock:      SpecificConf/redirect.conf
+    SetHttpConf:	false
+    ForceHttps:		true
+#    log:		/opt/applications/p35/logs # cakephp rotate file 10Mo
+    phpfpm:		true		# use php-fpm if phpfmp is DEFINED
+    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+    pm_min_spare_servers: 1  # Si non defini ici, utilisation de valeur par defaut du template
+    pm_max_spare_servers: 3   # Si non defini ici, utilisation de valeur par defaut du template
+
+#-------------------------------------------------------
+#
+# pronostics cakephp v4
+#
+#-------------------------------------------------------
+  www2.pronostics.eu:
+    ServerName:		www2.pronostics.eu
+    ServerIp:		_default_
+    DocumentRoot:	/opt/applications/prono4
     ServerAdmin:	franck
     SSLCertificateFile:	/etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
     SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
@@ -50,7 +73,7 @@ asites:
   p35.pronostics.eu:
     ServerName:    p35.pronostics.eu
     ServerIp:    _default_
-    DocumentRoot:  /opt/applications/p35
+    DocumentRoot:  /opt/applications/prono4
     ServerAdmin: franck
     SSLCertificateFile:  /etc/letsencrypt/live/pronostics.eu-0001/fullchain.pem
     SSLCertificateKeyFile: /etc/letsencrypt/live/pronostics.eu-0001/privkey.pem
