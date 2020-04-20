@@ -1,0 +1,18 @@
+---
+# databases for kerbel
+
+mysqldb: [
+  { db: pronostics },
+  { db: pronostics_test },
+  { db: courses },
+  { db: courses_test },  
+]
+
+mysqlusers: [
+  { user: pronostics, state: present, password: 'AJTtpQv2NPJSs3Mf', priv: 'pronostics.*:ALL' },
+  { user: pronostics, state: present, password: 'AJTtpQv2NPJSs3Mf', priv: 'pronostics_test.*:ALL' },
+  { user: courses,    state: present, password: '3uAJY4GnOglfp2XH', priv: 'courses.*:ALL' },
+  { user: courses,    state: present, password: '3uAJY4GnOglfp2XH', priv: 'courses_test.*:ALL' },
+  { user: jenkins,    state: present, password: '5VA1XxzxETSTSONA', priv: '*.*:ALL' },  
+  { user: telegraf,   state: present, password: '5VA1XtzvamSTSONA', priv: '*.*:ALL' },
+]

@@ -16,6 +16,7 @@
     bck_source_dir: backup/
 
   roles:
+    - telegraf
     - postfix
     - noipv6
     - motd

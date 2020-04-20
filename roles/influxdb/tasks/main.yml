@@ -20,23 +20,52 @@
       state: present
       update_cache: yes
 
-  - name: Modify InfluxDB hostname
-    lineinfile:
-      dest=/etc/influxdb/influxdb.conf
-      regexp='hostname = '
-      line='hostname = "{{ ansible_hostname }}"'
-      backup=yes
 
-  - name: Enable reporting
-    lineinfile:
-      dest=/etc/influxdb/influxdb.conf
-      regexp='reporting-enabled = '
-      line='reporting-enabled = true'
-      backup=yes
+  - name: Configure "[http]" section
+    ini_file:
+      path: /etc/influxdb/influxdb.conf
+      section: http
+      option: "{{ item.option }}"
+      value: "{{ item.value }}"
+      mode: 0644
+      backup: yes
+    with_items:
+      - { option: "  enabled", value: 'true' }      
+      - { option: "  bind-address", value: '":8086"' }
+      - { option: "  access-log-path", value: '"/var/log/influxdb/influxdb.log"' }
+      - { option: "  https-enabled", value: "{{ influxdb.https_enabled }}" }
+      - { option: "  https-certificate", value: '"{{ influxdb.https_certificate }}"' }
+      - { option: "  https-private-key", value: '"{{ influxdb.https_private_key }}"' }
+
+  - name: Configure "[logging]" section
+    ini_file:
+      path: /etc/influxdb/influxdb.conf
+      section: logging
+      option: "{{ item.option }}"
+      value: "{{ item.value }}"
+      mode: 0644
+      backup: yes
+    with_items:
+      - { option: "  format", value: '"auto"' }      
+      - { option: "  level", value: '"info"' }
+      - { option: "  suppress-logo", value: 'false' }
+
+  - name: Configure "[data]" section
+    ini_file:
+      path: /etc/influxdb/influxdb.conf
+      section: data
+      option: "{{ item.option }}"
+      value: "{{ item.value }}"
+      mode: 0644
+      backup: yes
+    with_items:
+      - { option: "  query-log-enabled", value: "{{ influxdb.query_log_enabled }}" }      
+ 
 
 
   - name: Start the InfluxDB service
     service: name=influxdb state=restarted
-
+    
+ 
   tags:
       - influxdb

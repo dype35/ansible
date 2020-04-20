@@ -18,15 +18,15 @@ asites:
     ServerIp:		10.35.0.5
     DocumentRoot:	/home/franck/pub_html/p35g
     ServerAdmin:	franck@localhost
-    SSLCertificateFile:	/etc/apache2/tls/prono.kerzo.crt
-    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerzo.key
+#    SSLCertificateFile:	/etc/apache2/tls/prono.kerzo.crt
+#    SSLCertificateKeyFile: /etc/apache2/tls/prono.kerzo.key
     SetHttpConf:	true
-#    ForceHttps:		true
+    ForceHttps:		false
 #    SpecificConf:       SpecificConf/prono.conf
     SpecificConf:       SpecificConf/cakephp.conf
     log:		/home/franck/pub_html/p35g/logs
 #    phpfpm:		true		# use php-fpm
-    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
-    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
-    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
+#    pm_start_servers:   2     # Si non defini ici, utilisation de valeur par defaut du template
+#    pm_min_spare_servers: 1   # Si non defini ici, utilisation de valeur par defaut du template
+#    pm_max_spare_servers: 2   # Si non defini ici, utilisation de valeur par defaut du template
 

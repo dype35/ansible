@@ -1,0 +1,5 @@
+---
+# defaults file for telegraf
+delete_bck_max_bck_files: 5  # Nombre max de fichiers à garder
+delete_bck_path: /etc/telegraf  # le path
+delete_bck_pattern: telegraf.conf  # le path

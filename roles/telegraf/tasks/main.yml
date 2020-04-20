@@ -1,0 +1,102 @@
+---
+# tasks file for telegraf
+#
+# Installation
+#
+
+
+- block:
+  - name: ansible_distribution
+    debug:
+      var: "{{ansible_distribution | lower }}"
+
+  - name: ansible_distribution_release
+    debug:
+      var: "{{ansible_distribution_release }}"
+
+  - name: add influxdb repo key
+    apt_key:
+      url: https://repos.influxdata.com/influxdb.key
+      state: present
+
+  - name: add influxdb repo
+    apt_repository:
+      repo: deb https://repos.influxdata.com/{{ansible_distribution | lower}} {{ansible_distribution_release}} stable
+      state: present
+
+  - name: install telegraf
+    apt:
+      name: telegraf
+      state: present
+    
+  tags:
+    - telegraf
+    - install
+
+#
+# Configuration
+#
+- block:
+  - name: set global configuration file
+    template:
+      backup: yes
+      src: telegraf.conf.j2
+      dest: /etc/telegraf/telegraf.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify: "restart telegraf"
+
+  - name: set configuration files
+    template:
+      backup: yes
+      src: "{{ item | basename }}"
+      dest: "/etc/telegraf/telegraf.d/{{ item | basename }}"
+      owner: root
+      group: root
+      mode: 0644
+    with_items: "{{ telegraf_plugins }}"
+    notify: "restart telegraf"
+
+
+  - name: collect facts about telegraf services
+    service_facts:
+    register: services_state
+
+  - name: Debug
+    debug:
+      var: services_state.ansible_facts.services['telegraf.service']
+
+   # Remove backup files
+  - include_role:
+      name: delete-bck
+      vars_from: main.yml
+    
+# - name: "Find old backup files"
+#   find:
+#     age: '20w'
+#     paths: /etc/telegraf/
+#     patterns: "telegraf.conf.[0-9]*"
+#     use_regex: yes
+#   register: backup_files
+
+# - debug:
+#     msg: "{{ backup_files.files | sort(attribute='mtime') |  map(attribute='path') | list }}"
+#      msg: "{{ (backup_files.files | sort(attribute='mtime') |  map(attribute='path') | list)[0:5] }}"
+
+# - debug:
+#     msg: "{{ backup_files.files|length }}"
+
+# - name: "Delete the old backup files, keep only {{ telegraf_max_bck_files }} files"
+#   file:
+#     path: '{{ item.path }}'
+#     state: absent
+#    loop: "{{ backup_files.files|flatten(levels=1) }}" 
+#   loop: "{{ (backup_files.files | sort(attribute='mtime') | list)[0:backup_files.files|length- telegraf_max_bck_files ] }}"
+#   when: backup_files.files|length  > {{ telegraf_max_bck_files }}
+
+
+  tags:
+    - telegraf
+    - config
+

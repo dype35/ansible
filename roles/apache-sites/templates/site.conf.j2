@@ -1,37 +1,71 @@
 {{ ansible_managed | comment }}
 
-{#
-# pas de php-fpm car : FastCgiExternalServer: redefinition of previously defined class
-#      avec la config tls
-{% if item.value.phpfpm is defined %}
-{% include 'SpecificConf/php-fpm.conf' ignore missing %}
+Protocols h2 http/1.1
+
+<Directory {{ item.value.DocumentRoot }}/>
+  Options Indexes FollowSymLinks
+  AllowOverride None
+
+  {% if item.value.SpecificDirConf is defined %}
+  {% include item.value.SpecificDirConf ignore missing %}
+  {% else %}
+  Require all granted
+  {% endif %}
+</Directory>
+
+
+{% include 'SpecificConf/cache.conf' ignore missing %}
+
+<VirtualHost {{ item.value.ServerIp }}:80>
+        ServerName {{ item.value.ServerName }}
+        ServerAdmin {{ item.value.ServerAdmin }}
+        Protocols h2 http/1.1
+
+{% if item.value.DocumentRoot is defined %}
+        DocumentRoot {{ item.value.DocumentRoot }}
 {% endif %}
-#}
+
+{% if item.value.RedirectBlock is defined %}
+        {% include item.value.RedirectBlock ignore missing %}
+{% endif %}
+
+{% if item.value.phpfpm is defined %}
+        {% include 'SpecificConf/php-fpm-socket.conf' ignore missing %}
+{% endif %}
+
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        LogLevel  info
+        #LogLevel debug
+
+        ErrorLog ${APACHE_LOG_DIR}/{{ item.key }}.error.log
+        CustomLog ${APACHE_LOG_DIR}/{{ item.key }}.access.log combined
+
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+
+        
+
         alias /robots.txt /var/www/html/robots.txt
 #        alias /sitemap.xml /var/www/html/sitemap.xml
         alias /.well-known /var/www/html/.well-known
 
-{% if item.value.SetHttpConf is defined %}
-<VirtualHost {{ item.value.ServerIp }}:80>
-    ServerName {{ item.value.ServerName }}
-    ServerAdmin {{ item.value.ServerAdmin }}
-    DocumentRoot {{ item.value.DocumentRoot }}
 
-    # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-    # error, crit, alert, emerg.
-    # It is also possible to configure the loglevel for particular
-    # modules, e.g.
-    LogLevel  info
-    #LogLevel debug
+        {% if item.value.SpecificConf is defined %}
 
-    ErrorLog ${APACHE_LOG_DIR}/{{ item.key }}.error.log
-    CustomLog ${APACHE_LOG_DIR}/{{ item.key }}.access.log combined
+        {% include item.value.SpecificConf ignore missing %}
 
-    {% if item.value.SpecificConf is defined %}
-    {% include item.value.SpecificConf ignore missing %}
-    {% endif %}
-
+        {% endif %}
+        
 </VirtualHost>
-{% endif %}
+
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet

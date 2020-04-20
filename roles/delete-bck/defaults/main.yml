@@ -1,0 +1,3 @@
+---
+# defaults file for delete-bck
+# delete_bck_max_bck_files: 4  # Nombre max de fichiers à garder

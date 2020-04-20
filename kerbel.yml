@@ -11,6 +11,7 @@
     ssh_port: 22
 
   roles:
+    - mysql-db
     - ansible-ohmyzsh
 #    - cryptomator
 #    - grafana

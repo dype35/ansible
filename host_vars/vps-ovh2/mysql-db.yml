@@ -1,0 +1,13 @@
+---
+# databases for kerbel
+
+mysqldb: [
+  { db: pronostics },
+  { db: pronostics_test } 
+]
+
+mysqlusers: [
+  { user: pronostics, state: present, password: 'AJTtpQv2NPJSs3Mf', priv: 'pronostics.*:ALL' },
+  { user: pronostics, state: present, password: 'AJTtpQv2NPJSs3Mf', priv: 'pronostics_test.*:ALL' },
+  { user: telegraf,   state: present, password: '5VA1XtzvamSTSONA', priv: '*.*:ALL' },
+]

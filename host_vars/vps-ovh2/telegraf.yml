@@ -1,0 +1,23 @@
+---
+# telegraf for kerbel
+
+mysql:
+  user: telegraf
+  password: 5VA1XtzvamSTSONA
+
+telegraf_http:
+  urls: http://localhost:8086
+  insecure_skip_verify: 'false'
+
+telegraf_plugins:
+  - outputs_influxdb_http.conf
+  - inputs_apache.conf
+  - inputs_fail2ban.conf
+  - inputs_logparser.conf
+  - inputs_mysql.conf
+  - inputs_postfix.conf
+  - inputs_redis.conf
+  - inputs_system.conf
+  - inputs_systemd_units.conf  
+  - inputs_phpfpm.conf
+

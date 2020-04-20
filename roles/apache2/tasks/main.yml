@@ -59,7 +59,8 @@
       - { name: 'ssl' ,state: 'present' }
       - { name: 'proxy_fcgi' ,state: 'present' }
       - { name: 'socache_shmcb' ,state: 'present' }
-      - { name: 'http2' ,state: 'present' }
+      - { name: 'http2' ,state: 'present' }      
+      - { name: 'status' ,state: 'present' }
 
   - name : desactivate SSLv3
     lineinfile: 

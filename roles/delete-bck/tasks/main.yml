@@ -1,0 +1,31 @@
+---
+# tasks file for delete-bck
+#
+# Les paramètres suivants doivent être défini au niveau de l'appelant
+#
+# delete_bck_max_bck_files: 5  # Nombre max de fichiers à garder
+# delete_bck_path: /etc/telegraf  # le path
+# delete_bck_pattern: telegraf.conf  # le path
+
+# Remove backup files
+
+  - name: "Find old backup files"
+    find:
+#     age: '20w'
+      paths: "{{ delete_bck_path }}"
+      patterns: "{{ delete_bck_pattern }}.[0-9].*"
+      use_regex: yes
+    register: backup_files
+
+  - debug:
+      msg: "{{ backup_files.files | sort(attribute='mtime') |  map(attribute='path') | list }}"
+
+  - debug:
+      msg: "{{ backup_files.files|length }}"
+
+  - name: "Delete the old backup files, keep only {{ delete_bck_max_bck_files }} files"
+    file:
+      path: '{{ item.path }}'
+      state: absent
+    loop: "{{ (backup_files.files | sort(attribute='mtime') | list)[0:backup_files.files|length- delete_bck_max_bck_files ] }}"
+    when: backup_files.files|length  >  delete_bck_max_bck_files

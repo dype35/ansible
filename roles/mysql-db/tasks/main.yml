@@ -1,0 +1,24 @@
+---
+# tasks file for mysql-db
+# create db
+- block:
+    - name: create databases
+      mysql_db:
+        name: "{{ item.db }}"
+        state: present
+      with_items: 
+        - "{{ mysqldb }}"
+
+    - name: create users
+      mysql_user:
+        name: "{{ item.user }}"
+        password: "{{ item.password }}"
+        priv: "{{ item.priv }}"
+        append_privs: yes
+        state: "{{ item.state }}"
+      with_items: 
+        - "{{ mysqlusers }}"
+
+  tags: mysql-db
+  become: no
+

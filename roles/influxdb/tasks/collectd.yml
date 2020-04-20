@@ -10,7 +10,7 @@
       dest: /etc/influxdb/influxdb.conf
       block: |
         [[collectd]]
-          enabled = true
+          enabled = false
           bind-address = "{{ influxdb_conf['collectd']['bind-address'] }}"
           database = "{{ collectd_influxdb_db }}"
           typesdb = "/usr/share/collectd/types.db"
@@ -48,4 +48,4 @@
 
 
   tags:
-      - influxdb
+      - influxdb_OLD
