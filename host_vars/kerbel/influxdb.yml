@@ -2,7 +2,7 @@
 # influxdb for kerbel
 
 influxdb:
-  https_enabled: 'true'
+  https_enabled: 'false'
   https_certificate: /etc/ssl/pronostics.eu.pem
   https_private_key: /etc/ssl/pronostics.eu.key
   query_log_enabled: 'false'

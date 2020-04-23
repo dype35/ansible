@@ -7,7 +7,8 @@ mysql:
 
 # Must be defined with outputs_influxdb_https.conf plugin
 telegraf_http:
-  urls: https://influxk.pronostics.eu:8086
+#  urls: https://influxk.pronostics.eu:8086  
+  urls: http://127.0.0.1:8086
   insecure_skip_verify: 'false'
 
 telegraf_plugins:

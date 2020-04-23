@@ -1,3 +1,10 @@
 ---
 
 influxdb_admin_port: 8086
+
+influxdb:
+  https_enabled: 'true'
+  https_certificate: /etc/ssl/pronostics.eu.pem
+  https_private_key: /etc/ssl/pronostics.eu.key
+  query_log_enabled: 'false'
+
